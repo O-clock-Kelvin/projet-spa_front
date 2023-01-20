@@ -1,7 +1,9 @@
 @use 'reset';
 @use 'vars';
 
-body {
+@import "~bootstrap/scss/bootstrap";
 
+body {
+    font-family: vars.$text-font;
 }
 

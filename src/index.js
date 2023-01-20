@@ -11,6 +11,8 @@ import store from './store/index';
 import './styles/index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 root.render(
   <Provider store={store}>
     <BrowserRouter>
