@@ -10,7 +10,7 @@ import logo from '../../assets/logo.svg';
 import "./MobileHeader.scss";
 
 //Icons from IcoMoon
-import { ImUser } from "react-icons/im";
+import { ImUser, ImMenu } from "react-icons/im";
 
 function Header() {
   return (
@@ -23,17 +23,17 @@ function Header() {
     >
       <Container>
         <Row>
-        <Col xs={2}>       
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Col xs={3}>       
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" > <ImMenu /> </Navbar.Toggle>
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="justify-content-end flex-grow-1 pe-3"></Nav>
             </Navbar.Collapse>
           </Col>
-          <Col xs={8}>
+          <Col xs={6}>
             <Navbar.Brand href="#home"><img className="header-logo-mobile" src={logo} alt="Tout O Poils"/></Navbar.Brand>
           </Col>
-          <Col xs={2}>
-            <ImUser />
+          <Col className="icon-nav" xs={3}>
+            <button className=" navbar-toggler collapsed" ><ImUser /></button>
           </Col>
         </Row>
       </Container>

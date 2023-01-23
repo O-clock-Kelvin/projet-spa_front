@@ -44,7 +44,7 @@ function LoginForm() {
 
   return (
     <div className="login">
-      <h2 className="login-title">App de gestion des actions de bénévolats</h2>
+      <h2 className="login-title">Application de gestion des actions de bénévolats</h2>
       <Container className="login-container">
         <div className="login-container-elements">
           <img
@@ -53,7 +53,7 @@ function LoginForm() {
             alt="Bénévole balade un chien"
           />
 
-        <h2 className="login-title-mobile">App de gestion des actions de bénévolats</h2>
+        <h2 className="login-title-mobile">Application de gestion des actions de bénévolats</h2>
           <Form className="login-form"
           // onSubmit={handleOnSubmit}
           >

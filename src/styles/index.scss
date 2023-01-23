@@ -25,12 +25,6 @@ body {
     }
 }
 
-.container {
-    padding-right: 0;
-    padding-left: 0;
-
-}
-
 .form-control {
     background: vars.$primary-background-color;
     border: none;
@@ -56,6 +50,8 @@ body {
     width: 55px;
     height: 55px;
     color: vars.$primary-color;
+    background-color: #d9d9d9;
+    padding: 1px;
 }
 
 
