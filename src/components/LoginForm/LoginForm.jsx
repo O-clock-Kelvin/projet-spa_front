@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import WrongAuthentification from '../WrongAuthentification/WrongAuthentification';
+
 import Container from 'react-bootstrap/Container';
 import InputGroup from 'react-bootstrap/InputGroup';
-
-// import { useDispatch } from 'react-redux';
-// import { actionLoginFetch } from '../../actions/loginActions';
-
 
 //SCSS
 import "./LoginForm.scss";
@@ -18,12 +18,24 @@ import manWalkingDog from '../../assets/images/clipart1525964.png';
 import { ImUser, ImLock } from "react-icons/im";
 
 
+import { useDispatch, useSelector } from 'react-redux';
+import { actionLoginFetch } from '../../actions/loginActions';
+
 function LoginForm() {
 
+  // utilisation du state pour variables utiles dans le composant 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-//   const dispatch = useDispatch();
 
+
+  // utilisation de la fonction dispatch de redux pour lancer une action
+  const dispatch = useDispatch();
+
+
+  const isLoading = useSelector((fullstate) => fullstate.loginSettings.isLoading);
+  const noAutorisation = useSelector((fullstate) => fullstate.loginSettings.noAutorisation);
+
+  // on modifie et enregistre la valeur de l'email dans le state
   const handleOnChangeEmail = (event) => {
     setEmail(event.target.value);
   };
@@ -32,18 +44,26 @@ function LoginForm() {
     setPassword(event.target.value);
   };
 
-//   const handleOnSubmit= (event) => {
-//     event.preventDefault();
-//     if (!email.trim() || !password.trim()) {
-//       return;
-//     }
-//     dispatch(
-//         actionLoginFetch(email.trim(), password),
-//     );
-//   };
+
+  // au submit on envoie l'email et le password à actionLoginFetch
+  const handleOnSubmit= (event) => {
+    event.preventDefault();
+    if (!email.trim() || !password.trim()) {
+      return;
+    }
+    dispatch(
+        actionLoginFetch({email: email.trim(), password}),
+    );
+    setEmail("");
+    setPassword("");
+  };
 
   return (
-    <div className="login">
+    <>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+       <div className="login">
       <h2 className="login-title">Application de gestion des actions de bénévolats</h2>
       <Container className="login-container">
         <div className="login-container-elements">
@@ -95,6 +115,9 @@ function LoginForm() {
         </div>
       </Container>
     </div>
+      )}
+      {noAutorisation && (<WrongAuthentification />)}
+    </> 
   );
 }
 

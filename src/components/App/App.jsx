@@ -1,16 +1,16 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import { Routes, Route, Navigate} from 'react-router-dom';
 
 import './styles.scss';
 
-import LoginForm from '../LoginForm/LoginForm';
 import Header from '../Header/Header';
 import MobileHeader from '../MobileHeader/MobileHeader';
+import LoginForm from '../LoginForm/LoginForm';
 
 function App() {
   return (
     <div className="app">
-      <div className="menu" >
+     <div className="menu" >
         <div className="menu-desktop">
           <Header/>
         </div>
@@ -18,12 +18,20 @@ function App() {
           <MobileHeader/>
         </div>
       </div>
-      <LoginForm/>
-    </div>
+      <Routes >
+        <Route 
+          path="/" 
+          element={<Navigate to="/login" replace/>} 
+        />
+        <Route
+          path="/login"
+          element={<LoginForm />}
+        />
+      </Routes>
 
+    </div>
   );
 }
-
 
 App.propTypes = {
   
