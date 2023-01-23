@@ -3,10 +3,21 @@ import { Routes, Route, Navigate} from 'react-router-dom';
 
 import './styles.scss';
 
+import Header from '../Header/Header';
+import MobileHeader from '../MobileHeader/MobileHeader';
 import LoginForm from '../LoginForm/LoginForm';
+
 function App() {
   return (
     <div className="app">
+     <div className="menu" >
+        <div className="menu-desktop">
+          <Header/>
+        </div>
+        <div  className="menu-mobile">
+          <MobileHeader/>
+        </div>
+      </div>
       <Routes >
         <Route 
           path="/" 
@@ -17,6 +28,7 @@ function App() {
           element={<LoginForm />}
         />
       </Routes>
+
     </div>
   );
 }
