@@ -1,0 +1,61 @@
+@use '../../styles/vars';
+.login {
+    max-width: 600px;
+    margin: 0 auto;
+    &-title {
+        font-size: vars.$subtitle;
+        text-align: center;
+        padding: vars.$gutter * 5;
+
+        &-mobile {
+            font-size: vars.$font-size;
+            text-align: center;
+            padding-bottom: vars.$gutter * 8;
+        }
+    }
+
+    &-container {
+        background-color: vars.$primary-background-color;
+        box-shadow: 0px 4px 33px -3px rgba(0, 0, 0, 0.25);
+
+        
+            &-elements {
+                max-width: 400px;
+                margin: 0 auto;
+                padding: vars.$gutter 0 vars.$gutter * 4 0;
+                
+            }
+    
+            &-img {
+                max-width: 100%;
+                padding-bottom: vars.$gutter * 5;
+    
+            }
+    }
+
+
+}
+
+@media (max-width: 599px) {
+    .login-title {
+        display: none;
+    }
+}
+
+@media (min-width: 600px) {
+    .login-title-mobile {
+        display: none;
+    }
+}
+
+@media (max-width: 599px) {
+    .login-container {
+        border-radius: 0px 0px 40px 40px;
+    }
+}
+
+@media (max-width: 599px) {
+    .login-form {
+        margin-bottom: -250px;
+    }
+}

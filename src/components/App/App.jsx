@@ -4,10 +4,12 @@ import React from 'react';
 import './styles.scss';
 
 import LoginForm from '../LoginForm/LoginForm';
+import Header from '../Header/Header';
 
 function App() {
   return (
     <div className="app">
+      <Header/>
       <LoginForm/>
     </div>
 

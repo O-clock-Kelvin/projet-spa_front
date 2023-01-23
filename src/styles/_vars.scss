@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
 
 
+// Spacing
+$gutter: 0.8rem;
+
 // Colors variables
 $primary-background-color: #fffaf7;
 $secondary-background-color: #fdf3ed;
@@ -20,7 +23,7 @@ $h1-font-size: 5rem;
 $h2-font-size: 3rem;
 $h3-font-size: 2rem;
 $font-size: 1rem;
-$subtitle: 2rem;
+$subtitle: 1.5rem;
 
 // Font weight
 $title-weight: 700;
