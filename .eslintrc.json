@@ -6,7 +6,7 @@
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugn:react/jsx-runtime"
+        "plugin:react/jsx-runtime"
     ],
     "overrides": [
     ],
@@ -21,6 +21,7 @@
         "react/react-in-jsx-scope": "off",
 		"no-console": "off",
 		"semi": "error",
+        "react/no-unescaped-entities": 0,
 		"import/no-extraneous-dependencies": [
 			"off",
 			{
