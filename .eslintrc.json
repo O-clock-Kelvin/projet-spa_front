@@ -5,8 +5,8 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended",
-        "plugn:react/jsx-runtime"
+        "plugin:react/recommended"
+        // "plugn:react/jsx-runtime"
     ],
     "overrides": [
     ],
