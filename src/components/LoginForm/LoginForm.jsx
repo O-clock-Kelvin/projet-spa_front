@@ -66,7 +66,7 @@ function LoginForm() {
               
               <Form.Control
                 type="email"
-                placeholder="Enter email"
+                placeholder="Email"
                 value={email}
                 onChange={handleOnChangeEmail}
               />
@@ -81,7 +81,7 @@ function LoginForm() {
                   </InputGroup.Text>
               <Form.Control
                 type="password"
-                placeholder="Password"
+                placeholder="Mot de passe"
                 value={password}
                 onChange={handleOnChangePassword}
               />

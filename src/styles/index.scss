@@ -25,6 +25,12 @@ body {
     }
 }
 
+.container {
+    padding-right: 0;
+    padding-left: 0;
+
+}
+
 .form-control {
     background: vars.$primary-background-color;
     border: none;
@@ -40,4 +46,18 @@ body {
         color: vars.$primary-color;
     }
 }
+
+.navbar > .container {
+    justify-content: space-around;
+}
+
+.navbar-toggler {
+    border-radius: 70px;
+    width: 55px;
+    height: 55px;
+    color: vars.$primary-color;
+}
+
+
 // end overrides bootstrap
+
