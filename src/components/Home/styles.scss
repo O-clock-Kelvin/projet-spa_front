@@ -1,0 +1,27 @@
+@use '../../styles/vars';
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    margin: auto;
+    padding: vars.$gutter * 3;
+
+    .card-body {
+        display: flex;
+        flex-direction: row;
+
+        .description {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .card-img-right {
+        width: 30%;
+
+        .cat {
+            width: 50%;
+        }
+    }
+}

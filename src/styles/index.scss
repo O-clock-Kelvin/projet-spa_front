@@ -6,6 +6,7 @@
 body {
     font-family: vars.$text-font;
     background-color: vars.$secondary-background-color;
+    color: vars.$font-color;
 }
 
 
@@ -67,3 +68,9 @@ a {
 
 // end overrides bootstrap
 
+.title-page {
+    font-family: vars.$title-font;
+    font-size: vars.$h1-font-size;
+    text-align: center;
+    margin-top: vars.$gutter * 5;
+}
