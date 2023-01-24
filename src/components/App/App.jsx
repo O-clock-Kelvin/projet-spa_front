@@ -34,32 +34,6 @@ function App() {
           path="/" 
           element={<Navigate to="/login" replace/>} 
         />
-        {/* <Route
-          path="/login"
-          element={(
-            if (isConnected && !admin) {
-              (<Navigate to="/home" replace/>)
-            } else if (isConnected && admin) {
-              (<Navigate to="/admin" replace/>)
-            } else {
-              (<LoginForm />)
-            }
-          )}
-        /> */}
-        {/* <Route
-          path="/login"
-          element={
-            (isConnected && !admin) ? 
-              (<Navigate to="/home" replace/>) :
-              (<LoginForm />)}
-        />
-        <Route
-          path="/login"
-          element={
-            (isConnected && admin) ? 
-              (<Navigate to="/admin" replace/>) :
-              (<LoginForm />)}
-        />  */}
         <Route
           path="/login"
           element={
