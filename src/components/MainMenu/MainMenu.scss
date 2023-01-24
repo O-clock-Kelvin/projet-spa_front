@@ -1,0 +1,35 @@
+@use '../../styles/vars';
+
+.nav-link {
+    margin-left: vars.$gutter * 3;
+    font-weight: 400 !important;
+    color: vars.$font-color !important;
+
+    &:hover {
+        color: vars.$primary-color !important;
+    }
+}
+
+.hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    color: vars.$primary-color;
+
+    &:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: vars.$primary-color;
+        transform-origin: bottom right;
+        transition: transform 0.25s ease-out;
+      }
+  }
