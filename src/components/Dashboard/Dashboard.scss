@@ -1,0 +1,13 @@
+@use '../../styles/vars';
+
+.dashboard-container {
+    width: 1200px;
+    margin: 0 auto ;
+}
+
+.card {
+    margin: vars.$gutter * 3;
+    border-radius: 10px !important;
+    border:none;
+
+}
