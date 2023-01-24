@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import logo from '../../assets/logo.svg';
@@ -6,6 +8,9 @@ import MainMenu from '../MainMenu/MainMenu';
 
 //SCSS
 import "./Header.scss";
+
+//Icons from IcoMoon
+import { ImUser } from "react-icons/im";
 
 function Header() {
   return (
@@ -22,9 +27,16 @@ function Header() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <MainMenu/>
         </Navbar.Collapse>
+
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            <a href="#login">Déconnexion</a>
+          </Navbar.Text>
+          <button className="icon-user" ><ImUser /></button>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 }
 
-export default Header;
+export default React.memo(Header);
