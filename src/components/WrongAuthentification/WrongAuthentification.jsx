@@ -1,10 +1,13 @@
 import React from 'react';
+import Alert from 'react-bootstrap/Alert';
+
+import './styles.scss';
 
 function WrongAuthentification() {
   return (
-    <div className="alert alert-danger" role="alert">
-        Identifiants incorrects
-    </div>
+    <Alert variant= 'danger'>
+      Identifiants incorrects
+    </Alert>  
   );
 }
 

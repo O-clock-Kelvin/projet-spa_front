@@ -60,63 +60,63 @@ function LoginForm() {
 
   return (
     <>
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : (
-       <div className="login">
-      <h2 className="login-title">Application de gestion des actions de bénévolats</h2>
-      <Container className="login-container">
-        <div className="login-container-elements">
-          <img
-            className="login-container-img"
-            src={manWalkingDog}
-            alt="Bénévole balade un chien"
-          />
+      <div className="login">
+        <h2 className="login-title">Application de gestion des actions de bénévolats</h2>
+        <Container className="login-container">
+          <div className="login-container-elements">
+            <img
+              className="login-container-img"
+              src={manWalkingDog}
+              alt="Bénévole balade un chien"
+            />
 
-        <h2 className="login-title-mobile">Application de gestion des actions de bénévolats</h2>
-          <Form className="login-form"
-          // onSubmit={handleOnSubmit}
-          >
-          <div className="login-form-elements">
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+          <h2 className="login-title-mobile">Application de gestion des actions de bénévolats</h2>
+            <Form className="login-form"
+              onSubmit={handleOnSubmit}
+            >
+            <div className="login-form-elements">
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <InputGroup>
+                    <InputGroup.Text>
+                      <ImUser />
+                    </InputGroup.Text>
+                
+                <Form.Control
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={handleOnChangeEmail}
+                />
+                </InputGroup>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formBasicPassword">
               <InputGroup>
-                  <InputGroup.Text>
-                    <ImUser />
-                  </InputGroup.Text>
-              
-              <Form.Control
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={handleOnChangeEmail}
-              />
-              </InputGroup>
-            </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-            <InputGroup>
-
-            <InputGroup.Text>
-                    <ImLock />
-                  </InputGroup.Text>
-              <Form.Control
-                type="password"
-                placeholder="Mot de passe"
-                value={password}
-                onChange={handleOnChangePassword}
-              />
-              </InputGroup>
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Se Connecter
-            </Button>
-            </div>
-          </Form>
-        </div>
-      </Container>
-    </div>
-      )}
-      {noAutorisation && (<WrongAuthentification />)}
+              <InputGroup.Text>
+                      <ImLock />
+                    </InputGroup.Text>
+                <Form.Control
+                  type="password"
+                  placeholder="Mot de passe"
+                  value={password}
+                  onChange={handleOnChangePassword}
+                />
+                </InputGroup>
+              </Form.Group>
+              {isLoading ? (
+                <LoadingSpinner />
+              ) : (
+                <Button variant="primary" type="submit">
+                  Se Connecter
+                </Button>
+              )}
+              </div>
+            </Form>
+          {noAutorisation && (<WrongAuthentification />)}
+          </div>
+        </Container>
+      </div>
     </> 
   );
 }

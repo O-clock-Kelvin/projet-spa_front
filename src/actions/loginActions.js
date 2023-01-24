@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from '../api';
+import jwt_decode from "jwt-decode";
 
 // définition d' une variable pour chaque retour possible de la requête
 export const LOGIN_PENDING = "users/fetchByEmail/pending";
@@ -18,7 +19,17 @@ export const actionLoginFetch = createAsyncThunk(
         });
         // envoi du token
         console.log(data);
-        api.defaults.headers.common.Authorization = `Bearer ${data.token}`; 
-        return {token: data.token};
+        api.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+        
+        // décryptage du token
+        const token = data.token;
+        const decodedToken = jwt_decode(token);
+
+        return {
+            id: decodedToken.id,
+            admin: decodedToken.admin,
+            firstName: decodedToken.firstName,
+            experience: decodedToken.experience
+        };
     }
 );
