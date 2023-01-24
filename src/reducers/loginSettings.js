@@ -2,7 +2,7 @@ import { LOGIN_FULFILLED, LOGIN_PENDING, LOGIN_REJECTED } from "../actions/login
 
 const initialState = {
     token: "",
-    admin: false,
+    admin: true,
     firstName: "",
     experience: "",
     isLoading: false,
@@ -25,7 +25,7 @@ const loginSettingsReducer = ( state = initialState, action = {}) => {
             return {
                 ...state,
                 token: action.payload.token,
-                admin: action.payload.admin,
+                // admin: action.payload.admin,
                 firstName: action.payload.firstName,
                 experience: action.payload.experience,
                 isLoading: false,
