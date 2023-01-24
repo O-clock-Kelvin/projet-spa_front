@@ -1,16 +1,37 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import { Routes, Route, Navigate} from 'react-router-dom';
 
 import './styles.scss';
+
+import Header from '../Header/Header';
+import MobileHeader from '../MobileHeader/MobileHeader';
+import LoginForm from '../LoginForm/LoginForm';
 
 function App() {
   return (
     <div className="app">
-      <h1>Bonjour</h1>
+     <div className="menu" >
+        <div className="menu-desktop">
+          <Header/>
+        </div>
+        <div  className="menu-mobile">
+          <MobileHeader/>
+        </div>
+      </div>
+      <Routes >
+        <Route 
+          path="/" 
+          element={<Navigate to="/login" replace/>} 
+        />
+        <Route
+          path="/login"
+          element={<LoginForm />}
+        />
+      </Routes>
+
     </div>
   );
 }
-
 
 App.propTypes = {
   

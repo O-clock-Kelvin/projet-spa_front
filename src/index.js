@@ -2,15 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 
-import { Provider } from 'react-redux';
+// module de react pour la gestion des routes
 import { BrowserRouter } from 'react-router-dom';
+
+// module de redux
+import { Provider } from 'react-redux';
 
 import App from './components/App/App';
 import store from './store/index';
 
 import './styles/index.scss';
 
+// insertion du composant App dans l'index.html
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <Provider store={store}>
     <BrowserRouter>

@@ -1,7 +1,59 @@
 @use 'reset';
 @use 'vars';
 
-body {
+@import "~bootstrap/scss/bootstrap";
 
+body {
+    font-family: vars.$text-font;
+    background-color: vars.$secondary-background-color;
 }
+
+
+// overrides bootstrap
+.bg-light {
+    background-color: vars.$primary-background-color !important;
+}
+
+
+.btn-primary {
+    width: 100%;
+    background: vars.$primary-color;
+    border: none;
+    text-transform: uppercase;
+    &:hover {
+        background-color: vars.$primary-color-hoover ;
+    }
+}
+
+.form-control {
+    background: vars.$primary-background-color;
+    border: none;
+    
+}
+
+.input-group {
+    box-shadow: 1px 1px 36px rgba(0, 0, 0, 0.09);
+    border-radius: 5px;
+    &-text {
+        border: none;
+        background: vars.$primary-background-color;
+        color: vars.$primary-color;
+    }
+}
+
+.navbar > .container {
+    justify-content: space-around;
+}
+
+.navbar-toggler {
+    border-radius: 70px;
+    width: 55px;
+    height: 55px;
+    color: vars.$primary-color;
+    background-color: #d9d9d9;
+    padding: 1px;
+}
+
+
+// end overrides bootstrap
 

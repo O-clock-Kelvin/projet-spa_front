@@ -1,0 +1,9 @@
+@use '../../styles/vars';
+
+.alert-danger {
+    text-align: center;
+    width: 400px !important;
+    margin: auto;
+    margin-top: 20px;
+    padding: 20px;
+}
