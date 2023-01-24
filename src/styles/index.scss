@@ -6,10 +6,16 @@
 body {
     font-family: vars.$text-font;
     background-color: vars.$secondary-background-color;
+    color: vars.$font-color;
 }
 
 
 // overrides bootstrap
+
+a {
+    text-decoration: none;
+}
+
 .bg-light {
     background-color: vars.$primary-background-color !important;
 }
@@ -45,6 +51,10 @@ body {
     justify-content: space-around;
 }
 
+.navbar-text {
+    text-transform: uppercase;
+}
+
 .navbar-toggler {
     border-radius: 70px;
     width: 55px;
@@ -55,5 +65,12 @@ body {
 }
 
 
+
 // end overrides bootstrap
 
+.title-page {
+    font-family: vars.$title-font;
+    font-size: vars.$h1-font-size;
+    text-align: center;
+    margin-top: vars.$gutter * 5;
+}
