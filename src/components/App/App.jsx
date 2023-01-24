@@ -1,13 +1,24 @@
 import React from 'react';
 import { Routes, Route, Navigate} from 'react-router-dom';
 
-import './styles.scss';
-
+// composants
 import Header from '../Header/Header';
 import MobileHeader from '../MobileHeader/MobileHeader';
 import LoginForm from '../LoginForm/LoginForm';
+import Home from '../Home/Home';
+import Dashboard from '../Dashboard/Dashboard';
 
+// fonctions
+import { useSelector } from 'react-redux';
+
+import './styles.scss';
 function App() {
+
+  const isConnected = useSelector((fullstate) => fullstate.loginSettings.isConnected);
+  const admin = useSelector((fullstate) => fullstate.loginSettings.admin);
+
+  console.log(isConnected, admin);
+
   return (
     <div className="app">
      <div className="menu" >
@@ -25,9 +36,20 @@ function App() {
         />
         <Route
           path="/login"
-          element={<LoginForm />}
+          element={
+            (isConnected && !admin) ? (<Navigate to="/home" replace/>) :
+            (isConnected && admin) ? (<Navigate to="/admin" replace/>) :
+            (<LoginForm />)}
         />
-      </Routes>
+        <Route
+          path="/home"
+          element={<Home />}
+        />
+        <Route
+          path="/admin"
+          element={<Dashboard />}
+        />
+       </Routes>
 
     </div>
   );
