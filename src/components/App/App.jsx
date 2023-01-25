@@ -13,7 +13,7 @@ import Error404 from '../Error404/Error404';
 
 // fonctions
 import { useSelector } from 'react-redux';
-import { actionSetToken } from '../../actions/loginActions';
+import { actionSetToken } from '../../actions/tokenAction';
 
 // gestion du token
 // import jwt_decode from "jwt-decode";
@@ -54,6 +54,7 @@ function App() {
   useEffect(() => {
     const stringifiedToken = JSON.stringify(token);
     localStorage.setItem('token', stringifiedToken);
+    // dispatch(actionSetToken(token));
   }, [token]);
 
   return (

@@ -13,6 +13,7 @@ import "./Header.scss";
 import { ImUser } from "react-icons/im";
 
 function Header() {
+
   return (
     <Navbar
       collapseOnSelect
@@ -30,7 +31,10 @@ function Header() {
 
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            <a href="#login">Déconnexion</a>
+            <a
+              href="#login"
+              // onClick={handleOnClick}
+            >Déconnexion</a>
           </Navbar.Text>
           <button className="icon-user" ><ImUser /></button>
         </Navbar.Collapse>
