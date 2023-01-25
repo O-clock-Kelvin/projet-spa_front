@@ -1,4 +1,4 @@
-import { LOGIN_FULFILLED, LOGIN_PENDING, LOGIN_REJECTED, SET_TOKEN } from "../actions/loginActions";
+import { LOGIN_FULFILLED, LOGIN_PENDING, LOGIN_REJECTED, SET_TOKEN, LOGOUT } from "../actions/loginActions";
 
 const initialState = {
     admin: false,
@@ -48,6 +48,18 @@ const loginSettingsReducer = ( state = initialState, action = {}) => {
                 isConnected: false,
                 noAutorisation: true,
                 // token: null
+            };
+        }
+        case LOGOUT: {
+            return {
+                ...state,
+                admin: false,
+                firstName: "",
+                experience: "",
+                isLoading: false,
+                isConnected: false,
+                noAutorisation: false,
+                token: null,
             };
         }
         default: {
