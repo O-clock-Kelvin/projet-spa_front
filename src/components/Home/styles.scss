@@ -5,23 +5,47 @@
     flex-direction: column;
     width: 800px;
     margin: auto;
-    padding: vars.$gutter * 3;
+    margin-top: 50px;
 
+    .card {
+        margin-top: vars.$gutter * 3;
+    }
+    
     .card-body {
         display: flex;
         flex-direction: row;
+        width: 100%;
+        height: 180px;
+        padding: vars.$gutter * 2;
+
+        .card-title {
+            font-size: vars.$h3-font-size;
+            color: vars.$primary-color;
+        }
 
         .description {
             display: flex;
             flex-direction: column;
+            width: 70%;
+            color: vars.$font-color;
         }
-    }
 
-    .card-img-right {
-        width: 30%;
-
-        .cat {
-            width: 50%;
-        }
+        .container-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+        }     
     }
+}
+
+.image {
+    width: 160px;
+    display: block;
+    margin: auto;
+
+}
+
+.cat {
+    width: 100px;
 }

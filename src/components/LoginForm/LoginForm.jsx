@@ -21,7 +21,6 @@ import manWalkingDog from '../../assets/images/clipart1525964.png';
 //Icons from IcoMoon
 import { ImUser, ImLock } from "react-icons/im";
 
-
 function LoginForm() {
 
   // utilisation du state pour variables utiles dans le composant 

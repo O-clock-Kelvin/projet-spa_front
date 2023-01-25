@@ -29,7 +29,12 @@ export const actionLoginFetch = createAsyncThunk(
             id: decodedToken.id,
             admin: decodedToken.admin,
             firstName: decodedToken.firstName,
-            experience: decodedToken.experience
+            experience: decodedToken.experience,
+            token: token
         };
     }
 );
+
+export const LOGOUT = 'LOGOUT';
+export const actionLogOut = () => ({type: LOGOUT});
+
