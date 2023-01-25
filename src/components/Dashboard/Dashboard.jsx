@@ -14,7 +14,7 @@ import DogAndCat from '../../assets/images/dog-and-cat.png';
 import DogHugsCat from '../../assets/images/dog-hugs-cat.png';
 
 // CSS
-import './Dashboard.scss';
+import './styles.scss';
 
 function Dashboard() {
 

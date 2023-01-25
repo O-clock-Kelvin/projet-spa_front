@@ -7,11 +7,13 @@ import MobileHeader from '../MobileHeader/MobileHeader';
 import LoginForm from '../LoginForm/LoginForm';
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
+import DashboardVolunteerCreation from '../DashboardVolunteerCreation/DashboardVolunteerCreation';
 
 // fonctions
 import { useSelector } from 'react-redux';
 
 import './styles.scss';
+
 function App() {
 
   const isConnected = useSelector((fullstate) => fullstate.loginSettings.isConnected);
@@ -48,6 +50,10 @@ function App() {
         <Route
           path="/admin"
           element={<Dashboard />}
+        />
+          <Route
+          path="/admin/create/user"
+          element={<DashboardVolunteerCreation />}
         />
        </Routes>
 
