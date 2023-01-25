@@ -26,7 +26,7 @@ const loginSettingsReducer = ( state = initialState, action = {}) => {
             return {
                 ...state,
                 token: action.payload.token,
-                admin: action.payload.admin,
+                admin: false,
                 firstName: action.payload.firstName,
                 experience: action.payload.experience,
                 isLoading: false,
@@ -39,7 +39,7 @@ const loginSettingsReducer = ( state = initialState, action = {}) => {
             return {
                 ...state,
                 token: action.payload.token,
-                admin: action.payload.admin,
+                admin: false,
                 firstName: action.payload.firstName,
                 experience: action.payload.experience,
                 isLoading: false,
