@@ -1,4 +1,4 @@
-import { LOGIN_FULFILLED, LOGIN_PENDING, LOGIN_REJECTED } from "../actions/loginActions";
+import { LOGIN_FULFILLED, LOGIN_PENDING, LOGIN_REJECTED, LOGOUT } from "../actions/loginActions";
 import { SET_TOKEN } from "../actions/tokenAction";
 
 const initialState = {

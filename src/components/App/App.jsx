@@ -43,7 +43,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // à chaque changement du token dsu state de redux, on le modifie dans le localstorage
+    // à chaque changement du token du state de redux, on le modifie dans le localstorage
     if(token) {
       const stringifiedToken = JSON.stringify(token);
       localStorage.setItem('token', stringifiedToken);

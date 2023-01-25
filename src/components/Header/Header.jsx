@@ -20,8 +20,8 @@ function Header() {
   const dispatch = useDispatch();
 
   const handleOnClick = () => {
-    console.log("clik deconnexion");
     dispatch(actionLogOut());
+    localStorage.removeItem('token');
   };
 
   return (
@@ -42,7 +42,7 @@ function Header() {
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
             <a
-              href="#login"
+              href="/login"
               onClick={handleOnClick}
             >
               Déconnexion
