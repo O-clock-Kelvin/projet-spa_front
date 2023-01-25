@@ -57,6 +57,18 @@ const loginSettingsReducer = ( state = initialState, action = {}) => {
                 token: null
             };
         }
+        case LOGOUT: {
+            return {
+                ...state,
+                admin: false,
+                firstName: "",
+                experience: "",
+                isLoading: false,
+                isConnected: false,
+                noAutorisation: false,
+                token: null,
+            };
+        }
         default: {
             console.log("requête non aboutie");
             return state;

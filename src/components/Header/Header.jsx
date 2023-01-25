@@ -5,14 +5,24 @@ import Navbar from 'react-bootstrap/Navbar';
 import logo from '../../assets/logo.svg';
 import MainMenu from '../MainMenu/MainMenu';
 
-
 //SCSS
 import "./Header.scss";
 
 //Icons from IcoMoon
 import { ImUser } from "react-icons/im";
+import { useDispatch } from 'react-redux';
+
+// fonctions
+import { actionLogOut } from '../../actions/loginActions';
 
 function Header() {
+
+  const dispatch = useDispatch();
+
+  const handleOnClick = () => {
+    console.log("clik deconnexion");
+    dispatch(actionLogOut());
+  };
 
   return (
     <Navbar
@@ -33,8 +43,10 @@ function Header() {
           <Navbar.Text>
             <a
               href="#login"
-              // onClick={handleOnClick}
-            >Déconnexion</a>
+              onClick={handleOnClick}
+            >
+              Déconnexion
+            </a>
           </Navbar.Text>
           <button className="icon-user" ><ImUser /></button>
         </Navbar.Collapse>

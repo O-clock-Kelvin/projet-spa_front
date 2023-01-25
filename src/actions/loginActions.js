@@ -35,3 +35,6 @@ export const actionLoginFetch = createAsyncThunk(
     }
 );
 
+export const LOGOUT = 'LOGOUT';
+export const actionLogOut = () => ({type: LOGOUT});
+
