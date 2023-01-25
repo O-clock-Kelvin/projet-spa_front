@@ -31,7 +31,7 @@ function Home() {
               </Card.Text>  
             </div>
             <div className='container-image'>
-              <Card.Img variant="right" className="image" src={womenWalkingDog} alt="illustration, vielle dame promenant un chien"/>
+              <Card.Img className="image" src={womenWalkingDog} alt="illustration, vielle dame promenant un chien"/>
             </div>
           </Card.Body>
         </Card>
@@ -46,7 +46,7 @@ function Home() {
               </Card.Text>
             </div>
             <div className='container-image'>
-              <Card.Img variant="right" className="image cat" src={cat} alt="illustration, petit chat souriant" />
+              <Card.Img className="image cat" src={cat} alt="illustration, petit chat souriant" />
             </div>
           </Card.Body>
         </Card>
