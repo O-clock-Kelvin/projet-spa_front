@@ -4,12 +4,12 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 
 // images
-import womenWalkingDog from '../../assets/images/women-walking-dog.png';
-import cat from '../../assets/images/chat.png';
-
+import womenWalkingDog from '../../assets/images/women-walks-dog.png';
+import cat from '../../assets/images/cats-playing.png';
 
 // fonctions
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import './styles.scss';
 
@@ -20,36 +20,47 @@ function Home() {
 
   return (
     <>
-      <h1 className='title-page'>Bonjour {firstName} </h1>
+      <h1 className='title-page'>Bonjour {firstName}</h1>
       <div className='home-container'>
-        <Card >
-        <Card.Body className='card-body'>
-          <div className='description'>
-            <Card.Title>Sortir un chien</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>  
-          </div>
-          <Card.Img variant="right" src={womenWalkingDog} />
-        </Card.Body>
-      </Card>
+        <Link
+          to={"/walks"} 
+        >
+          <Card >
+            <Card.Body className='card-body'>
+              <div className='description'>
+                <Card.Title>Sortir un chien</Card.Title>
+                <Card.Text>
+                  Some quick example text to build on the card title and make up the
+                  bulk of the card's content.
+                </Card.Text>  
+              </div>
+              <div className='container-image'>
+                <Card.Img variant="right" className="image" src={womenWalkingDog} alt="illustration, vielle dame promenant un chien"/>
+              </div>
+            </Card.Body>
+          </Card>
+        </Link>
 
-      <Card >
-        <Card.Body className='card-body'>
-          <div className='description'>
-            <Card.Title>Card Title</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-          </div>
-          <Card.Img variant="right" className="cat" src={cat} />
-        </Card.Body>
-      </Card>
+      <Link
+        to={"/visits"}
+      >
+        <Card >
+          <Card.Body className='card-body'>
+            <div className='description'>
+              <Card.Title>Visiter la chatterie</Card.Title>
+              <Card.Text>
+                Some quick example text to build on the card title and make up the
+                bulk of the card's content.
+              </Card.Text>
+            </div>
+            <div className='container-image'>
+              <Card.Img variant="right" className="image cat" src={cat} alt="illustration, petit chat souriant" />
+            </div>
+          </Card.Body>
+        </Card>
+      </Link>
       </div>
-    </>
-    
+    </>  
   );
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate} from 'react-router-dom';
 
 // composants
@@ -7,17 +7,48 @@ import MobileHeader from '../MobileHeader/MobileHeader';
 import LoginForm from '../LoginForm/LoginForm';
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
+import PrivateRoutes from '../PrivateRoutes/PrivateRoutes';
+import PrivateRoutesAdmin from '../PrivateRoutesAdmin/PrivateRoutesAdmin';
+import Error404 from '../Error404/Error404';
 
 // fonctions
 import { useSelector } from 'react-redux';
+import { actionSetToken } from '../../actions/tokenAction';
 
 import './styles.scss';
+
+import { useDispatch } from 'react-redux';
 function App() {
 
   const isConnected = useSelector((fullstate) => fullstate.loginSettings.isConnected);
   const admin = useSelector((fullstate) => fullstate.loginSettings.admin);
+  const token = useSelector((fullstate) => fullstate.loginSettings.token);
 
-  console.log(isConnected, admin);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    try {
+      // on vérifie si on a un token déjà présent dans le localstorage
+      const tokenFromLocalStorage = localStorage.getItem('token');
+      
+      // si oui on l'envoie au state de redux
+      if (tokenFromLocalStorage) {
+        const parsedToken = JSON.parse(tokenFromLocalStorage);
+        dispatch(actionSetToken(parsedToken));
+      }
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    // à chaque changement du token du state de redux, on le modifie dans le localstorage
+    if(token) {
+      const stringifiedToken = JSON.stringify(token);
+      localStorage.setItem('token', stringifiedToken);
+    }
+  }, [token]);
 
   return (
     <div className="app">
@@ -30,6 +61,22 @@ function App() {
         </div>
       </div>
       <Routes >
+        {/* pages accessibles à l'utilisateur connecté */}
+        <Route element={<PrivateRoutes />}>
+          <Route 
+            path="/home"
+            element={<Home />}
+          />
+        </Route>
+
+        {/* pages accessibles à l'admin connecté */}
+        <Route element={<PrivateRoutesAdmin />}>
+          <Route
+            path="/admin"
+            element={<Dashboard />}
+          />
+        </Route>
+
         <Route 
           path="/" 
           element={<Navigate to="/login" replace/>} 
@@ -42,12 +89,8 @@ function App() {
             (<LoginForm />)}
         />
         <Route
-          path="/home"
-          element={<Home />}
-        />
-        <Route
-          path="/admin"
-          element={<Dashboard />}
+          path="*"
+          element={<Error404 />}
         />
        </Routes>
 
