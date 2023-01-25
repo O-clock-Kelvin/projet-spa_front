@@ -13,10 +13,7 @@ import Error404 from '../Error404/Error404';
 
 // fonctions
 import { useSelector } from 'react-redux';
-import { actionSetToken } from '../../actions/loginActions';
-
-// gestion du token
-// import jwt_decode from "jwt-decode";
+import { actionSetToken } from '../../actions/tokenAction';
 
 import './styles.scss';
 
@@ -31,20 +28,14 @@ function App() {
 
   useEffect(() => {
     try {
+      // on vérifie si on a un token déjà présent dans le localstorage
       const tokenFromLocalStorage = localStorage.getItem('token');
-      console.log(tokenFromLocalStorage);
       
-      // si on n'a pas de token on ne fait rien
-      if (!tokenFromLocalStorage) return;
-
-      // si on en a un on le récupère
-      const parsedToken = JSON.parse(tokenFromLocalStorage);
-      console.log(parsedToken);
-
-      dispatch(actionSetToken(parsedToken));
-
-      // const decodedToken = jwt_decode(parsedToken);
-      // console.log(decodedToken.admin, decodedToken.firstName);
+      // si oui on l'envoie au state de redux
+      if (tokenFromLocalStorage) {
+        const parsedToken = JSON.parse(tokenFromLocalStorage);
+        dispatch(actionSetToken(parsedToken));
+      }
     }
     catch (err) {
       console.log(err);
@@ -52,8 +43,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const stringifiedToken = JSON.stringify(token);
-    localStorage.setItem('token', stringifiedToken);
+    // à chaque changement du token dsu state de redux, on le modifie dans le localstorage
+    if(token) {
+      const stringifiedToken = JSON.stringify(token);
+      localStorage.setItem('token', stringifiedToken);
+    }
   }, [token]);
 
   return (

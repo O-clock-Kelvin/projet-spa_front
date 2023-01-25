@@ -35,8 +35,6 @@ export const actionLoginFetch = createAsyncThunk(
     }
 );
 
-export const SET_TOKEN = 'SET_TOKEN';
-export const actionSetToken = (token) => ({type: SET_TOKEN, payload: token});
-
 export const LOGOUT = 'LOGOUT';
 export const actionLogOut = () => ({type: LOGOUT});
+
