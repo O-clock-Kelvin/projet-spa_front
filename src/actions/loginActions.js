@@ -34,3 +34,6 @@ export const actionLoginFetch = createAsyncThunk(
         };
     }
 );
+
+export const SET_TOKEN = 'SET_TOKEN';
+export const actionSetToken = (token) => ({type: SET_TOKEN, payload: token});
