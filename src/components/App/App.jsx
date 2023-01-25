@@ -10,6 +10,8 @@ import Dashboard from '../Dashboard/Dashboard';
 import PrivateRoutes from '../PrivateRoutes/PrivateRoutes';
 import PrivateRoutesAdmin from '../PrivateRoutesAdmin/PrivateRoutesAdmin';
 import Error404 from '../Error404/Error404';
+import WalkingDog from '../WalkingDog/WalkingDog';
+import VisitsCats from '../VisitsCats/VisitsCats';
 
 // fonctions
 import { useSelector } from 'react-redux';
@@ -66,6 +68,14 @@ function App() {
           <Route 
             path="/home"
             element={<Home />}
+          />
+          <Route 
+            path="/walkingdog"
+            element={<WalkingDog />}
+          />
+          <Route 
+            path="/visitscats"
+            element={<VisitsCats />}
           />
         </Route>
 
