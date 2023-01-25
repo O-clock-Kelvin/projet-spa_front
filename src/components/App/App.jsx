@@ -7,6 +7,7 @@ import MobileHeader from '../MobileHeader/MobileHeader';
 import LoginForm from '../LoginForm/LoginForm';
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
+import PrivateRoutes from '../PrivateRoute/PrivateRoute';
 
 // fonctions
 import { useSelector } from 'react-redux';
@@ -30,6 +31,16 @@ function App() {
         </div>
       </div>
       <Routes >
+        <Route element={<PrivateRoutes />}>
+          <Route 
+            path="/home"
+            element={<Home />}
+          />
+          <Route
+            path="/admin"
+            element={<Dashboard />}
+          />
+        </Route>
         <Route 
           path="/" 
           element={<Navigate to="/login" replace/>} 
@@ -40,14 +51,6 @@ function App() {
             (isConnected && !admin) ? (<Navigate to="/home" replace/>) :
             (isConnected && admin) ? (<Navigate to="/admin" replace/>) :
             (<LoginForm />)}
-        />
-        <Route
-          path="/home"
-          element={<Home />}
-        />
-        <Route
-          path="/admin"
-          element={<Dashboard />}
         />
        </Routes>
 
