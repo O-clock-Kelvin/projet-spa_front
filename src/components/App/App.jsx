@@ -7,6 +7,9 @@ import MobileHeader from '../MobileHeader/MobileHeader';
 import LoginForm from '../LoginForm/LoginForm';
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
+import PrivateRoutes from '../PrivateRoutes/PrivateRoutes';
+import PrivateRoutesAdmin from '../PrivateRoutesAdmin/PrivateRoutesAdmin';
+import Error404 from '../Error404/Error404';
 
 // fonctions
 import { useSelector } from 'react-redux';
@@ -30,6 +33,22 @@ function App() {
         </div>
       </div>
       <Routes >
+        {/* pages accessibles à l'utilisateur connecté */}
+        <Route element={<PrivateRoutes />}>
+          <Route 
+            path="/home"
+            element={<Home />}
+          />
+        </Route>
+
+        {/* pages accessibles à l'admin connecté */}
+        <Route element={<PrivateRoutesAdmin />}>
+          <Route
+            path="/admin"
+            element={<Dashboard />}
+          />
+        </Route>
+
         <Route 
           path="/" 
           element={<Navigate to="/login" replace/>} 
@@ -42,12 +61,8 @@ function App() {
             (<LoginForm />)}
         />
         <Route
-          path="/home"
-          element={<Home />}
-        />
-        <Route
-          path="/admin"
-          element={<Dashboard />}
+          path="*"
+          element={<Error404 />}
         />
        </Routes>
 

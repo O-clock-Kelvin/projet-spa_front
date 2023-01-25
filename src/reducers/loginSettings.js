@@ -1,7 +1,7 @@
 import { LOGIN_FULFILLED, LOGIN_PENDING, LOGIN_REJECTED } from "../actions/loginActions";
 
 const initialState = {
-    token: "",
+    token: null,
     admin: false,
     firstName: "",
     experience: "",
@@ -40,6 +40,7 @@ const loginSettingsReducer = ( state = initialState, action = {}) => {
                 isLoading: false,
                 isConnected: false,
                 noAutorisation: true,
+                token: null
             };
         }
         default: {
