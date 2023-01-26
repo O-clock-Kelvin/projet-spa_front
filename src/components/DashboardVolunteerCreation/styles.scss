@@ -1,0 +1,13 @@
+@use '../../styles/vars';
+@use '../../styles/index.scss';
+
+
+.dashboard-container {
+  background-color: vars.$primary-background-color;
+  box-shadow: vars.$shadow;
+  padding: vars.$gutter * 5;
+}
+  
+.form-control {
+  box-shadow: vars.$shadow;
+}

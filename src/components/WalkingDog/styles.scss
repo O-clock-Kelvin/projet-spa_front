@@ -1,0 +1,36 @@
+@use '../../styles/vars';
+
+.cards-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 50px 80px 0 80px; 
+}
+
+.card-img-top {
+    padding: vars.$gutter * 2;
+}
+
+.card-dog {
+    margin: 0;
+    width: 300px !important;
+    box-shadow: vars.$shadow;
+}
+
+.red {
+    color: rgb(240, 11, 11);
+}
+
+.orange {
+    color: orange;
+}
+
+.green {
+    color: rgb(17, 170, 17);
+}
+
+.gender {
+    width: 50px;
+    color: vars.$primary-color;
+}

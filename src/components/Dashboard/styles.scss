@@ -1,0 +1,20 @@
+@use '../../styles/vars';
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto ;
+}
+
+.card {
+    margin: vars.$gutter * 3;
+    border-radius: 10px !important;
+    border:none !important;
+    box-shadow: vars.$shadow;
+    background: vars.$primary-background-color !important;
+
+    &-img-top {
+        padding: vars.$gutter * 5;
+    }
+
+}
+

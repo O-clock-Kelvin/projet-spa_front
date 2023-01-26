@@ -73,3 +73,8 @@ a {
     text-align: center;
     margin-top: vars.$gutter * 5;
 }
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 100px auto ;
+}
