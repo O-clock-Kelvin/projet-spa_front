@@ -5,14 +5,25 @@ import Navbar from 'react-bootstrap/Navbar';
 import logo from '../../assets/logo.svg';
 import MainMenu from '../MainMenu/MainMenu';
 
-
 //SCSS
 import "./Header.scss";
 
 //Icons from IcoMoon
 import { ImUser } from "react-icons/im";
+import { useDispatch } from 'react-redux';
+
+// fonctions
+import { actionLogOut } from '../../actions/loginActions';
 
 function Header() {
+
+  const dispatch = useDispatch();
+
+  const handleOnClick = () => {
+    dispatch(actionLogOut());
+    localStorage.removeItem('token');
+  };
+
   return (
     <Navbar
       collapseOnSelect
@@ -30,7 +41,12 @@ function Header() {
 
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            <a href="#login">Déconnexion</a>
+            <a
+              href="/login"
+              onClick={handleOnClick}
+            >
+              Déconnexion
+            </a>
           </Navbar.Text>
           <button className="icon-user" ><ImUser /></button>
         </Navbar.Collapse>

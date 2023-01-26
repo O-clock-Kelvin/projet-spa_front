@@ -1,7 +1,8 @@
-import { LOGIN_FULFILLED, LOGIN_PENDING, LOGIN_REJECTED } from "../actions/loginActions";
+import { LOGIN_FULFILLED, LOGIN_PENDING, LOGIN_REJECTED, LOGOUT } from "../actions/loginActions";
+import { SET_TOKEN } from "../actions/tokenAction";
 
 const initialState = {
-    token: "",
+    token: null,
     admin: false,
     firstName: "",
     experience: "",
@@ -25,7 +26,20 @@ const loginSettingsReducer = ( state = initialState, action = {}) => {
             return {
                 ...state,
                 token: action.payload.token,
-                admin: action.payload.admin,
+                admin: false,
+                firstName: action.payload.firstName,
+                experience: action.payload.experience,
+                isLoading: false,
+                noAutorisation: false,
+                isConnected: true,
+            };
+        }  
+        case SET_TOKEN : {
+            console.log(SET_TOKEN);
+            return {
+                ...state,
+                token: action.payload.token,
+                admin: false,
                 firstName: action.payload.firstName,
                 experience: action.payload.experience,
                 isLoading: false,
@@ -40,6 +54,19 @@ const loginSettingsReducer = ( state = initialState, action = {}) => {
                 isLoading: false,
                 isConnected: false,
                 noAutorisation: true,
+                token: null
+            };
+        }
+        case LOGOUT: {
+            return {
+                ...state,
+                admin: false,
+                firstName: "",
+                experience: "",
+                isLoading: false,
+                isConnected: false,
+                noAutorisation: false,
+                token: null,
             };
         }
         default: {
