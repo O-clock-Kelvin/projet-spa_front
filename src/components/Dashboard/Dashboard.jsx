@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 import { useSelector } from 'react-redux';
 
 // images
-import womenWalkingDog from '../../assets/images/women-walks-dog.png';
+import Volunteer from '../../assets/images/volunteer-with-dog.png';
 import DogAndCat from '../../assets/images/dog-and-cat.png';
 import DogHugsCat from '../../assets/images/dog-hugs-cat.png';
 
@@ -27,23 +27,23 @@ function Dashboard() {
       <div className='dashboard-container'>
         <CardGroup>
           <Card>
-            <Card.Img className='dashboard-container' variant="top" src={DogAndCat} />
+            <Card.Img variant="top" src={DogAndCat} />
             <Card.Body>
-              <Button href="/create/card" variant="primary" type="submit">Liste des Animaux</Button>
+              <Button href="/create/card" variant="primary" type="submit">Voir tous les animaux</Button>
             </Card.Body>
           </Card>
 
           <Card>
-            <Card.Img variant="top" src={womenWalkingDog} />
+            <Card.Img variant="top" src={Volunteer} />
             <Card.Body>
-              <Button href="/create/card" variant="primary" type="submit">Créer un Bénévole</Button>
+              <Button href="/create/card" variant="primary" type="submit">Créer un bénévole</Button>
             </Card.Body>
           </Card>
 
           <Card>
             <Card.Img variant="top" src={DogHugsCat} />
             <Card.Body>
-              <Button href="/create/card" variant="primary" type="submit">Créer Animal</Button>
+              <Button href="/create/card" variant="primary" type="submit">Créer un animal</Button>
             </Card.Body>
           </Card>
         </CardGroup>
