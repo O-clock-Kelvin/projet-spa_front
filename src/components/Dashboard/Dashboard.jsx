@@ -36,7 +36,7 @@ function Dashboard() {
           <Card>
             <Card.Img variant="top" src={Volunteer} />
             <Card.Body>
-              <Button href="/create/card" variant="primary" type="submit">Créer un bénévole</Button>
+              <Button href="/create/user" variant="primary" type="submit">Créer un bénévole</Button>
             </Card.Body>
           </Card>
 
