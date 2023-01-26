@@ -7,11 +7,13 @@ import MobileHeader from '../MobileHeader/MobileHeader';
 import LoginForm from '../LoginForm/LoginForm';
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
+import DashboardVolunteerCreation from '../DashboardVolunteerCreation/DashboardVolunteerCreation';
 import PrivateRoutes from '../PrivateRoutes/PrivateRoutes';
 import PrivateRoutesAdmin from '../PrivateRoutesAdmin/PrivateRoutesAdmin';
 import Error404 from '../Error404/Error404';
 import WalkingDog from '../WalkingDog/WalkingDog';
 import VisitsCats from '../VisitsCats/VisitsCats';
+
 
 // fonctions
 import { useSelector } from 'react-redux';
@@ -20,6 +22,7 @@ import { actionSetToken } from '../../actions/tokenAction';
 import './styles.scss';
 
 import { useDispatch } from 'react-redux';
+
 function App() {
 
   const isConnected = useSelector((fullstate) => fullstate.loginSettings.isConnected);
@@ -101,6 +104,10 @@ function App() {
         <Route
           path="*"
           element={<Error404 />}
+        />
+          <Route
+          path="/admin/create/user"
+          element={<DashboardVolunteerCreation />}
         />
        </Routes>
 
