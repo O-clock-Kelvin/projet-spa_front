@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+/** @format */
+
+import React, { useEffect, useState } from 'react';
 
 // importation composant bootstrap
 import Card from 'react-bootstrap/Card';
@@ -8,96 +10,109 @@ import FilterDog from '../FilterDog/FilterDog';
 import './styles.scss';
 import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
 import { ImEqualizer } from 'react-icons/im';
+import { useQuery } from 'react-query';
 
 // images
 import Diego from '../../assets/images/Diego.jpeg';
+import { getDogs } from '../../requests/getDogs';
 
 // fonctions
-import { getDogs } from '../../requetes/getDogs';
-
+// import { getDogs } from '../../requetes/getDogs';
 
 function WalkingDog() {
+	// const dogs = getDogs();
+	// console.log(dogs);
+	const { isLoading, error, data, isFetching } = useQuery('repoData', getDogs);
 
-    const dogs = getDogs();
-    console.log(dogs);
+	useEffect(() => {
+		console.log('==============================================');
+		console.log('loading', isLoading);
+		console.log('error', error);
+		console.log('data', data);
+		console.log('isFetching', data);
+	}, [isLoading, error, data, isFetching]);
 
-    const [filter, setFilter] = useState(false);
+	const [filter, setFilter] = useState(false);
 
-    const handleOnClick = () => {
-        console.log("click");
-        setFilter(true);
-    };
+	const handleOnClick = () => {
+		console.log('click');
+		setFilter(true);
+	};
 
-  return (
-    <>
-        <h1 className='title-page'>Sortir un chien</h1>
-        <div><ImEqualizer
-            className='filter' 
-            size={30}
-            onClick={handleOnClick}
-        /></div>
-        {filter && <FilterDog />}
-        <div className='cards-container'>
-            <Card>
-                <Card.Img variant="top" className="card-dog" src={Diego} />
-                <Card.Body>
-                    <Card.Title>Milou</Card.Title>
-                    <Card.Text>
-                        <span className="age">2 ans</span>
-                        <span><BiFemaleSign className="gender" size={30}/></span>
-                    </Card.Text>
-                    <Card.Text className="last-walking red">
-                        Dernière sortie : 2 jours 15 heures
-                    </Card.Text>
-                </Card.Body>
-            </Card>
+	return (
+		<>
+			<h1 className='title-page'>Sortir un chien</h1>
+			<div>
+				<ImEqualizer className='filter' size={30} onClick={handleOnClick} />
+			</div>
+			{filter && <FilterDog />}
+			<div className='cards-container'>
+				<Card>
+					<Card.Img variant='top' className='card-dog' src={Diego} />
+					<Card.Body>
+						<Card.Title>Milou</Card.Title>
+						<Card.Text>
+							<span className='age'>2 ans</span>
+							<span>
+								<BiFemaleSign className='gender' size={30} />
+							</span>
+						</Card.Text>
+						<Card.Text className='last-walking red'>
+							Dernière sortie : 2 jours 15 heures
+						</Card.Text>
+					</Card.Body>
+				</Card>
 
-            <Card>
-                <Card.Img variant="top"  className="card-dog" src={Diego} />
-                <Card.Body>
-                    <Card.Title>Milou</Card.Title>
-                    <Card.Text>
-                        <span className="age">2 ans</span>
-                        <span className="gender"><BiMaleSign className="gender" size={30}/></span>
-                    </Card.Text>
-                    <Card.Text className="last-walking green">
-                        Dernière sortie : 0 jours 15 heures
-                    </Card.Text>
-                </Card.Body>
-            </Card>
+				<Card>
+					<Card.Img variant='top' className='card-dog' src={Diego} />
+					<Card.Body>
+						<Card.Title>Milou</Card.Title>
+						<Card.Text>
+							<span className='age'>2 ans</span>
+							<span className='gender'>
+								<BiMaleSign className='gender' size={30} />
+							</span>
+						</Card.Text>
+						<Card.Text className='last-walking green'>
+							Dernière sortie : 0 jours 15 heures
+						</Card.Text>
+					</Card.Body>
+				</Card>
 
-            <Card>
-                <Card.Img variant="top"  className="card-dog" src={Diego} />
-                <Card.Body>
-                    <Card.Title>Nina</Card.Title>
-                    <Card.Text>
-                        <span className="age">2 ans</span>
-                        <span className="gender"><BiMaleSign className="gender" size={30}/></span>
-                    </Card.Text>
-                    <Card.Text className="last-walking orange">
-                        Dernière sortie : 1 jours 15 heures
-                    </Card.Text>
-                </Card.Body>
-            </Card>
+				<Card>
+					<Card.Img variant='top' className='card-dog' src={Diego} />
+					<Card.Body>
+						<Card.Title>Nina</Card.Title>
+						<Card.Text>
+							<span className='age'>2 ans</span>
+							<span className='gender'>
+								<BiMaleSign className='gender' size={30} />
+							</span>
+						</Card.Text>
+						<Card.Text className='last-walking orange'>
+							Dernière sortie : 1 jours 15 heures
+						</Card.Text>
+					</Card.Body>
+				</Card>
 
-            <Card>
-                <Card.Img variant="top"  className="card-dog" src={Diego} />
-                <Card.Body>
-                    <Card.Title>Nina</Card.Title>
-                    <Card.Text>
-                        <span className="age">2 ans</span>
-                        <span className="gender"><BiFemaleSign className="gender" size={30}/></span>
-                    </Card.Text>
-                    <Card.Text className="last-walking red">
-                        Dernière sortie : 2 jours 15 heures
-                    </Card.Text>
-                </Card.Body>
-            </Card>
-
-        </div>
-    </>
-
-  );
+				<Card>
+					<Card.Img variant='top' className='card-dog' src={Diego} />
+					<Card.Body>
+						<Card.Title>Nina</Card.Title>
+						<Card.Text>
+							<span className='age'>2 ans</span>
+							<span className='gender'>
+								<BiFemaleSign className='gender' size={30} />
+							</span>
+						</Card.Text>
+						<Card.Text className='last-walking red'>
+							Dernière sortie : 2 jours 15 heures
+						</Card.Text>
+					</Card.Body>
+				</Card>
+			</div>
+		</>
+	);
 }
 
 export default React.memo(WalkingDog);
