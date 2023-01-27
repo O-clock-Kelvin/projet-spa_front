@@ -24,6 +24,7 @@ import manWalkingDog from '../../assets/images/clipart1525964.png';
 import { ImUser, ImLock } from 'react-icons/im';
 
 function LoginForm() {
+	
 	// utilisation du state pour variables utiles dans le composant
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');

@@ -36,7 +36,7 @@ const loginSettingsReducer = (state = initialState, action = {}) => {
 				token: action.payload.token,
 				admin: action.payload.admin,
 				firstName: action.payload.firstName,
-				experience: action.payload.experience,
+				experience: "action.payload.experience",
 				isLoading: false,
 				noAutorisation: false,
 				isConnected: true,

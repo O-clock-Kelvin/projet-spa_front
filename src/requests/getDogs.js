@@ -1,13 +1,13 @@
-/** @format */
-
 import api from '../api';
 
-export const getDogs = async () => {
-	// const { data } = await api.get(
-	// 	'/animals?species=dog&volunteer_experience=medium'
-	// );
-	// // console.log(data);
-	// return data;
-
-	return api.get('/animals?species=dog&volunteer_experience=medium');
+export const getDogsByExperience = async (experience) => {
+	return api.get(`/animals?species=dog&volunteer_experience=${experience}`);
 };
+
+export const getDogsByFilter = async (experience, gabaritValue, sexValue, tags, startYearBirthday, endYearBirthday) => {
+	console.log(experience, gabaritValue, sexValue, tags, startYearBirthday, endYearBirthday);
+	return api.get(`/animals?species=dog&volunteer_experience=${experience}`);
+};
+
+
+// /animals?date[gte]=debut_annee_naissance&date[lte]=fin_annee_naissance

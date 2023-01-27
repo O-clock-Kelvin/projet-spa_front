@@ -1,15 +1,27 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React, { useState, useSelector, useEffect } from 'react';
+import { DateTime } from 'luxon';
+import { useQuery } from 'react-query';
+
+// composants
 import { ToggleButtonGroup } from 'react-bootstrap';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { DateTime } from 'luxon';
+
+// fonctions
+import { getDogsByFilter } from '../../requests/getDogs';
+
+// styles
 import './styles.scss';
 
 function FilterDog() {
+
+	const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
+	console.log(experience);
+
 	const [gabaritValue, setGabaritValue] = useState('big');
 	const [sexValue, setSexValue] = useState('male');
 	const [valueAge, setvalueAge] = useState(5);
@@ -33,25 +45,25 @@ function FilterDog() {
 
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
-		console.log(e.target);
-		console.log(gabaritValue, sexValue, valueAge, tags);
+
+        // conversion de l'age en un intervalle de dates (3ans => né entre le 01/01/2020 et le 31/12/2020)
 		const now = DateTime.now();
+		const birthday = now.minus({ years: valueAge });
+		const startYearBirthday = birthday.startOf('year').toISODate();
+		const endYearBirthday = birthday.endOf('year').toISODate();
 
-		const annee_de_naissance = now.minus({ years: valueAge });
+        // envoi de toutes les données du filtre à getDogsByFilter qui va faire la requête axios
+		const { isLoading, error, data, isFetching } = useQuery('repoData', () => getDogsByFilter(experience, gabaritValue, sexValue, tags, startYearBirthday, endYearBirthday));
 
-		const debut_année_naissance = annee_de_naissance
-			.startOf('year')
-			.toISODate();
-		const fin_année_naissance = annee_de_naissance.endOf('year').toISODate();
-		console.log(debut_année_naissance);
-		console.log(fin_année_naissance);
-
-		/**
-	
-		 * &
-		 * /animals?date[gte]=debut_annee_naissance&date[lte]=fin_annee_naissance
-		 */
+		useEffect(() => {
+			console.log('loading', isLoading);
+			console.log('error', error);
+			console.log('data', data);
+			console.log('isFetching', data);
+		}, [isLoading, error, data, isFetching]);
 	};
+
+	
 
 	return (
 		<div className='modal show' style={{ display: 'block', position: 'fixed' }}>
