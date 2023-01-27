@@ -1,0 +1,31 @@
+@use '../../styles/vars';
+
+h3 {
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.btn-selectionned {
+    background-color: red;
+}
+
+.not-selectionned {
+    background-color: vars.$primary-color-hoover !important;
+}
+
+.filter-part {
+    text-align: center;
+    margin: vars.$gutter *2;
+}
+
+label {
+    border:1px solid #ccc;
+    padding:10px;
+    margin:0 0 10px;
+    display:block; 
+   }
+   
+   label:hover {
+    background:#eee;
+    cursor:pointer;
+   }
