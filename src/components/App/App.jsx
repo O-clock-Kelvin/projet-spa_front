@@ -99,7 +99,7 @@ function App() {
 							) : isConnected && admin ? (
 								<Navigate to='/admin' replace />
 							) : (
-								<LoginForm />
+								<Navigate to='/login' replace />
 							)
 						}
 					/>
