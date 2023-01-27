@@ -15,6 +15,7 @@ import PrivateRoutesAdmin from '../PrivateRoutesAdmin/PrivateRoutesAdmin';
 import Error404 from '../Error404/Error404';
 import WalkingDog from '../WalkingDog/WalkingDog';
 import VisitsCats from '../VisitsCats/VisitsCats';
+import Footer from '../Footer/Footer';
 
 // fonctions
 import { useSelector } from 'react-redux';
@@ -25,6 +26,10 @@ import './styles.scss';
 import { useDispatch } from 'react-redux';
 
 function App() {
+
+
+  
+
 	const { isConnected, admin, token, authLoaded } = useSelector(
 		(fullstate) => fullstate.loginSettings
 	);
@@ -104,6 +109,7 @@ function App() {
 					/>
 					<Route path='*' element={<Error404 />} />
 				</Routes>
+         <Footer />
 			</div>
 		);
 	} else {
