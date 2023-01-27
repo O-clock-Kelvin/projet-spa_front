@@ -35,6 +35,8 @@ function FilterDog() {
         console.log(e.target);
         console.log(gabaritValue, sexValue, valueAge, tags);
     };
+
+
     
     return (
 
@@ -54,7 +56,7 @@ function FilterDog() {
 
                             <div className='filter-part'>
                                 <h3 className='category'>Gabarit</h3>
-                                <ToggleButtonGroup type="radio" name="gabarit" defaultValue={gabaritValue}>
+                                <ToggleButtonGroup type="radio" name="size" defaultValue={gabaritValue}>
                                     <ToggleButton
                                         id="tbg-radio-1" 
                                         value="big" 
@@ -81,7 +83,7 @@ function FilterDog() {
 
                             <div className='filter-part'>
                                 <h3 className='category'>Sexe</h3>
-                                <ToggleButtonGroup type="radio" name="sex" defaultValue={sexValue}>
+                                <ToggleButtonGroup type="radio" name="gender" defaultValue={sexValue}>
                                     <ToggleButton
                                         id="tbg-radio-4"
                                         value="male" 

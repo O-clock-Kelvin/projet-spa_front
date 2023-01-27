@@ -12,7 +12,14 @@ import { ImEqualizer } from 'react-icons/im';
 // images
 import Diego from '../../assets/images/Diego.jpeg';
 
+// fonctions
+import { getDogs } from '../../requetes/getDogs';
+
+
 function WalkingDog() {
+
+    const dogs = getDogs();
+    console.log(dogs);
 
     const [filter, setFilter] = useState(false);
 
