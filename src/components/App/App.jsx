@@ -32,12 +32,6 @@ function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		console.log('==== LOGIN SETTINGS=====');
-		console.log('Connection ', isConnected);
-		console.log('Admin', admin);
-		console.log('token', token);
-	}, [isConnected, admin, token]);
-	useEffect(() => {
 		try {
 			// on vérifie si on a un token déjà présent dans le localstorage
 			const tokenFromLocalStorage = localStorage.getItem('token');
