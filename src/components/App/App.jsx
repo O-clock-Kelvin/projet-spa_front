@@ -13,6 +13,7 @@ import PrivateRoutesAdmin from '../PrivateRoutesAdmin/PrivateRoutesAdmin';
 import Error404 from '../Error404/Error404';
 import WalkingDog from '../WalkingDog/WalkingDog';
 import VisitsCats from '../VisitsCats/VisitsCats';
+import Footer from '../Footer/Footer';
 
 
 // fonctions
@@ -110,6 +111,8 @@ function App() {
           element={<DashboardVolunteerCreation />}
         />
        </Routes>
+      
+      <Footer />
 
     </div>
   );
