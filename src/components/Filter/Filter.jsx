@@ -1,32 +1,33 @@
-import React from 'react';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import FilterDog from '../FilterDog/FilterDog';
+// import React from 'react';
 
-import './styles.scss';
+// import Button from 'react-bootstrap/Button';
+// import FilterDog from '../FilterDog/FilterDog';
 
-function Filter() {
-  return (
-    <div
-      className="modal show"
-      style={{ display: 'block', position: 'fixed' }}
-    >
-      <Modal.Dialog>
-        <Modal.Header closeButton>
-          <Modal.Title>Filtres</Modal.Title>
-        </Modal.Header>
+// import './styles.scss';
 
-        <Modal.Body>
-          <FilterDog />
-        </Modal.Body>
+// function Filter() {
+//   return (
+//     <div
+//       className="modal show"
+//       style={{ display: 'block', position: 'fixed' }}
+//     >
+//       <Modal.Dialog>
+//         <Modal.Header closeButton>
+//           <Modal.Title>Filtres</Modal.Title>
+//         </Modal.Header>
 
-        <Modal.Footer>
-          <Button variant="secondary">Annuler</Button>
-          <Button variant="primary">Valider</Button>
-        </Modal.Footer>
-      </Modal.Dialog>
-    </div>
-  );
-}
+//         <Modal.Body>
+//           <FilterDog />
+//         </Modal.Body>
 
-export default React.memo(Filter);
+//         <Modal.Footer>
+//           <Button variant="secondary">Annuler</Button>
+//           <Button
+//             variant="primary">Valider</Button>
+//         </Modal.Footer>
+//       </Modal.Dialog>
+//     </div>
+//   );
+// }
+
+// export default React.memo(Filter);

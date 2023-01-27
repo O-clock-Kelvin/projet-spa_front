@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 // importation composant bootstrap
 import Card from 'react-bootstrap/Card';
-import Filter from '../Filter/Filter';
+import FilterDog from '../FilterDog/FilterDog';
 
 // style
 import './styles.scss';
@@ -29,7 +29,7 @@ function WalkingDog() {
             size={30}
             onClick={handleOnClick}
         /></div>
-        {filter && <Filter />}
+        {filter && <FilterDog />}
         <div className='cards-container'>
             <Card>
                 <Card.Img variant="top" className="card-dog" src={Diego} />

@@ -59,6 +59,7 @@ function Home() {
             </Card.Body>
           </Link>
         </Card>
+
       </div>
     </>  
   );
