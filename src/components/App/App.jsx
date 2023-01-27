@@ -1,5 +1,7 @@
+/** @format */
+
 import React, { useEffect } from 'react';
-import { Routes, Route, Navigate} from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 // composants
 import Header from '../Header/Header';
@@ -14,109 +16,101 @@ import Error404 from '../Error404/Error404';
 import WalkingDog from '../WalkingDog/WalkingDog';
 import VisitsCats from '../VisitsCats/VisitsCats';
 
-
 // fonctions
 import { useSelector } from 'react-redux';
-import { actionSetToken } from '../../actions/tokenAction';
+import { actionSetToken, actionTokenChecked } from '../../actions/tokenAction';
 
 import './styles.scss';
 
 import { useDispatch } from 'react-redux';
 
 function App() {
+	const { isConnected, admin, token, authLoaded } = useSelector(
+		(fullstate) => fullstate.loginSettings
+	);
 
-  const isConnected = useSelector((fullstate) => fullstate.loginSettings.isConnected);
-  const admin = useSelector((fullstate) => fullstate.loginSettings.admin);
-  const token = useSelector((fullstate) => fullstate.loginSettings.token);
+	const dispatch = useDispatch();
 
-  const dispatch = useDispatch();
+	useEffect(() => {
+		try {
+			// on vérifie si on a un token déjà présent dans le localstorage
+			const tokenFromLocalStorage = localStorage.getItem('token');
 
-  useEffect(() => {
-    try {
-      // on vérifie si on a un token déjà présent dans le localstorage
-      const tokenFromLocalStorage = localStorage.getItem('token');
-      
-      // si oui on l'envoie au state de redux
-      if (tokenFromLocalStorage) {
-        const parsedToken = JSON.parse(tokenFromLocalStorage);
-        dispatch(actionSetToken(parsedToken));
-      }
-    }
-    catch (err) {
-      console.log(err);
-    }
-  }, []);
+			// si oui on l'envoie au state de redux
+			if (tokenFromLocalStorage) {
+				const parsedToken = JSON.parse(tokenFromLocalStorage);
+				dispatch(actionSetToken(parsedToken));
+				dispatch(actionTokenChecked());
+			} else {
+				dispatch(actionTokenChecked());
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	}, []);
 
-  useEffect(() => {
-    // à chaque changement du token du state de redux, on le modifie dans le localstorage
-    if(token) {
-      const stringifiedToken = JSON.stringify(token);
-      localStorage.setItem('token', stringifiedToken);
-    }
-  }, [token]);
+	useEffect(() => {
+		// à chaque changement du token du state de redux, on le modifie dans le localstorage
+		if (token) {
+			const stringifiedToken = JSON.stringify(token);
+			localStorage.setItem('token', stringifiedToken);
+		}
+	}, [token]);
 
-  return (
-    <div className="app">
-     <div className="menu" >
-        <div className="menu-desktop">
-          <Header/>
-        </div>
-        <div  className="menu-mobile">
-          <MobileHeader/>
-        </div>
-      </div>
-      <Routes >
-        {/* pages accessibles à l'utilisateur connecté */}
-        <Route element={<PrivateRoutes />}>
-          <Route 
-            path="/home"
-            element={<Home />}
-          />
-          <Route 
-            path="/walkingdog"
-            element={<WalkingDog />}
-          />
-          <Route 
-            path="/visitscats"
-            element={<VisitsCats />}
-          />
-        </Route>
+	if (authLoaded) {
+		return (
+			<div className='app'>
+				<div className='menu'>
+					<div className='menu-desktop'>
+						<Header />
+					</div>
+					<div className='menu-mobile'>
+						<MobileHeader />
+					</div>
+				</div>
+				<Routes>
+					{/* pages accessibles à l'utilisateur connecté */}
+					<Route element={<PrivateRoutes />}>
+						<Route path='/home' element={<Home />} />
+						<Route path='/walkingdog' element={<WalkingDog />} />
+						<Route path='/visitscats' element={<VisitsCats />} />
+					</Route>
 
-        {/* pages accessibles à l'admin connecté */}
-        <Route element={<PrivateRoutesAdmin />}>
-          <Route
-            path="/admin"
-            element={<Dashboard />}
-          />
-        </Route>
+					{/* pages accessibles à l'admin connecté */}
+					<Route element={<PrivateRoutesAdmin />}>
+						<Route path='/admin' element={<Dashboard />} />
+						<Route
+							path='/admin/create/user'
+							element={<DashboardVolunteerCreation />}
+						/>
+					</Route>
 
-        <Route 
-          path="/" 
-          element={<Navigate to="/login" replace/>} 
-        />
-        <Route
-          path="/login"
-          element={
-            (isConnected && !admin) ? (<Navigate to="/home" replace/>) :
-            (isConnected && admin) ? (<Navigate to="/admin" replace/>) :
-            (<LoginForm />)}
-        />
-        <Route
-          path="*"
-          element={<Error404 />}
-        />
-          <Route
-          path="/admin/create/user"
-          element={<DashboardVolunteerCreation />}
-        />
-       </Routes>
-
-    </div>
-  );
+					{/* <Route path='/' element={<Navigate to='/login' replace />} /> */}
+					<Route
+						path='/'
+						element={
+							isConnected && !admin ? (
+								<Navigate to='/home' replace />
+							) : isConnected && admin ? (
+								<Navigate to='/admin' replace />
+							) : (
+								<LoginForm />
+							)
+						}
+					/>
+					<Route
+						path='/login'
+						element={isConnected ? <Navigate to='/' replace /> : <LoginForm />}
+					/>
+					<Route path='*' element={<Error404 />} />
+				</Routes>
+			</div>
+		);
+	} else {
+		return <p>Loading</p>;
+	}
 }
 
-App.propTypes = {
-  
-};
+App.propTypes = {};
 
 export default React.memo(App);
