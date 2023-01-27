@@ -1,7 +1,9 @@
+/** @format */
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-
+import { QueryClient, QueryClientProvider } from 'react-query';
 // module de react pour la gestion des routes
 import { BrowserRouter } from 'react-router-dom';
 
@@ -16,12 +18,16 @@ import './styles/index.scss';
 // insertion du composant App dans l'index.html
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+const queryClient = new QueryClient();
+
 root.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>
+	<Provider store={store}>
+		<BrowserRouter>
+			<QueryClientProvider client={queryClient}>
+				<App />
+			</QueryClientProvider>
+		</BrowserRouter>
+	</Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
