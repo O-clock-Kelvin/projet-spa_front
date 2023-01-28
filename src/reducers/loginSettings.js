@@ -6,6 +6,7 @@ import {
 	LOGIN_REJECTED,
 	LOGOUT,
 } from '../actions/loginActions';
+
 import { SET_TOKEN, TOKEN_CHECKED } from '../actions/tokenAction';
 
 const initialState = {
@@ -36,7 +37,7 @@ const loginSettingsReducer = (state = initialState, action = {}) => {
 				token: action.payload.token,
 				admin: action.payload.admin,
 				firstName: action.payload.firstName,
-				experience: "action.payload.experience",
+				experience: action.payload.experience,
 				isLoading: false,
 				noAutorisation: false,
 				isConnected: true,

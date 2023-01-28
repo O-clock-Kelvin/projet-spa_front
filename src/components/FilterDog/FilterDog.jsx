@@ -1,7 +1,7 @@
 /** @format */
 
-import React, { useState, useSelector, useEffect } from 'react';
-import { DateTime } from 'luxon';
+import React, { useState, useEffect } from 'react';
+
 import { useQuery } from 'react-query';
 
 // composants
@@ -13,13 +13,15 @@ import Button from 'react-bootstrap/Button';
 
 // fonctions
 import { getDogsByFilter } from '../../requests/getDogs';
+import { convertAgeInIntervalDate } from '../../utils/convert';
 
 // styles
 import './styles.scss';
 
 function FilterDog() {
 
-	const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
+	// const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
+	const experience = 'beginner';
 	console.log(experience);
 
 	const [gabaritValue, setGabaritValue] = useState('big');
@@ -47,10 +49,8 @@ function FilterDog() {
 		e.preventDefault();
 
         // conversion de l'age en un intervalle de dates (3ans => né entre le 01/01/2020 et le 31/12/2020)
-		const now = DateTime.now();
-		const birthday = now.minus({ years: valueAge });
-		const startYearBirthday = birthday.startOf('year').toISODate();
-		const endYearBirthday = birthday.endOf('year').toISODate();
+		const {startYearBirthday, endYearBirthday} = convertAgeInIntervalDate(valueAge);
+		
 
         // envoi de toutes les données du filtre à getDogsByFilter qui va faire la requête axios
 		const { isLoading, error, data, isFetching } = useQuery('repoData', () => getDogsByFilter(experience, gabaritValue, sexValue, tags, startYearBirthday, endYearBirthday));

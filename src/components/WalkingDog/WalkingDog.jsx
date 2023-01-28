@@ -18,7 +18,7 @@ import Diego from '../../assets/images/Diego.jpeg';
 
 // fonctions
 import { getDogsByExperience } from '../../requests/getDogs';
-
+import { convertBirthdayInAge } from '../../utils/convert';
 
 function WalkingDog() {
 
@@ -28,13 +28,21 @@ function WalkingDog() {
     // si elle se passe bien elle nous renvoie le résultat sous forme d'objet : data
     // cet objet contient une propriété "data" qui a pour valeur toues les objets correspondant à la requête
 	const { isLoading, error, data, isFetching } = useQuery('repoData', () => getDogsByExperience(experience));
-
+	
 	useEffect(() => {
 		console.log('loading', isLoading);
 		console.log('error', error);
 		console.log('data', data);
 		console.log('isFetching', data);
 	}, [isLoading, error, data, isFetching]);
+
+	useEffect(() => {
+		console.log(data);
+		if (data) {
+			console.log(data.data);
+			// data.data.map((dog) => convertBirthdayInAge(dog.age));
+		}
+	}, [data]);
 
 	const [filter, setFilter] = useState(false);
 
@@ -62,7 +70,7 @@ function WalkingDog() {
 					<Card.Body>
 						<Card.Title>{dog.name}</Card.Title>
 						<Card.Text>
-							<span className='age'>{dog.age}</span>
+							<span className='age'>{(convertBirthdayInAge(dog.age))} ans</span>
 							<span>
                                 {((dog.gender) === 'MALE') ? 
                                     (<BiMaleSign className='gender' size={30} />):
