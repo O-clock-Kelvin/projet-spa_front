@@ -35,10 +35,13 @@ const schema = yup.object().shape({
  * ProfileEditor
  * Composant permettant à un utilisateur d'éditer son profile
  */
-const ProfileEditor = ({ user, callback }) => {
+const ProfileEditor = ({ user, closeEditor, setUser }) => {
 	const { isLoading, mutate, error } = useMutation({
 		mutationFn: async ({ id, newUserData }) => {
 			await usersRequest.update(id, newUserData);
+		},
+		onSuccess: (_, data) => {
+			setUser(data.newUserData);
 		},
 	});
 
@@ -46,6 +49,8 @@ const ProfileEditor = ({ user, callback }) => {
 		register,
 		handleSubmit,
 		// formState: { errors },
+
+		// getValues,
 	} = useForm({
 		defaultValues: {
 			email: user.email,
@@ -101,7 +106,7 @@ const ProfileEditor = ({ user, callback }) => {
 				{!isLoading ? (
 					<>
 						<button type='submit'>Valider</button>
-						<span onClick={() => callback()} role='button' tabIndex='0'>
+						<span onClick={() => closeEditor()} role='button' tabIndex='0'>
 							annuler
 						</span>
 					</>
@@ -114,7 +119,8 @@ const ProfileEditor = ({ user, callback }) => {
 };
 ProfileEditor.propTypes = {
 	user: PropTypes.object,
-	callback: PropTypes.func,
+	closeEditor: PropTypes.func,
+	setUser: PropTypes.func,
 };
 
 /**
@@ -123,13 +129,18 @@ ProfileEditor.propTypes = {
  */
 const ProfilePage = () => {
 	const { id } = useSelector((fullstate) => fullstate.loginSettings);
-
-	const {
-		isLoading: loading,
-		data,
-		error,
-	} = useQuery('LoadProfile', () => usersRequest.getProfile(id));
-	// eslint-disable-next-line no-unused-vars
+	const [user, setUserData] = useState(null);
+	const { isLoading: loading, error } = useQuery(
+		'LoadProfile',
+		() => usersRequest.getProfile(id),
+		{
+			onSuccess: (data) => {
+				if (data.data) {
+					setUserData(data.data);
+				}
+			},
+		}
+	);
 
 	const [showEditor, setShowEditor] = useState(false);
 
@@ -161,40 +172,52 @@ const ProfilePage = () => {
 		}
 	};
 	if (!loading) {
-		if (!error && data) {
+		if (!error && user) {
 			return (
 				<div>
-					{data.data.firstname} {data.data.name}
+					{user.firstname} {user.name}
 					<br />
-					{data.data.admin ? 'Employé' : 'Bénévole'}
+					{user.admin ? 'Employé' : 'Bénévole'}
 					<div>
 						<img
 							width={100}
 							src={
-								data.data.profile_picture
-									? data.data.profile_picture
+								user.profile_picture
+									? user.profile_picture
 									: 'https://thispersondoesnotexist.com/image'
 							}
-							alt={` ${data.data.firstname} ${data.data.name}`}
+							alt={` ${user.firstname} ${user.name}`}
 						/>
 					</div>
 					<div>
 						{showEditor ? (
 							<ProfileEditor
-								user={data.data}
-								callback={() => setShowEditor(false)}
+								user={user}
+								setUser={(newUser) => {
+									setUserData({
+										...user,
+										...newUser,
+									});
+								}}
+								closeEditor={() => {
+									setShowEditor(false);
+								}}
 							/>
 						) : (
 							<>
 								<ul>
-									<li>email: {data.data.email}</li>
-									<li>prénom: {data.data.firstname}</li>
-									<li>nom: {data.data.name}</li>
-									<li>role: {data.data.admin ? 'employé' : 'bénévole'}</li>
+									<li>email: {user.email}</li>
+									<li>prénom: {user.firstname}</li>
+									<li>nom: {user.name}</li>
+									<li>role: {user.admin ? 'employé' : 'bénévole'}</li>
 									<li>expérience: {renderExperienceLevel()}</li>
-									<li>Téléphone: {data.data.phone_number}</li>
+									<li>Téléphone: {user.phone_number}</li>
 								</ul>
-								<button onClick={() => setShowEditor(true)}>
+								<button
+									onClick={() => {
+										setShowEditor(true);
+									}}
+								>
 									Editer mes informations
 								</button>
 							</>
