@@ -3,12 +3,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery, useMutation } from 'react-query';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import usersRequest from '../../requests/users.requests';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { actionSetUserName } from '../../actions/userAction';
 
 const schema = yup.object().shape({
 	firstname: yup
@@ -37,14 +36,9 @@ const schema = yup.object().shape({
  * Composant permettant à un utilisateur d'éditer son profile
  */
 const ProfileEditor = ({ user, callback }) => {
-	const dispatch = useDispatch();
 	const { isLoading, mutate, error } = useMutation({
 		mutationFn: async ({ id, newUserData }) => {
 			await usersRequest.update(id, newUserData);
-		},
-		onSuccess: (_, variables) => {
-			console.log('SUCCESS DATA', variables);
-			dispatch(actionSetUserName(variables.newUserData.firstname));
 		},
 	});
 
