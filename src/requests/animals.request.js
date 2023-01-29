@@ -1,15 +1,14 @@
-/** @format */
-
 import api from '../api';
 import qs from 'qs';
+
 const animalsRequest = {
 	get: (id, options) => {
 		/**
 		 * Création de la liste des includes
 		 */
 		let includes = [];
-		options.includeTags && includes.push('tags');
-		options.includeWalks && includes.push('walks');
+		options?.includeTags && includes.push('tags');
+		options?.includeWalks && includes.push('walks');
 
 		/**
 		 * Création des objets à inclure dans la query
@@ -25,9 +24,12 @@ const animalsRequest = {
 			skipNulls: true,
 			arrayFormat: 'comma',
 		});
-		console.log(query);
 
 		return api.get(`/animals/${id}?${query}`);
+	},
+
+	getWalks: (animal_id) => {
+		return api.get(`/animals/${animal_id}/walks`);
 	},
 };
 

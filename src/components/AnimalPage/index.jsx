@@ -1,10 +1,12 @@
-/** @format */
-
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import animalsRequest from '../../requests/animals.request';
 import PropTypes from 'prop-types';
+
+import StartWalkButton from '../WalkStartButton';
+import AnimalWalksList from '../AnimalWalksList';
+
 const TagsList = ({ tags }) => {
 	if (tags) {
 		return (
@@ -25,24 +27,32 @@ TagsList.propTypes = {
 	tags: PropTypes.array,
 };
 
+const renderDefaultAnimalPicture = (specie) => {
+	switch (specie) {
+		case 'CAT':
+			return 'https://api.kyivindependent.com/storage/2021/12/loveyoustepan.-instagram-1200x630.jpg';
+		case 'DOG':
+			return 'https://images.dog.ceo/breeds/appenzeller/n02107908_2809.jpg';
+		default:
+			return 'https://play-lh.googleusercontent.com/8QnH9AhsRfhPott7REiFUXXJLRIxi8KMAP0mFAZpYgd44OTOCtScwXeb5oPe1E4eP4oF';
+	}
+};
+
 const AnimalPage = () => {
 	let { animalId } = useParams();
 	const [animal, setAnimal] = useState();
 	// use query
-	const { data, error, isLoading } = useQuery('getAnimal', {
+	const { error, isLoading } = useQuery('getAnimal', {
 		queryFn: async () =>
 			animalsRequest.get(animalId, {
 				includeTags: true,
 				includeWalks: true,
 			}),
+
 		onSuccess: (data) => {
 			setAnimal(data.data);
 		},
 	});
-
-	useEffect(() => {
-		console.log('REQ', data, error, isLoading);
-	}, [data, error, isLoading]);
 
 	const errorHandler = (error) => {
 		if (error && error.response?.data?.message) {
@@ -68,15 +78,26 @@ const AnimalPage = () => {
 						<img
 							width={200}
 							src={
-								animal.photo_url ||
-								'https://images.dog.ceo/breeds/appenzeller/n02107908_2809.jpg'
+								animal.url_image || renderDefaultAnimalPicture(animal.species)
 							}
 							alt={animal.name}
 						/>
 						<TagsList tags={animal.tags} />
-						cage: {animal.box_id}
-						<p>{JSON.stringify(animal)}</p>
+						{animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id}
+						<br />
+						{animal.species === 'DOG' && <StartWalkButton animal={animal} />}
 					</div>
+					<div>
+						<h4>Notes sur l'animal</h4>
+						<div>{animal.bio ?? "Cet animal n'a pas de bio"}</div>
+					</div>
+
+					{animal.species === 'DOG' && (
+						<>
+							<h4>Dernières balades</h4>
+							<AnimalWalksList animalId={animal.id} />
+						</>
+					)}
 				</>
 			);
 		} else {
