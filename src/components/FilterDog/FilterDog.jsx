@@ -1,8 +1,9 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-import { useQuery } from 'react-query';
+// import { useQuery } from 'react-query';
 
 // composants
 import { ToggleButtonGroup } from 'react-bootstrap';
@@ -12,17 +13,18 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 // fonctions
-import { getDogsByFilter } from '../../requests/getDogs';
-import { convertAgeInIntervalDate } from '../../utils/convert';
+// import { convertAgeInIntervalDate } from '../../utils/convert';
 
 // styles
 import './styles.scss';
 
-function FilterDog() {
+function FilterDog({
+	getDogsByFilter,
+	setFilteredDogs
+}) {
 
 	// const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
 	const experience = 'beginner';
-	console.log(experience);
 
 	const [gabaritValue, setGabaritValue] = useState('big');
 	const [sexValue, setSexValue] = useState('male');
@@ -45,26 +47,17 @@ function FilterDog() {
 		setTags((oldState) => [...oldState, e.target.value]);
 	};
 
-	const handleOnSubmit = (e) => {
+	const handleOnSubmit = async (e) => {
 		e.preventDefault();
 
         // conversion de l'age en un intervalle de dates (3ans => né entre le 01/01/2020 et le 31/12/2020)
-		const {startYearBirthday, endYearBirthday} = convertAgeInIntervalDate(valueAge);
+		// const {startYearBirthday, endYearBirthday} = convertAgeInIntervalDate(valueAge);
 		
-
-        // envoi de toutes les données du filtre à getDogsByFilter qui va faire la requête axios
-		const { isLoading, error, data, isFetching } = useQuery('repoData', () => getDogsByFilter(experience, gabaritValue, sexValue, tags, startYearBirthday, endYearBirthday));
-
-		useEffect(() => {
-			console.log('loading', isLoading);
-			console.log('error', error);
-			console.log('data', data);
-			console.log('isFetching', data);
-		}, [isLoading, error, data, isFetching]);
+		const data = await getDogsByFilter(experience, gabaritValue, sexValue);
+		console.log(data);
+		setFilteredDogs(data.data);
 	};
-
 	
-
 	return (
 		<div className='modal show' style={{ display: 'block', position: 'fixed' }}>
 			<Modal.Dialog>
@@ -173,5 +166,10 @@ function FilterDog() {
 		</div>
 	);
 }
+
+FilterDog.propTypes = {
+	getDogsByFilter: PropTypes.func.isRequired,
+	setFilteredDogs: PropTypes.func.isRequired
+};
 
 export default React.memo(FilterDog);

@@ -18,7 +18,13 @@ import './styles/index.scss';
 // insertion du composant App dans l'index.html
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+		},
+	},
+  });
 
 root.render(
 	<Provider store={store}>
