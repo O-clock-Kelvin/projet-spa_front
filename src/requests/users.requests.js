@@ -1,4 +1,3 @@
-/** @format */
 import api from '../api';
 const usersRequest = {
 	getProfile: (id) => {

@@ -17,6 +17,7 @@ import Error404 from '../Error404/Error404';
 import WalkingDog from '../WalkingDog/WalkingDog';
 import VisitsCats from '../VisitsCats/VisitsCats';
 import Footer from '../Footer/Footer';
+import AnimalPage from '../AnimalPage';
 
 // fonctions
 import { useSelector } from 'react-redux';
@@ -98,6 +99,12 @@ function App() {
 						path='/profile'
 						element={
 							isConnected ? <ProfilePage /> : <Navigate to='/login' replace />
+						}
+					/>
+					<Route
+						path='/animal/:animalId'
+						element={
+							isConnected ? <AnimalPage /> : <Navigate to='/login' replace />
 						}
 					/>
 
