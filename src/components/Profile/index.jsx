@@ -210,7 +210,7 @@ const ProfilePage = () => {
 									<li>prénom: {user.firstname}</li>
 									<li>nom: {user.name}</li>
 									<li>role: {user.admin ? 'employé' : 'bénévole'}</li>
-									<li>expérience: {renderExperienceLevel()}</li>
+									<li>expérience: {renderExperienceLevel(user.experience)}</li>
 									<li>Téléphone: {user.phone_number}</li>
 								</ul>
 								<button
