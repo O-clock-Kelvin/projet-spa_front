@@ -25,6 +25,7 @@ import './styles.scss';
 
 import { useDispatch } from 'react-redux';
 import ProfilePage from '../Profile';
+import ListAnimals from '../ListAnimals/ListAnimals';
 
 function App() {
 	const { isConnected, admin, token, authLoaded } = useSelector(
@@ -74,8 +75,9 @@ function App() {
 					{/* pages accessibles à l'utilisateur connecté */}
 					<Route element={<PrivateRoutes />}>
 						<Route path='/home' element={<Home />} />
-						<Route path='/walkingdog' element={<WalkingDog />} />
-						<Route path='/visitscats' element={<VisitsCats />} />
+						<Route path='/walks' element={<WalkingDog />} />
+						<Route path='/visits' element={<VisitsCats />} />
+						<Route path='/animals' element={<ListAnimals />} />
 					</Route>
 
 					{/* pages accessibles à l'admin connecté */}
