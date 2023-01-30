@@ -13,24 +13,34 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 // fonctions
-// import { convertAgeInIntervalDate } from '../../utils/convert';
+import { convertAgeInIntervalDate } from '../../utils/convert';
 
 // styles
 import './styles.scss';
+import { useSelector } from 'react-redux';
 
 function FilterDog({
 	getDogsByFilter,
-	setFilteredDogs
+	setFilteredDogs,
+	setFilter
 }) {
 
-	// const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
-	const experience = 'beginner';
+	const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
 
 	const [gabaritValue, setGabaritValue] = useState('big');
 	const [sexValue, setSexValue] = useState('male');
 	const [valueAge, setvalueAge] = useState(5);
 	const [tags, setTags] = useState([]);
 
+	const [disabled1, setDisabled1] = useState(false);
+	// const [disabled2, setDisabled2] = useState(false);
+	// const [disabled3, setDisabled3] = useState(false);
+	// const [disabled4, setDisabled4] = useState(false);
+	// const [disabled5, setDisabled5] = useState(false);
+	// const [disabled6, setDisabled6] = useState(false);
+	// const [disabled7, setDisabled7] = useState(false);
+	// const [disabled8, setDisabled8] = useState(false);
+	
 	const handleOnChangeGabarit = (e) => {
 		console.log(e.target.value);
 		setGabaritValue(e.target.value);
@@ -42,7 +52,9 @@ function FilterDog({
 	};
 
 	const handleOnAddTag = (e) => {
+		//! TO DO rendre champs Sélectionner et tag séléctionné disabled
 		console.log(e.target.value);
+		setDisabled1(true);
 		console.log(tags);
 		setTags((oldState) => [...oldState, e.target.value]);
 	};
@@ -51,21 +63,30 @@ function FilterDog({
 		e.preventDefault();
 
         // conversion de l'age en un intervalle de dates (3ans => né entre le 01/01/2020 et le 31/12/2020)
-		// const {startYearBirthday, endYearBirthday} = convertAgeInIntervalDate(valueAge);
-		
-		const data = await getDogsByFilter(experience, gabaritValue, sexValue);
+		const {startYearBirthday, endYearBirthday} = convertAgeInIntervalDate(valueAge);
+		console.log(tags);
+	
+		// requête pour récupérer la nouvelle liste des chiens avec les filtres
+		const data = await getDogsByFilter(experience, gabaritValue, sexValue, startYearBirthday, endYearBirthday, tags);
 		console.log(data);
 		setFilteredDogs(data.data);
+		setFilter(false);
+	};
+
+	const cancelFilter = () => {
+		// document.getElementById("filter-form").reset();
+		setFilter(false);
+		console.log(experience, gabaritValue, sexValue, tags);
 	};
 	
 	return (
 		<div className='modal show' style={{ display: 'block', position: 'fixed' }}>
 			<Modal.Dialog>
-				<Modal.Header closeButton>
+				<Modal.Header>
 					<Modal.Title>Filtres</Modal.Title>
 				</Modal.Header>
 
-				<Form onSubmit={handleOnSubmit}>
+				<Form onSubmit={handleOnSubmit} id="filter-form">
 					<Modal.Body>
 						<div className='container-filter'>
 							<div className='filter-part'>
@@ -141,22 +162,27 @@ function FilterDog({
 									aria-label='Default select example'
 									onChange={handleOnAddTag}
 								>
-									<option>Séléctionner</option>
-									<option value='1'>Joueur</option>
-									<option value='4'>Doux</option>
-									<option value='2'>Sociable</option>
-									<option value='5'>Calin</option>
-									<option value='3'>Energique</option>
-									<option value='6'>Calme</option>
-									<option value='7'>Associable</option>
-									<option value='8'>Fugueur</option>
+									{/* <option >Séléctionner</option> */}
+									<option value='1' disabled={disabled1} selected >Joueur</option>
+									<option value='4' >Doux</option>
+									<option value='2' >Sociable</option>
+									<option value='5' >Calin</option>
+									<option value='3' >Energique</option>
+									<option value='6' >Calme</option>
+									<option value='7' >Associable</option>
+									<option value='8' >Fugueur</option>
 								</Form.Select>
 							</div>
 						</div>
 					</Modal.Body>
 
 					<Modal.Footer>
-						<Button variant='secondary'>Annuler</Button>
+						<Button 
+							variant='secondary'
+							onClick={cancelFilter}
+						>
+							Annuler
+						</Button>
 						<Button variant='primary' type='submit'>
 							Valider
 						</Button>
@@ -169,7 +195,8 @@ function FilterDog({
 
 FilterDog.propTypes = {
 	getDogsByFilter: PropTypes.func.isRequired,
-	setFilteredDogs: PropTypes.func.isRequired
+	setFilteredDogs: PropTypes.func.isRequired, 
+	setFilter: PropTypes.func.isRequired
 };
 
 export default React.memo(FilterDog);

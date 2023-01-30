@@ -7,11 +7,13 @@ export function convertAgeInIntervalDate(valueAge) {
     const startYearBirthday = birthday.startOf('year').toISODate();
     const endYearBirthday = birthday.endOf('year').toISODate();
     console.log(startYearBirthday, endYearBirthday);
-    return (startYearBirthday, endYearBirthday);
+    return {startYearBirthday, endYearBirthday};
 }
 
 export function convertBirthdayInAge(birthday) {
-    const age = moment().diff(birthday, 'years'); 
+    const date = moment(birthday);
+    const birthdayYear = date.format('YYYY');
+    const age = moment().diff(birthdayYear, 'years'); 
     return age;
 }
 

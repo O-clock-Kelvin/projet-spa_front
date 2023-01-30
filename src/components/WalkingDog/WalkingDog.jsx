@@ -1,6 +1,7 @@
 /** @format */
 
 import React, { useState, useEffect } from 'react';
+import classnames from 'classnames';
 
 // importation composant
 import Card from 'react-bootstrap/Card';
@@ -67,8 +68,8 @@ function WalkingDog() {
 							}	
 						</span>
 					</Card.Text>
-					<Card.Text className='last-walking red'>
-						{dog.walks && dog.walks.length > 0 && `Dernière sortie: ${convertDateInDaysUntilToday(dog.walks[0].date)} jours`}
+					<Card.Text className={classnames('last-walking',' red')}>
+						{dog.walks && dog.walks.length > 0 && `Dernière sortie : il y a ${convertDateInDaysUntilToday(dog.walks[0].date)} jours`}
 					</Card.Text>
 				</Card.Body>
 			</Card>
@@ -78,18 +79,22 @@ function WalkingDog() {
 	return (
 		<>
 			<h1 className='title-page'>Sortir un chien</h1>
-
 			<div>
 				<ImEqualizer className='filter' size={30} onClick={handleOnClick} />
 			</div>
-			{filter && <FilterDog getDogsByFilter={getDogsByFilter} setFilteredDogs={setDogs}/>}
+			<div>
+				<p
+					
+				>Revoir la liste</p>
+			</div>
+			{filter && <FilterDog getDogsByFilter={getDogsByFilter} setFilteredDogs={setDogs} setFilter={setFilter}/>}
 			<div className='cards-container'>
                 {/* on attend que data existe: le spinner s'affiche tant qu'on n'a pas data (quand loading)
 				quand elle est chargée on map sur data.data */}
                 {!isLoading && dogs ? 
 					dogs.map((dog) => renderDog(dog)) : 
 					<LoadingSpinner />
-				}
+				}	
 			</div>
 		</>
 	);
