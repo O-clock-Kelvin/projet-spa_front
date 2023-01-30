@@ -3,14 +3,13 @@
 @use '../../styles/vars';
 
 .footer {
-	position: absolute;
-	bottom: 0;
 	background-color: vars.$primary-color-hoover;
 	padding: vars.$gutter;
 	color: white;
 	margin-top: vars.$gutter * 8;
 	& p {
 		text-align: right;
+		margin-bottom : 0
 	}
 	& a {
 		color: white;
@@ -23,11 +22,16 @@
 	width: 3rem;
 }
 
-@media (max-width: 750px) {
+@media screen and (max-width: 800px) {
 	.footer-row {
 		text-align: center;
+		width : 100%;
+
 		& p {
 			text-align: center;
+		}
+		& div {
+			margin-bottom : 0.5rem;
 		}
 	}
 }
