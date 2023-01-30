@@ -21,11 +21,14 @@ import Diego from '../../assets/images/Diego.jpeg';
 // fonctions
 import { getDogsByExperience, getDogsByFilter} from '../../requests/Dogs';
 import { convertBirthdayInAge, convertDateInDaysUntilToday } from '../../utils/convert';
+import { Button } from 'react-bootstrap';
 
 
 function WalkingDog() {
 
 	const [dogs, setDogs] = useState([]);
+	const [reloadButton, setReloadButton] = useState(false);
+
     const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
 
     // on utilise react-query pour voir comment se passe la requête
@@ -39,14 +42,33 @@ function WalkingDog() {
 		console.log('data', data);
 		console.log('isFetching', isFetching);
 		if(data) {
+			
 			setDogs(data.data);
 		}
 	}, [isLoading, error, data, isFetching]);
 
 	const [filter, setFilter] = useState(false);
 
-	const handleOnClick = () => {
+	const openFilter = () => {
 		setFilter(true);
+	};
+
+	const reloadDogs = async () => {
+		const dogsReloaded = await getDogsByExperience(experience);
+		console.log(dogsReloaded);
+		setDogs(dogsReloaded.data);
+	};
+
+	const emergencyWalking = (date) => {
+		const result = convertDateInDaysUntilToday(date);
+		switch(result) {
+			case 1:
+				return 'green';
+			case 2:
+				return 'orange';
+			default:
+				return 'red';
+		} 
 	};
 
 	const renderDog = (dog) => {
@@ -68,9 +90,11 @@ function WalkingDog() {
 							}	
 						</span>
 					</Card.Text>
-					<Card.Text className={classnames('last-walking',' red')}>
-						{dog.walks && dog.walks.length > 0 && `Dernière sortie : il y a ${convertDateInDaysUntilToday(dog.walks[0].date)} jours`}
-					</Card.Text>
+					{dog.walks && dog.walks.length > 0 && 
+						<Card.Text className={classnames('last-walking', emergencyWalking(dog.walks[0].date))}>
+							Dernière sortie : il y a {convertDateInDaysUntilToday(dog.walks[0].date)} jours
+						</Card.Text>
+					}
 				</Card.Body>
 			</Card>
 		);
@@ -80,14 +104,24 @@ function WalkingDog() {
 		<>
 			<h1 className='title-page'>Sortir un chien</h1>
 			<div>
-				<ImEqualizer className='filter' size={30} onClick={handleOnClick} />
+				<ImEqualizer className='filter' size={30} onClick={openFilter} />
 			</div>
 			<div>
-				<p
-					
-				>Revoir la liste</p>
+				{reloadButton &&
+					<Button 
+					className='reload-button'
+					type='button'
+					onClick={reloadDogs}
+				>
+					Revoir la liste
+				</Button>}		
 			</div>
-			{filter && <FilterDog getDogsByFilter={getDogsByFilter} setFilteredDogs={setDogs} setFilter={setFilter}/>}
+				{filter && <FilterDog 
+								getDogsByFilter={getDogsByFilter} 
+								setFilteredDogs={setDogs} 
+								setFilter={setFilter} 
+								setReloadButton={setReloadButton}
+				/>}
 			<div className='cards-container'>
                 {/* on attend que data existe: le spinner s'affiche tant qu'on n'a pas data (quand loading)
 				quand elle est chargée on map sur data.data */}

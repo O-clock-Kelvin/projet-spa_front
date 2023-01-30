@@ -41,3 +41,9 @@
     position: absolute;
     right: 150px;
 }
+
+.reload-button {
+    width: vars.$gutter *10 !important;
+    margin-left: vars.$gutter *10;
+    font-size: 0.8rem;
+}

@@ -20,7 +20,8 @@ import { useSelector } from 'react-redux';
 function FilterDog({
 	getDogsByFilter,
 	setFilteredDogs,
-	setFilter
+	setFilter,
+	setReloadButton
 }) {
 
 	const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
@@ -30,10 +31,6 @@ function FilterDog({
 	const [valueAge, setvalueAge] = useState(5);
 	const [tags, setTags] = useState([]);
 	const [tagsList, setTagsList] = useState(dataTags);
-
-	useEffect(() => {
-		console.log("TAGSLIST", tagsList);
-	}, [tagsList]);
 
 	const handleOnChangeGabarit = (e) => {
 		console.log(e.target.value);
@@ -84,6 +81,7 @@ function FilterDog({
 		console.log(data);
 		setFilteredDogs(data.data);
 		setFilter(false);
+		setReloadButton(true);
 	};
 
 	const cancelFilter = () => {
@@ -93,7 +91,6 @@ function FilterDog({
 	};
 
 	const renderTag = (tag) => {
-		console.log(tag);
 		const tagId = Number(tag);
 		const tagFound = dataTags.find((tag) => tag.id === tagId);		
 		return (
@@ -227,7 +224,8 @@ function FilterDog({
 FilterDog.propTypes = {
 	getDogsByFilter: PropTypes.func.isRequired,
 	setFilteredDogs: PropTypes.func.isRequired, 
-	setFilter: PropTypes.func.isRequired
+	setFilter: PropTypes.func.isRequired,
+	setReloadButton: PropTypes.func.isRequired,
 };
 
 export default React.memo(FilterDog);

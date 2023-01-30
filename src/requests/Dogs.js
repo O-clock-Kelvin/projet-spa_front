@@ -1,6 +1,7 @@
 import api from '../api';
 
 export const getDogsByExperience = async (experience) => {
+	console.log("toto");
 	return api.get(`/animals?species=dog&volunteer_experience=${experience}&include=walks&include=tags`);
 };
 
