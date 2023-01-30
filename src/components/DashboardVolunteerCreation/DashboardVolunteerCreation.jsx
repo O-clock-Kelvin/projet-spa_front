@@ -78,8 +78,9 @@ function DashboardVolunteerCreation() {
     .post("/users", data)
     .then(function (response) {
       console.log(response.status);
-      if (response.status === 200) {
+      if (response.status === 201) {
         setResStatus("Compte crée avec succès");
+        navigate("/admin");
         console.log(resStatus);
       } else {
         setResStatus("error");
@@ -88,7 +89,7 @@ function DashboardVolunteerCreation() {
     .catch(function (error) {
       console.log(error);
     });
-    navigate("/admin");
+    
 };
 
 //TODO Ouvrir une modale avec une message de validation du formulaire de création d'un bénévole
