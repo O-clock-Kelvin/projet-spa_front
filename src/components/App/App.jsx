@@ -10,6 +10,7 @@ import LoginForm from '../LoginForm/LoginForm';
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
 import DashboardVolunteerCreation from '../DashboardVolunteerCreation/DashboardVolunteerCreation';
+import DashboardAnimalCreation from '../DashboardAnimalCreation/DashboardAnimalCreation';
 import PrivateRoutes from '../PrivateRoutes/PrivateRoutes';
 import PrivateRoutesAdmin from '../PrivateRoutesAdmin/PrivateRoutesAdmin';
 import Error404 from '../Error404/Error404';
@@ -26,6 +27,7 @@ import './styles.scss';
 
 import { useDispatch } from 'react-redux';
 import ProfilePage from '../Profile';
+import ListAnimals from '../ListAnimals/ListAnimals';
 
 function App() {
 	const { isConnected, admin, token, authLoaded } = useSelector(
@@ -75,8 +77,9 @@ function App() {
 					{/* pages accessibles à l'utilisateur connecté */}
 					<Route element={<PrivateRoutes />}>
 						<Route path='/home' element={<Home />} />
-						<Route path='/walkingdog' element={<WalkingDog />} />
-						<Route path='/visitscats' element={<VisitsCats />} />
+						<Route path='/walks' element={<WalkingDog />} />
+						<Route path='/visits' element={<VisitsCats />} />
+						<Route path='/animals' element={<ListAnimals />} />
 					</Route>
 
 					{/* pages accessibles à l'admin connecté */}
@@ -85,6 +88,10 @@ function App() {
 						<Route
 							path='/admin/create/user'
 							element={<DashboardVolunteerCreation />}
+						/>
+						<Route
+							path='/admin/create/card'
+							element={<DashboardAnimalCreation />}
 						/>
 					</Route>
 
