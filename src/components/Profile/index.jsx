@@ -15,18 +15,20 @@ const schema = yup.object().shape({
 
 		.min(2)
 		.max(24),
-	name: yup.string().min(2).max(24),
+	name: yup.string().nullable(true).notRequired(true).min(2).max(24),
 	email: yup.string().email(),
 	phone_number: yup
 		.string()
+		.nullable(true)
+		.notRequired(true)
 		.matches(
 			/(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/m,
 			'Veuillez renseigner un numero de telephone valide'
 		),
 	password: yup
 		.string()
-		.nullable()
-		.notRequired()
+		.nullable(true)
+		.notRequired(true)
 		.min(8, 'Les mots de passe doivent comporter au moins 8 caractères')
 		.max(24),
 });
@@ -212,7 +214,7 @@ const ProfilePage = () => {
 									<li>nom: {user.name}</li>
 									<li>role: {user.admin ? 'employé' : 'bénévole'}</li>
 									<li>expérience: {renderExperienceLevel(user.experience)}</li>
-									<li>Téléphone: {user.phone_number}</li>
+									<li>Téléphone: {user.phone_number || 'non renseigné'}</li>
 								</ul>
 								<button
 									onClick={() => {
