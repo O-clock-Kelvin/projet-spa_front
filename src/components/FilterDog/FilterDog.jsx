@@ -1,24 +1,22 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 // import { useQuery } from 'react-query';
 
 // composants
-import { ToggleButtonGroup } from 'react-bootstrap';
-import ToggleButton from 'react-bootstrap/ToggleButton';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import { ToggleButtonGroup, CloseButton, ToggleButton, Form, Modal, Button, Badge } from 'react-bootstrap';
 
 // fonctions
 import { convertAgeInIntervalDate } from '../../utils/convert';
 
+// data
+import dataTags from '../../data/tags';
+
 // styles
 import './styles.scss';
 import { useSelector } from 'react-redux';
-
 function FilterDog({
 	getDogsByFilter,
 	setFilteredDogs,
@@ -31,16 +29,12 @@ function FilterDog({
 	const [sexValue, setSexValue] = useState('male');
 	const [valueAge, setvalueAge] = useState(5);
 	const [tags, setTags] = useState([]);
+	const [tagsList, setTagsList] = useState(dataTags);
 
-	const [disabled1, setDisabled1] = useState(false);
-	// const [disabled2, setDisabled2] = useState(false);
-	// const [disabled3, setDisabled3] = useState(false);
-	// const [disabled4, setDisabled4] = useState(false);
-	// const [disabled5, setDisabled5] = useState(false);
-	// const [disabled6, setDisabled6] = useState(false);
-	// const [disabled7, setDisabled7] = useState(false);
-	// const [disabled8, setDisabled8] = useState(false);
-	
+	useEffect(() => {
+		console.log("TAGSLIST", tagsList);
+	}, [tagsList]);
+
 	const handleOnChangeGabarit = (e) => {
 		console.log(e.target.value);
 		setGabaritValue(e.target.value);
@@ -52,19 +46,38 @@ function FilterDog({
 	};
 
 	const handleOnAddTag = (e) => {
-		//! TO DO rendre champs Sélectionner et tag séléctionné disabled
 		console.log(e.target.value);
-		setDisabled1(true);
-		console.log(tags);
+		console.log(tagsList);
+		setTagsList((oldState) =>
+			oldState.filter((tag) =>
+				tag.id !== Number(e.target.value)
+			)
+		);
 		setTags((oldState) => [...oldState, e.target.value]);
 	};
+
+	const cancelTag = (tagToCancel) => {
+		console.log(tagToCancel);
+		
+		setTags((oldState) => 
+			oldState.filter((tag) =>
+				tag !== tagToCancel
+			)
+		);
+		const oldTag = dataTags.filter((tag) => tag.id == tagToCancel);
+		console.log(oldTag);
+		setTagsList((oldState) => [...oldState, oldTag[0]]);
+	};
+
+	useEffect(() => {
+		console.log(tags);
+	}, [tags]);
 
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
 
         // conversion de l'age en un intervalle de dates (3ans => né entre le 01/01/2020 et le 31/12/2020)
 		const {startYearBirthday, endYearBirthday} = convertAgeInIntervalDate(valueAge);
-		console.log(tags);
 	
 		// requête pour récupérer la nouvelle liste des chiens avec les filtres
 		const data = await getDogsByFilter(experience, gabaritValue, sexValue, startYearBirthday, endYearBirthday, tags);
@@ -78,7 +91,23 @@ function FilterDog({
 		setFilter(false);
 		console.log(experience, gabaritValue, sexValue, tags);
 	};
-	
+
+	const renderTag = (tag) => {
+		console.log(tag);
+		const tagId = Number(tag);
+		const tagFound = dataTags.find((tag) => tag.id === tagId);		
+		return (
+			<div className='container-badge'>
+				<Badge>
+					{tagFound.name}
+				</Badge>
+				<CloseButton
+					onClick={() => cancelTag(tag)}
+				/>
+			</div>	
+		);
+	};
+
 	return (
 		<div className='modal show' style={{ display: 'block', position: 'fixed' }}>
 			<Modal.Dialog>
@@ -162,16 +191,18 @@ function FilterDog({
 									aria-label='Default select example'
 									onChange={handleOnAddTag}
 								>
-									{/* <option >Séléctionner</option> */}
-									<option value='1' disabled={disabled1} selected >Joueur</option>
-									<option value='4' >Doux</option>
-									<option value='2' >Sociable</option>
-									<option value='5' >Calin</option>
-									<option value='3' >Energique</option>
-									<option value='6' >Calme</option>
-									<option value='7' >Associable</option>
-									<option value='8' >Fugueur</option>
+									<option >Sélectionner</option>
+									{
+										tagsList.map((tag) => <option key={tag.id} value={`${tag.id}`}>{tag.name}</option>)
+									}							
 								</Form.Select>
+					
+								<div className='tags-container'>
+									{tags &&
+										(tags.map((tag) => renderTag(tag)))
+									}
+								</div>
+								
 							</div>
 						</div>
 					</Modal.Body>
