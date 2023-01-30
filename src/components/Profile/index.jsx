@@ -3,12 +3,12 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery, useMutation } from 'react-query';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import usersRequest from '../../requests/users.requests';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-
+import { actionSetToken } from '../../actions/tokenAction';
 const schema = yup.object().shape({
 	firstname: yup
 		.string()
@@ -37,11 +37,10 @@ const schema = yup.object().shape({
  */
 const ProfileEditor = ({ user, closeEditor, setUser }) => {
 	const { isLoading, mutate, error } = useMutation({
-		mutationFn: async ({ id, newUserData }) => {
-			await usersRequest.update(id, newUserData);
-		},
-		onSuccess: (_, data) => {
-			setUser(data.newUserData);
+		mutationFn: async ({ id, newUserData }) =>
+			usersRequest.update(id, newUserData),
+		onSuccess: (data) => {
+			setUser(data.data);
 		},
 	});
 
@@ -129,6 +128,7 @@ ProfileEditor.propTypes = {
  */
 const ProfilePage = () => {
 	const { id } = useSelector((fullstate) => fullstate.loginSettings);
+	const dispatch = useDispatch();
 	const [user, setUserData] = useState(null);
 	const { isLoading: loading, error } = useQuery(
 		'LoadProfile',
@@ -196,8 +196,9 @@ const ProfilePage = () => {
 								setUser={(newUser) => {
 									setUserData({
 										...user,
-										...newUser,
+										...newUser.data,
 									});
+									dispatch(actionSetToken(newUser.token));
 								}}
 								closeEditor={() => {
 									setShowEditor(false);
