@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Form, Button, Row, Col} from 'react-bootstrap';
+import { Form, Button, Row, Col} from "react-bootstrap";
 
-import api from '../../api';
-import {useNavigate} from 'react-router-dom';
+import api from "../../api";
+import {useNavigate} from "react-router-dom";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -71,35 +71,35 @@ function DashboardAnimalCreation() {
     console.log(data);
 
     api
-    .post("/animals", data)
-    .then(function (response) {
-      console.log(response.status);
-      if (response.status === 201) {
-        setResStatus("Animal créé avec succées");
-        
-        navigate("/admin");
-        console.log(resStatus);
-      } else {
-        setResStatus("error");
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    
-};
+      .post("/animals", data)
+      .then(function (response) {
+        console.log(response.status);
+        if (response.status === 201) {
+          setResStatus("Animal créé avec succées");
 
-//TODO Ouvrir une modale avec une message de validation du formulaire de création d'un bénévole
+          navigate("/admin");
+          console.log(resStatus);
+        } else {
+          setResStatus("error");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
+  };
+
+  //TODO Ouvrir une modale avec une message de validation du formulaire de création d'un bénévole
 
   return (
     <>
       <h1 className="title-page">Création fiche animal</h1>
       <div className="dashboard-container">
-          <Form
-            className="dashboard-container-form"
-            onSubmit={handleSubmit(onSubmitHandler)}
-          >
-            {/* ==================colonne 1================== */}
+        <Form
+          className="dashboard-container-form"
+          onSubmit={handleSubmit(onSubmitHandler)}
+        >
+          {/* ==================colonne 1================== */}
           <Row>
             <Col xs={6}>
               <Form.Group className="mb-3">
@@ -249,11 +249,11 @@ function DashboardAnimalCreation() {
               </Form.Group>
             </Col>
             {/* =================================================== */}
-            </Row>
-            <Button variant="primary" type="submit">
+          </Row>
+          <Button variant="primary" type="submit">
               Créer Animal
-            </Button>
-          </Form>
+          </Button>
+        </Form>
       </div>
     </>
   );

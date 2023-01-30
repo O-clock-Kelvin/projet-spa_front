@@ -10,6 +10,7 @@ import LoginForm from '../LoginForm/LoginForm';
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
 import DashboardVolunteerCreation from '../DashboardVolunteerCreation/DashboardVolunteerCreation';
+import DashboardAnimalCreation from '../DashboardAnimalCreation/DashboardAnimalCreation';
 import PrivateRoutes from '../PrivateRoutes/PrivateRoutes';
 import PrivateRoutesAdmin from '../PrivateRoutesAdmin/PrivateRoutesAdmin';
 import Error404 from '../Error404/Error404';
@@ -86,6 +87,10 @@ function App() {
 						<Route
 							path='/admin/create/user'
 							element={<DashboardVolunteerCreation />}
+						/>
+						<Route
+							path='/admin/create/card'
+							element={<DashboardAnimalCreation />}
 						/>
 					</Route>
 
