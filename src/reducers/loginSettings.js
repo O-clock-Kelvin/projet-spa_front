@@ -88,9 +88,8 @@ const loginSettingsReducer = (state = initialState, action = {}) => {
 				token: null,
 			};
 		}
-			
+
 		default: {
-			console.log('requête non aboutie');
 			return state;
 		}
 	}
