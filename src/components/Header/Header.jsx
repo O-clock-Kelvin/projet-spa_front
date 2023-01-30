@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux';
 
 // fonctions
 import { actionLogOut } from '../../actions/loginActions';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 function Header() {
 	const dispatch = useDispatch();
@@ -59,9 +59,9 @@ function Header() {
 									Déconnexion
 								</a>
 							</Navbar.Text>
-							<button className='icon-user'>
+							<Link to='/profile' className='icon-user' >
 								<ImUser />
-							</button>
+							</Link>
 						</Navbar.Collapse>
 					</>
 				) : null}

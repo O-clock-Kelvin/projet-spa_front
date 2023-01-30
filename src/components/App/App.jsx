@@ -24,12 +24,9 @@ import { actionSetToken, actionTokenChecked } from '../../actions/tokenAction';
 import './styles.scss';
 
 import { useDispatch } from 'react-redux';
+import ProfilePage from '../Profile';
 
 function App() {
-
-
-  
-
 	const { isConnected, admin, token, authLoaded } = useSelector(
 		(fullstate) => fullstate.loginSettings
 	);
@@ -90,7 +87,13 @@ function App() {
 						/>
 					</Route>
 
-					{/* <Route path='/' element={<Navigate to='/login' replace />} /> */}
+					<Route
+						path='/profile'
+						element={
+							isConnected ? <ProfilePage /> : <Navigate to='/login' replace />
+						}
+					/>
+
 					<Route
 						path='/'
 						element={
@@ -109,10 +112,11 @@ function App() {
 					/>
 					<Route path='*' element={<Error404 />} />
 				</Routes>
-         <Footer />
+				<Footer />
 			</div>
 		);
 	} else {
+		//@TODO
 		return <p>Loading</p>;
 	}
 }
