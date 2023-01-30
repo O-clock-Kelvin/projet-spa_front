@@ -49,3 +49,23 @@
 .cat {
     width: 100px;
 }
+
+
+
+@media screen and (max-width: 800px){
+    .home-container{
+        width : 100%;
+    }
+};
+    
+@media screen and (max-width: 480px){
+    .home-container .card-body{
+        flex-direction: column;
+        height:100%;
+        align-items: center;   
+       & .image {
+        margin : 1rem;
+       } 
+    }
+    
+}
