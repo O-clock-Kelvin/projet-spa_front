@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import PropTypes from 'prop-types';
-import animalsRequest from '../../requests/animals.request';
-import WalkSummary from '../WalkSummary';
+
+import VisitSummary from '../VisitSummary';
+import boxesRequest from '../../requests/boxes.request';
 
 const LoadNextButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {
 	if (isFetchingNextPage) {
@@ -22,18 +23,20 @@ LoadNextButton.propTypes = {
 	isFetchingNextPage: PropTypes.bool,
 	fetchNextPage: PropTypes.func,
 };
-const AnimalWalksList = ({ animalId }) => {
-	const [walks, setWalks] = useState([]);
+
+const BoxVisitsList = ({ boxId }) => {
+	const [visits, setVisits] = useState([]);
 
 	const infinite = useInfiniteQuery(
-		'walksList',
-		({ pageParam = 0 }) => animalsRequest.getWalks(animalId, pageParam),
+		'boxVisitsList',
+		({ pageParam = 0 }) => boxesRequest.getVisits(boxId, pageParam),
 		{
 			getNextPageParam: (lastPage) => {
 				return lastPage.data?.nextCursor || null;
 			},
 			onSuccess: (data) => {
-				setWalks(data);
+				console.log('DATA', data.pages);
+				setVisits(data);
 			},
 		}
 	);
@@ -42,12 +45,12 @@ const AnimalWalksList = ({ animalId }) => {
 
 	if (!isLoading) {
 		if (!error) {
-			if (walks.pages && walks.pages?.length > 0) {
+			if (visits.pages && visits.pages?.length > 0) {
 				return (
 					<>
-						{walks.pages.map((page) =>
-							page.data.walks.map((walk) => (
-								<WalkSummary key={walk.id} walk={walk} />
+						{visits.pages.map((page) =>
+							page.data.visits.map((visit) => (
+								<VisitSummary key={visit.id} visit={visit} />
 							))
 						)}
 						<LoadNextButton
@@ -58,7 +61,7 @@ const AnimalWalksList = ({ animalId }) => {
 					</>
 				);
 			} else {
-				return 'Aucune balade;';
+				return 'Aucune visite du boxe;';
 			}
 		} else {
 			return 'Une erreur est survenue, veuillez retenter plus tard';
@@ -67,8 +70,8 @@ const AnimalWalksList = ({ animalId }) => {
 		return 'Loading...';
 	}
 };
-AnimalWalksList.propTypes = {
-	animalId: PropTypes.number,
+BoxVisitsList.propTypes = {
+	boxId: PropTypes.number,
 };
 
-export default AnimalWalksList;
+export default BoxVisitsList;

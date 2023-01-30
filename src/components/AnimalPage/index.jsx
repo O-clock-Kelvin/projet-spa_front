@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import StartWalkButton from '../WalkStartButton';
 import AnimalWalksList from '../AnimalWalksList';
+import BoxVisitsList from '../BoxVisitsList';
 
 const TagsList = ({ tags }) => {
 	if (tags) {
@@ -96,6 +97,12 @@ const AnimalPage = () => {
 						<>
 							<h4>Dernières balades</h4>
 							<AnimalWalksList animalId={animal.id} />
+						</>
+					)}
+					{animal.species === 'CAT' && (
+						<>
+							<h4>Dernières visites du box</h4>
+							<BoxVisitsList boxId={animal.box_id} />
 						</>
 					)}
 				</>

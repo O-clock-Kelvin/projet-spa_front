@@ -51,10 +51,12 @@ const StartWalkButton = ({ animal }) => {
 		if (lastWalk) {
 			/**
 			 * durée de la balade max 1h donc on check si la derniere sortie remonte à plus d'une heure, pour déterminer si l'animal est en cours de balade
+			 * On vérifie également que l'animal n'est pas déjà sorti dans la journée
 			 */
 
 			if (
 				DateTime.fromISO(lastWalk.date).plus({ hour: 1 }) <= DateTime.now() &&
+				DateTime.fromISO(lastWalk.date) <= DateTime.now().startOf('day') &&
 				startedWalk == undefined
 			) {
 				if (
@@ -116,7 +118,12 @@ const StartWalkButton = ({ animal }) => {
 					);
 				}
 			} else {
-				if (startedWalk || lastWalk.user_id == id) {
+				if (
+					startedWalk ||
+					(lastWalk.user_id == id &&
+						lastWalk.end_date == undefined &&
+						DateTime.fromISO(lastWalk.date).plus({ hour: 1 }) >= DateTime.now())
+				) {
 					return (
 						<>
 							<WalkEditor
@@ -132,7 +139,6 @@ const StartWalkButton = ({ animal }) => {
 							<div
 								style={buttonStyle}
 								onClick={() => {
-									console.log('OK');
 									setShowEndEditor(true);
 								}}
 								role='button'
@@ -143,7 +149,21 @@ const StartWalkButton = ({ animal }) => {
 						</>
 					);
 				} else {
-					return <div style={buttonStyle}>Ce chien est en balade</div>;
+					if (
+						DateTime.fromISO(lastWalk.date).plus({ hour: 1 }) >=
+							DateTime.now() &&
+						lastWalk.end_date == undefined
+					) {
+						return (
+							<div style={buttonStyle}>Cet animal est en cours de sortie</div>
+						);
+					} else {
+						return (
+							<div style={buttonStyle}>
+								Cet animal est déjà sorti aujourd'hui
+							</div>
+						);
+					}
 				}
 			}
 		}

@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import walksRequest from '../../requests/walks.request';
+import { DateTime } from 'luxon';
 const schema = yup.object().shape({
 	comment: yup.string().nullable(),
 	feeling: yup.string().oneOf(['BAD', 'MEDIUM', 'GOOD']),
@@ -31,7 +32,16 @@ const WalkEditor = ({ walk, show, endingWalk, onClose, onUpdate }) => {
 		error,
 		mutate: editWalk,
 	} = useMutation({
-		mutationFn: (data) => walksRequest.update(walk.id, data),
+		mutationFn: (data) => {
+			if (endingWalk) {
+				walksRequest.update(walk.id, {
+					...data,
+					end_date: DateTime.now().toISO(),
+				});
+			} else {
+				walksRequest.update(walk.id, data);
+			}
+		},
 		onSuccess: (_, data) => {
 			onUpdate(data); // on utilise la fonction de callback défini dans le composant parent
 		},

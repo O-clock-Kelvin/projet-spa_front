@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import PropTypes from 'prop-types';
-import animalsRequest from '../../requests/animals.request';
+import animalsRequest from '../../boxes.request.js/animals.request';
 import WalkSummary from '../WalkSummary';
 
 const LoadNextButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {

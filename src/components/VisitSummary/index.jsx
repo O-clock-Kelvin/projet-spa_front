@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
 
-const WalkFeeling = ({ feeling }) => {
+const VisitFeeling = ({ feeling }) => {
 	switch (feeling) {
 		case 'BAD':
 			return (
@@ -19,12 +19,12 @@ const WalkFeeling = ({ feeling }) => {
 			);
 	}
 };
-WalkFeeling.propTypes = {
+VisitFeeling.propTypes = {
 	feeling: PropTypes.string.isRequired,
 };
 
-const WalkSummary = (props) => {
-	if (props.walk) {
+const VisitSummary = (props) => {
+	if (props.visit) {
 		return (
 			<div
 				style={{
@@ -35,8 +35,8 @@ const WalkSummary = (props) => {
 				}}
 			>
 				le{' '}
-				{DateTime.fromISO(props.walk.date).toLocaleString(DateTime.DATE_SHORT)}{' '}
-				- {props.walk.comment} - <WalkFeeling feeling={props.walk.feeling} />
+				{DateTime.fromISO(props.visit.date).toLocaleString(DateTime.DATE_SHORT)}{' '}
+				- {props.visit.comment} - <VisitFeeling feeling={props.visit.feeling} />
 			</div>
 		);
 	} else {
@@ -44,8 +44,8 @@ const WalkSummary = (props) => {
 	}
 };
 
-WalkSummary.propTypes = {
-	walk: PropTypes.shape({
+VisitSummary.propTypes = {
+	visit: PropTypes.shape({
 		id: PropTypes.number.isRequired,
 		user_id: PropTypes.number.isRequired,
 		date: PropTypes.string.isRequired,
@@ -53,4 +53,4 @@ WalkSummary.propTypes = {
 		feeling: PropTypes.string.isRequired,
 	}),
 };
-export default WalkSummary;
+export default VisitSummary;
