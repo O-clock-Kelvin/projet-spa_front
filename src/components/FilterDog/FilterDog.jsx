@@ -85,17 +85,16 @@ function FilterDog({
 	};
 
 	const cancelFilter = () => {
-		// document.getElementById("filter-form").reset();
 		setFilter(false);
 		console.log(experience, gabaritValue, sexValue, tags);
 	};
 
 	const renderTag = (tag) => {
 		const tagId = Number(tag);
-		const tagFound = dataTags.find((tag) => tag.id === tagId);		
+		const tagFound = dataTags.find((tag) => tag.id === tagId);
 		return (
 			<div className='container-badge'>
-				<Badge>
+				<Badge key={tagId}>
 					{tagFound.name}
 				</Badge>
 				<CloseButton
