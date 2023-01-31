@@ -13,7 +13,7 @@ import './styles.scss';
 import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
 import { ImEqualizer } from 'react-icons/im';
 import { useQuery } from 'react-query';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 // images
 import Diego from '../../assets/images/Diego.jpeg';
@@ -24,14 +24,16 @@ import timeUtil from '../../utils/time.utils';
 
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import sortUtils from '../../utils/sort.utils';
 
 function WalkingDog() {
 	const [dogs, setDogs] = useState([]);
 	const [reloadButton, setReloadButton] = useState(false);
 
-	const experience = useSelector(
-		(fullstate) => fullstate.loginSettings.experience
-	);
+	// const experience = useSelector(
+	// 	(fullstate) => fullstate.loginSettings.experience
+	// );
+	const experience = "beginner";
 
 	// on utilise react-query pour voir comment se passe la requête
 	// si elle se passe bien elle nous renvoie le résultat sous forme d'objet : data
@@ -46,7 +48,8 @@ function WalkingDog() {
 		console.log('data', data);
 		console.log('isFetching', isFetching);
 		if (data) {
-			setDogs(data.data);
+			const sortedDogs = sortUtils.sortDogsByLastWalk(data.data);
+			setDogs(sortedDogs);
 		}
 	}, [isLoading, error, data, isFetching]);
 
@@ -59,7 +62,8 @@ function WalkingDog() {
 	const reloadDogs = async () => {
 		const dogsReloaded = await getDogsByExperience(experience);
 		console.log(dogsReloaded);
-		setDogs(dogsReloaded.data);
+		const sortedDogs = sortUtils.sortDogsByLastWalk(dogsReloaded.data);
+		setDogs(sortedDogs);
 		setReloadButton(false);
 	};
 
@@ -81,7 +85,7 @@ function WalkingDog() {
 		return (
 			<Card key={dog.id}>
 				<Link
-					to={`/animals/${dog.id}`}
+					to={`/animal/${dog.id}`}
 				>
 					<Card.Img variant='top' className='card-dog' src={Diego} />
 					<Card.Body>
