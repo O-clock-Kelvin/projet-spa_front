@@ -15,6 +15,7 @@ function MobileMainMenu() {
     console.log(location);
   }, [location]);
   if (location.pathname != "/login") {
+    // si l'utilisateur a le role 'admin' il a accès à son menu
     if (user.admin) {
       return (
         <Nav className="me-auto">
@@ -33,6 +34,7 @@ function MobileMainMenu() {
         </Nav>
       );
     } else {
+      // si l'utilisateur a le role 'user' il a accès à son menu
       return (
         <Nav className="me-auto">
           <Nav.Link className="mobile-nav-link" href="/">
