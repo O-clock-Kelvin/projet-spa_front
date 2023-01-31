@@ -6,6 +6,7 @@ import {
 	LOGIN_REJECTED,
 	LOGOUT,
 } from '../actions/loginActions';
+
 import { SET_TOKEN, TOKEN_CHECKED } from '../actions/tokenAction';
 
 const initialState = {

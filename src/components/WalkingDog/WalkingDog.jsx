@@ -1,115 +1,134 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import classnames from 'classnames';
 
-// importation composant bootstrap
+// importation composant
 import Card from 'react-bootstrap/Card';
 import FilterDog from '../FilterDog/FilterDog';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 // style
 import './styles.scss';
 import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
 import { ImEqualizer } from 'react-icons/im';
 import { useQuery } from 'react-query';
+import { useSelector } from 'react-redux';
 
 // images
 import Diego from '../../assets/images/Diego.jpeg';
-import { getDogs } from '../../requests/getDogs';
 
 // fonctions
-// import { getDogs } from '../../requetes/getDogs';
+import { getDogsByExperience, getDogsByFilter} from '../../requests/Dogs';
+import { convertBirthdayInAge, convertDateInDaysUntilToday } from '../../utils/convert';
+import { Button } from 'react-bootstrap';
+
 
 function WalkingDog() {
-	// const dogs = getDogs();
-	// console.log(dogs);
-	const { isLoading, error, data, isFetching } = useQuery('repoData', getDogs);
+
+	const [dogs, setDogs] = useState([]);
+	const [reloadButton, setReloadButton] = useState(false);
+
+    const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
+
+    // on utilise react-query pour voir comment se passe la requête
+    // si elle se passe bien elle nous renvoie le résultat sous forme d'objet : data
+    // cet objet contient une propriété "data" qui a pour valeur toues les objets correspondant à la requête
+	const { isLoading, error, data, isFetching } = useQuery('repoData', () => getDogsByExperience(experience));
 
 	useEffect(() => {
-		console.log('==============================================');
 		console.log('loading', isLoading);
 		console.log('error', error);
 		console.log('data', data);
-		console.log('isFetching', data);
+		console.log('isFetching', isFetching);
+		if(data) {
+			
+			setDogs(data.data);
+		}
 	}, [isLoading, error, data, isFetching]);
 
 	const [filter, setFilter] = useState(false);
 
-	const handleOnClick = () => {
-		console.log('click');
+	const openFilter = () => {
 		setFilter(true);
+	};
+
+	const reloadDogs = async () => {
+		const dogsReloaded = await getDogsByExperience(experience);
+		console.log(dogsReloaded);
+		setDogs(dogsReloaded.data);
+	};
+
+	const emergencyWalking = (date) => {
+		const result = convertDateInDaysUntilToday(date);
+		switch(result) {
+			case 1:
+				return 'green';
+			case 2:
+				return 'orange';
+			default:
+				return 'red';
+		} 
+	};
+
+	const renderDog = (dog) => {
+		const age = convertBirthdayInAge(dog.age);
+	
+		return (
+			<Card
+				key={dog.id}
+			>
+				<Card.Img variant='top' className='card-dog' src={Diego} />
+				<Card.Body>
+					<Card.Title>{dog.name}</Card.Title>
+					<Card.Text>
+						<span className='age'>{age} an{age > 1 ? 's' : ''}</span>
+						<span>
+							{((dog.gender) === 'MALE') ? 
+								(<BiMaleSign className='gender' size={30} />):
+								(<BiFemaleSign className='gender' size={30} />)
+							}	
+						</span>
+					</Card.Text>
+					{dog.walks && dog.walks.length > 0 && 
+						<Card.Text className={classnames('last-walking', emergencyWalking(dog.walks[0].date))}>
+							Dernière sortie : il y a {convertDateInDaysUntilToday(dog.walks[0].date)} jours
+						</Card.Text>
+					}
+				</Card.Body>
+			</Card>
+		);
 	};
 
 	return (
 		<>
 			<h1 className='title-page'>Sortir un chien</h1>
 			<div>
-				<ImEqualizer className='filter' size={30} onClick={handleOnClick} />
+				<ImEqualizer className='filter' size={30} onClick={openFilter} />
 			</div>
-			{filter && <FilterDog />}
+			<div>
+				{reloadButton &&
+					<Button 
+					className='reload-button'
+					type='button'
+					onClick={reloadDogs}
+				>
+					Revoir la liste
+				</Button>}		
+			</div>
+				{filter && <FilterDog 
+								getDogsByFilter={getDogsByFilter} 
+								setFilteredDogs={setDogs} 
+								setFilter={setFilter} 
+								setReloadButton={setReloadButton}
+				/>}
 			<div className='cards-container'>
-				<Card>
-					<Card.Img variant='top' className='card-dog' src={Diego} />
-					<Card.Body>
-						<Card.Title>Milou</Card.Title>
-						<Card.Text>
-							<span className='age'>2 ans</span>
-							<span>
-								<BiFemaleSign className='gender' size={30} />
-							</span>
-						</Card.Text>
-						<Card.Text className='last-walking red'>
-							Dernière sortie : 2 jours 15 heures
-						</Card.Text>
-					</Card.Body>
-				</Card>
-
-				<Card>
-					<Card.Img variant='top' className='card-dog' src={Diego} />
-					<Card.Body>
-						<Card.Title>Milou</Card.Title>
-						<Card.Text>
-							<span className='age'>2 ans</span>
-							<span className='gender'>
-								<BiMaleSign className='gender' size={30} />
-							</span>
-						</Card.Text>
-						<Card.Text className='last-walking green'>
-							Dernière sortie : 0 jours 15 heures
-						</Card.Text>
-					</Card.Body>
-				</Card>
-
-				<Card>
-					<Card.Img variant='top' className='card-dog' src={Diego} />
-					<Card.Body>
-						<Card.Title>Nina</Card.Title>
-						<Card.Text>
-							<span className='age'>2 ans</span>
-							<span className='gender'>
-								<BiMaleSign className='gender' size={30} />
-							</span>
-						</Card.Text>
-						<Card.Text className='last-walking orange'>
-							Dernière sortie : 1 jours 15 heures
-						</Card.Text>
-					</Card.Body>
-				</Card>
-
-				<Card>
-					<Card.Img variant='top' className='card-dog' src={Diego} />
-					<Card.Body>
-						<Card.Title>Nina</Card.Title>
-						<Card.Text>
-							<span className='age'>2 ans</span>
-							<span className='gender'>
-								<BiFemaleSign className='gender' size={30} />
-							</span>
-						</Card.Text>
-						<Card.Text className='last-walking red'>
-							Dernière sortie : 2 jours 15 heures
-						</Card.Text>
-					</Card.Body>
-				</Card>
+                {/* on attend que data existe: le spinner s'affiche tant qu'on n'a pas data (quand loading)
+				quand elle est chargée on map sur data.data */}
+                {!isLoading && dogs ? 
+					dogs.map((dog) => renderDog(dog)) : 
+					<LoadingSpinner />
+				}	
 			</div>
 		</>
 	);

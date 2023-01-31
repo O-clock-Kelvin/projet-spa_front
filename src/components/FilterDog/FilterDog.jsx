@@ -1,19 +1,36 @@
 /** @format */
 
-import React, { useState } from 'react';
-import { ToggleButtonGroup } from 'react-bootstrap';
-import ToggleButton from 'react-bootstrap/ToggleButton';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import { DateTime } from 'luxon';
-import './styles.scss';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-function FilterDog() {
+// import { useQuery } from 'react-query';
+
+// composants
+import { ToggleButtonGroup, CloseButton, ToggleButton, Form, Modal, Button, Badge } from 'react-bootstrap';
+
+// fonctions
+import { convertAgeInIntervalDate } from '../../utils/convert';
+
+// data
+import dataTags from '../../data/tags';
+
+// styles
+import './styles.scss';
+import { useSelector } from 'react-redux';
+function FilterDog({
+	getDogsByFilter,
+	setFilteredDogs,
+	setFilter,
+	setReloadButton
+}) {
+
+	const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
+
 	const [gabaritValue, setGabaritValue] = useState('big');
 	const [sexValue, setSexValue] = useState('male');
 	const [valueAge, setvalueAge] = useState(5);
 	const [tags, setTags] = useState([]);
+	const [tagsList, setTagsList] = useState(dataTags);
 
 	const handleOnChangeGabarit = (e) => {
 		console.log(e.target.value);
@@ -27,40 +44,74 @@ function FilterDog() {
 
 	const handleOnAddTag = (e) => {
 		console.log(e.target.value);
-		console.log(tags);
+		console.log(tagsList);
+		setTagsList((oldState) =>
+			oldState.filter((tag) =>
+				tag.id !== Number(e.target.value)
+			)
+		);
 		setTags((oldState) => [...oldState, e.target.value]);
 	};
 
-	const handleOnSubmit = (e) => {
+	const cancelTag = (tagToCancel) => {
+		console.log(tagToCancel);
+		
+		setTags((oldState) => 
+			oldState.filter((tag) =>
+				tag !== tagToCancel
+			)
+		);
+		const oldTag = dataTags.filter((tag) => tag.id == tagToCancel);
+		console.log(oldTag);
+		setTagsList((oldState) => [...oldState, oldTag[0]]);
+	};
+
+	useEffect(() => {
+		console.log(tags);
+	}, [tags]);
+
+	const handleOnSubmit = async (e) => {
 		e.preventDefault();
-		console.log(e.target);
-		console.log(gabaritValue, sexValue, valueAge, tags);
-		const now = DateTime.now();
 
-		const annee_de_naissance = now.minus({ years: valueAge });
-
-		const debut_année_naissance = annee_de_naissance
-			.startOf('year')
-			.toISODate();
-		const fin_année_naissance = annee_de_naissance.endOf('year').toISODate();
-		console.log(debut_année_naissance);
-		console.log(fin_année_naissance);
-
-		/**
+        // conversion de l'age en un intervalle de dates (3ans => né entre le 01/01/2020 et le 31/12/2020)
+		const {startYearBirthday, endYearBirthday} = convertAgeInIntervalDate(valueAge);
 	
-		 * &
-		 * /animals?date[gte]=debut_annee_naissance&date[lte]=fin_annee_naissance
-		 */
+		// requête pour récupérer la nouvelle liste des chiens avec les filtres
+		const data = await getDogsByFilter(experience, gabaritValue, sexValue, startYearBirthday, endYearBirthday, tags);
+		console.log(data);
+		setFilteredDogs(data.data);
+		setFilter(false);
+		setReloadButton(true);
+	};
+
+	const cancelFilter = () => {
+		setFilter(false);
+		console.log(experience, gabaritValue, sexValue, tags);
+	};
+
+	const renderTag = (tag) => {
+		const tagId = Number(tag);
+		const tagFound = dataTags.find((tag) => tag.id === tagId);
+		return (
+			<div className='container-badge'>
+				<Badge key={tagId}>
+					{tagFound.name}
+				</Badge>
+				<CloseButton
+					onClick={() => cancelTag(tag)}
+				/>
+			</div>	
+		);
 	};
 
 	return (
 		<div className='modal show' style={{ display: 'block', position: 'fixed' }}>
 			<Modal.Dialog>
-				<Modal.Header closeButton>
+				<Modal.Header>
 					<Modal.Title>Filtres</Modal.Title>
 				</Modal.Header>
 
-				<Form onSubmit={handleOnSubmit}>
+				<Form onSubmit={handleOnSubmit} id="filter-form">
 					<Modal.Body>
 						<div className='container-filter'>
 							<div className='filter-part'>
@@ -136,22 +187,29 @@ function FilterDog() {
 									aria-label='Default select example'
 									onChange={handleOnAddTag}
 								>
-									<option>Séléctionner</option>
-									<option value='1'>Joueur</option>
-									<option value='4'>Doux</option>
-									<option value='2'>Sociable</option>
-									<option value='5'>Calin</option>
-									<option value='3'>Energique</option>
-									<option value='6'>Calme</option>
-									<option value='7'>Associable</option>
-									<option value='8'>Fugueur</option>
+									<option >Sélectionner</option>
+									{
+										tagsList.map((tag) => <option key={tag.id} value={`${tag.id}`}>{tag.name}</option>)
+									}							
 								</Form.Select>
+					
+								<div className='tags-container'>
+									{tags &&
+										(tags.map((tag) => renderTag(tag)))
+									}
+								</div>
+								
 							</div>
 						</div>
 					</Modal.Body>
 
 					<Modal.Footer>
-						<Button variant='secondary'>Annuler</Button>
+						<Button 
+							variant='secondary'
+							onClick={cancelFilter}
+						>
+							Annuler
+						</Button>
 						<Button variant='primary' type='submit'>
 							Valider
 						</Button>
@@ -161,5 +219,12 @@ function FilterDog() {
 		</div>
 	);
 }
+
+FilterDog.propTypes = {
+	getDogsByFilter: PropTypes.func.isRequired,
+	setFilteredDogs: PropTypes.func.isRequired, 
+	setFilter: PropTypes.func.isRequired,
+	setReloadButton: PropTypes.func.isRequired,
+};
 
 export default React.memo(FilterDog);
