@@ -79,7 +79,7 @@ function App() {
 						<Route path='/home' element={<Home />} />
 						<Route path='/walks' element={<WalkingDog />} />
 						<Route path='/visits' element={<VisitsCats />} />
-						<Route path='/animal' element={<ListAnimals />} />
+						<Route path='/animals' element={<ListAnimals />} />
 					</Route>
 
 					{/* pages accessibles à l'admin connecté */}

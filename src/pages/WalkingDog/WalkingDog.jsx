@@ -20,7 +20,7 @@ import { ImEqualizer } from 'react-icons/im';
 import Diego from '../../assets/images/Diego.jpeg';
 
 // fonctions
-import { getDogsByExperience, getDogsByFilter } from '../../requests/dogs.request';
+import animalsRequest from '../../requests/animals.request';
 import timeUtil from '../../utils/time.utils';
 import sortUtils from '../../utils/sort.utils';
 
@@ -37,7 +37,7 @@ function WalkingDog() {
 	const experience = "beginner";
 
 	// on fait la requête qui récupère tous les chiens correspondant à l'experience du bénévole. React-query permet de voir comment comment se passe la requête
-	const { isLoading, error, data, isFetching } = useQuery('repoData', () => getDogsByExperience(experience));
+	const { isLoading, error, data, isFetching } = useQuery('repoData', () => animalsRequest.getDogsByExperience(experience));
 
 	// si la requête se passe bien et qu'on nous retourne data, on trie la liste par ordre de priorité (le tableau se trouve dans data.data)
 	useEffect(() => {
@@ -48,7 +48,6 @@ function WalkingDog() {
 		}
 	}, [isLoading, error, data, isFetching]);
 
-
 	// au click sur le filtre on affiche le composant
 	const openFilter = () => {
 		setFilter(true);
@@ -57,7 +56,7 @@ function WalkingDog() {
 	// pour revoir la liste des chiens on refait la même requête
 	const reloadDogs = async () => {
 		try {
-			const dogsReloaded = await getDogsByExperience(experience);
+			const dogsReloaded = await animalsRequest.getDogsByExperience(experience);
 			const sortedDogs = sortUtils.sortDogsByLastWalk(dogsReloaded.data);
 			setDogs(sortedDogs);
 			setReloadButton(false);	
@@ -130,7 +129,7 @@ function WalkingDog() {
 			</div>
 				{filter && (
 					<FilterDog
-						getDogsByFilter={getDogsByFilter}
+						getDogsByFilter={animalsRequest.getDogsByFilter}
 						setFilteredDogs={setDogs}
 						setFilter={setFilter}
 						setReloadButton={setReloadButton}
