@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import boxesRequest from '../../requests/boxes.request';
 
 import AnimalCard from '../../components/AnimalCard/AnimalCard';
-
+import VisitStartButton from '../../components/VisitStartButton/VisitStartButton';
 /**
  * FONCTIONS
  */
@@ -59,7 +59,7 @@ const Box = () => {
 			return (
 				<>
 					<h3>{box.number}</h3>
-
+					<VisitStartButton box={box} />
 					<div>
 						<RenderAnimalsList animals={box.animals} />
 					</div>
