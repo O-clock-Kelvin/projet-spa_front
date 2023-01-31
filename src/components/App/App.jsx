@@ -79,7 +79,7 @@ function App() {
 						<Route path='/home' element={<Home />} />
 						<Route path='/walks' element={<WalkingDog />} />
 						<Route path='/visits' element={<VisitsCats />} />
-						<Route path='/animals' element={<ListAnimals />} />
+						<Route path='/animal' element={<ListAnimals />} />
 					</Route>
 
 					{/* pages accessibles à l'admin connecté */}
@@ -102,7 +102,7 @@ function App() {
 						}
 					/>
 					<Route
-						path='/animals/:animalId'
+						path='/animal/:animalId'
 						element={
 							isConnected ? <AnimalPage /> : <Navigate to='/login' replace />
 						}
