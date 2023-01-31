@@ -18,6 +18,7 @@ import WalkingDog from '../../pages/WalkingDog/WalkingDog';
 import VisitsCats from '../../pages/VisitsCats/VisitsCats';
 import Footer from '../Footer/Footer';
 import AnimalPage from '../../pages/AnimalPage/AnimalPage';
+import Box from '../../pages/Box/Box';
 
 // fonctions
 import { useSelector } from 'react-redux';
@@ -106,6 +107,11 @@ function App() {
 						element={
 							isConnected ? <AnimalPage /> : <Navigate to='/login' replace />
 						}
+					/>
+
+					<Route
+						path='/box/:boxId'
+						element={isConnected ? <Box /> : <Navigate to='/login' replace />}
 					/>
 
 					<Route
