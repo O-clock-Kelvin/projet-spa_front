@@ -188,10 +188,10 @@ const ProfilePage = () => {
 						) : (
 							<>
 
-    <Card className='profile' style={{ width: '18rem' }} >
-      <Card.Header className="text-center"><br />
-					{user.admin ? 'Employé' : 'Bénévole'}</Card.Header>
-	<Card.Img variant="top" width={100}
+    <Card className='profile' style={{ width: '22rem' }} >
+      <Card.Header className="text-center">
+					<Card.Title>{user.admin ? 'EMPLOYE' : 'BENEVOLE'}</Card.Title><Card.Title>{user.name}</Card.Title></Card.Header>
+	<Card.Img variant="top" width={60}
 							src={
 								user.profile_picture
 									? user.profile_picture
@@ -201,9 +201,8 @@ const ProfilePage = () => {
 	
 							/>
       <Card.Body>
-        <Card.Title>{user.firstname}</Card.Title>
-		<Card.Title>{user.name}</Card.Title>
-		<Card.Text>Rôle: {user.admin ? 'employé' : 'bénévole'}</Card.Text>
+		
+        <Card.Title className="text-center">{user.firstname}</Card.Title>
 		<Card.Text>Expérience :{''} {experienceUtil.renderExperienceLevel(user.experience)}</Card.Text>
 		<Card.Text>Email : {user.email}</Card.Text>
 		<Card.Text>Téléphone: {user.phone_number || 'non renseigné'}</Card.Text>
