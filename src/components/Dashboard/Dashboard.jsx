@@ -29,7 +29,7 @@ function Dashboard() {
           <Card>
             <Card.Img variant="top" src={DogAndCat} />
             <Card.Body>
-              <Button href="/create/card" variant="primary" type="submit">Voir tous les animaux</Button>
+              <Button href="/animals" variant="primary" type="submit">Voir tous les animaux</Button>
             </Card.Body>
           </Card>
 
@@ -43,7 +43,7 @@ function Dashboard() {
           <Card>
             <Card.Img variant="top" src={DogHugsCat} />
             <Card.Body>
-              <Button href="/create/card" variant="primary" type="submit">Créer un animal</Button>
+              <Button href="admin/create/card" variant="primary" type="submit">Créer un animal</Button>
             </Card.Body>
           </Card>
         </CardGroup>

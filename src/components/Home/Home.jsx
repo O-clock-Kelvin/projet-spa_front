@@ -11,7 +11,7 @@ import cat from '../../assets/images/cats-playing.png';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import './styles.scss';
+import './Home.scss';
 
 
 function Home() {
@@ -24,7 +24,7 @@ function Home() {
       <div className='home-container'>
         <Card >
           <Link
-            to={"/walkingdog"} 
+            to={"/walks"} 
           > 
             <Card.Body className='card-body'>
               <div className='description'>
@@ -43,7 +43,7 @@ function Home() {
 
         <Card >
           <Link
-            to={"/visitscats"}
+            to={"/visits"}
           >
             <Card.Body className='card-body'>
               <div className='description'>

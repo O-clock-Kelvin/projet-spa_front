@@ -10,11 +10,14 @@ import LoginForm from '../LoginForm/LoginForm';
 import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
 import DashboardVolunteerCreation from '../DashboardVolunteerCreation/DashboardVolunteerCreation';
+import DashboardAnimalCreation from '../DashboardAnimalCreation/DashboardAnimalCreation';
 import PrivateRoutes from '../PrivateRoutes/PrivateRoutes';
 import PrivateRoutesAdmin from '../PrivateRoutesAdmin/PrivateRoutesAdmin';
 import Error404 from '../Error404/Error404';
 import WalkingDog from '../WalkingDog/WalkingDog';
 import VisitsCats from '../VisitsCats/VisitsCats';
+import Footer from '../Footer/Footer';
+import AnimalPage from '../AnimalPage';
 
 // fonctions
 import { useSelector } from 'react-redux';
@@ -23,6 +26,8 @@ import { actionSetToken, actionTokenChecked } from '../../actions/tokenAction';
 import './styles.scss';
 
 import { useDispatch } from 'react-redux';
+import ProfilePage from '../Profile';
+import ListAnimals from '../ListAnimals/ListAnimals';
 
 function App() {
 	const { isConnected, admin, token, authLoaded } = useSelector(
@@ -72,8 +77,9 @@ function App() {
 					{/* pages accessibles à l'utilisateur connecté */}
 					<Route element={<PrivateRoutes />}>
 						<Route path='/home' element={<Home />} />
-						<Route path='/walkingdog' element={<WalkingDog />} />
-						<Route path='/visitscats' element={<VisitsCats />} />
+						<Route path='/walks' element={<WalkingDog />} />
+						<Route path='/visits' element={<VisitsCats />} />
+						<Route path='/animals' element={<ListAnimals />} />
 					</Route>
 
 					{/* pages accessibles à l'admin connecté */}
@@ -83,9 +89,25 @@ function App() {
 							path='/admin/create/user'
 							element={<DashboardVolunteerCreation />}
 						/>
+						<Route
+							path='/admin/create/card'
+							element={<DashboardAnimalCreation />}
+						/>
 					</Route>
 
-					{/* <Route path='/' element={<Navigate to='/login' replace />} /> */}
+					<Route
+						path='/profile'
+						element={
+							isConnected ? <ProfilePage /> : <Navigate to='/login' replace />
+						}
+					/>
+					<Route
+						path='/animal/:animalId'
+						element={
+							isConnected ? <AnimalPage /> : <Navigate to='/login' replace />
+						}
+					/>
+
 					<Route
 						path='/'
 						element={
@@ -94,7 +116,7 @@ function App() {
 							) : isConnected && admin ? (
 								<Navigate to='/admin' replace />
 							) : (
-								<LoginForm />
+								<Navigate to='/login' replace />
 							)
 						}
 					/>
@@ -104,9 +126,11 @@ function App() {
 					/>
 					<Route path='*' element={<Error404 />} />
 				</Routes>
+				<Footer />
 			</div>
 		);
 	} else {
+		//@TODO
 		return <p>Loading</p>;
 	}
 }

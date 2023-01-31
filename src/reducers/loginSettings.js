@@ -11,6 +11,7 @@ import { SET_TOKEN, TOKEN_CHECKED } from '../actions/tokenAction';
 
 const initialState = {
 	token: localStorage.getItem('token'),
+	id: null,
 	admin: false,
 	firstName: '',
 	experience: '',
@@ -35,6 +36,7 @@ const loginSettingsReducer = (state = initialState, action = {}) => {
 			return {
 				...state,
 				token: action.payload.token,
+				id: action.payload.id,
 				admin: action.payload.admin,
 				firstName: action.payload.firstName,
 				experience: action.payload.experience,
@@ -48,6 +50,7 @@ const loginSettingsReducer = (state = initialState, action = {}) => {
 			return {
 				...state,
 				token: action.payload.token,
+				id: action.payload.id,
 				admin: action.payload.admin,
 				firstName: action.payload.firstName,
 				experience: action.payload.experience,
@@ -76,6 +79,7 @@ const loginSettingsReducer = (state = initialState, action = {}) => {
 		case LOGOUT: {
 			return {
 				...state,
+				id: null,
 				admin: false,
 				firstName: '',
 				experience: '',
@@ -85,8 +89,8 @@ const loginSettingsReducer = (state = initialState, action = {}) => {
 				token: null,
 			};
 		}
+
 		default: {
-			console.log('requête non aboutie');
 			return state;
 		}
 	}
