@@ -23,6 +23,7 @@ import { getDogsByExperience, getDogsByFilter } from '../../requests/Dogs';
 import timeUtil from '../../utils/time.utils';
 
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function WalkingDog() {
 	const [dogs, setDogs] = useState([]);
@@ -59,6 +60,7 @@ function WalkingDog() {
 		const dogsReloaded = await getDogsByExperience(experience);
 		console.log(dogsReloaded);
 		setDogs(dogsReloaded.data);
+		setReloadButton(false);
 	};
 
 	const emergencyWalking = (date) => {
@@ -78,33 +80,37 @@ function WalkingDog() {
 
 		return (
 			<Card key={dog.id}>
-				<Card.Img variant='top' className='card-dog' src={Diego} />
-				<Card.Body>
-					<Card.Title>{dog.name}</Card.Title>
-					<Card.Text>
-						<span className='age'>
-							{age} an{age > 1 ? 's' : ''}
-						</span>
-						<span>
-							{dog.gender === 'MALE' ? (
-								<BiMaleSign className='gender' size={30} />
-							) : (
-								<BiFemaleSign className='gender' size={30} />
-							)}
-						</span>
-					</Card.Text>
-					{dog.walks && dog.walks.length > 0 && (
-						<Card.Text
+				<Link
+					to={`/animals/${dog.id}`}
+				>
+					<Card.Img variant='top' className='card-dog' src={Diego} />
+					<Card.Body>
+						<Card.Title>{dog.name}</Card.Title>
+						<Card.Text>
+							<span className='age'>
+								{age} an{age > 1 ? 's' : ''}
+							</span>
+							<span>
+								{dog.gender === 'MALE' ? (
+									<BiMaleSign className='gender' size={30} />
+									) : (
+									<BiFemaleSign className='gender' size={30} />
+								)}
+							</span>
+						</Card.Text>
+						{dog.walks && dog.walks.length > 0 && (
+							<Card.Text
 							className={classnames(
 								'last-walking',
-								emergencyWalking(dog.walks[0].date)
-							)}
-						>
-							Dernière sortie : il y a{' '}
-							{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date)} jours
-						</Card.Text>
-					)}
-				</Card.Body>
+									emergencyWalking(dog.walks[0].date)
+								)}
+								>
+								Dernière sortie : il y a{' '}
+								{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date)} jours
+							</Card.Text>
+						)}
+					</Card.Body>
+				</Link>
 			</Card>
 		);
 	};

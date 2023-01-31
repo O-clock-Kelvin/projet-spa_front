@@ -102,7 +102,7 @@ function App() {
 						}
 					/>
 					<Route
-						path='/animal/:animalId'
+						path='/animals/:animalId'
 						element={
 							isConnected ? <AnimalPage /> : <Navigate to='/login' replace />
 						}
