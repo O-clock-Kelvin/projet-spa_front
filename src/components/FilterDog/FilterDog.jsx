@@ -6,10 +6,17 @@ import PropTypes from 'prop-types';
 // import { useQuery } from 'react-query';
 
 // composants
-import { ToggleButtonGroup, CloseButton, ToggleButton, Form, Modal, Button, Badge } from 'react-bootstrap';
+import {
+	ToggleButtonGroup,
+	CloseButton,
+	ToggleButton,
+	Form,
+	Modal,
+	Button,
+	Badge,
+} from 'react-bootstrap';
 
 // fonctions
-import { convertAgeInIntervalDate } from '../../utils/convert';
 
 // data
 import dataTags from '../../data/tags';
@@ -17,14 +24,16 @@ import dataTags from '../../data/tags';
 // styles
 import './styles.scss';
 import { useSelector } from 'react-redux';
+import timeUtil from '../../utils/time.utils';
 function FilterDog({
 	getDogsByFilter,
 	setFilteredDogs,
 	setFilter,
-	setReloadButton
+	setReloadButton,
 }) {
-
-	const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
+	const experience = useSelector(
+		(fullstate) => fullstate.loginSettings.experience
+	);
 
 	const [gabaritValue, setGabaritValue] = useState('big');
 	const [sexValue, setSexValue] = useState('male');
@@ -46,21 +55,15 @@ function FilterDog({
 		console.log(e.target.value);
 		console.log(tagsList);
 		setTagsList((oldState) =>
-			oldState.filter((tag) =>
-				tag.id !== Number(e.target.value)
-			)
+			oldState.filter((tag) => tag.id !== Number(e.target.value))
 		);
 		setTags((oldState) => [...oldState, e.target.value]);
 	};
 
 	const cancelTag = (tagToCancel) => {
 		console.log(tagToCancel);
-		
-		setTags((oldState) => 
-			oldState.filter((tag) =>
-				tag !== tagToCancel
-			)
-		);
+
+		setTags((oldState) => oldState.filter((tag) => tag !== tagToCancel));
 		const oldTag = dataTags.filter((tag) => tag.id == tagToCancel);
 		console.log(oldTag);
 		setTagsList((oldState) => [...oldState, oldTag[0]]);
@@ -73,11 +76,19 @@ function FilterDog({
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
 
-        // conversion de l'age en un intervalle de dates (3ans => né entre le 01/01/2020 et le 31/12/2020)
-		const {startYearBirthday, endYearBirthday} = convertAgeInIntervalDate(valueAge);
-	
+		// conversion de l'age en un intervalle de dates (3ans => né entre le 01/01/2020 et le 31/12/2020)
+		const { startYearBirthday, endYearBirthday } =
+			timeUtil.convertAgeInIntervalDate(valueAge);
+
 		// requête pour récupérer la nouvelle liste des chiens avec les filtres
-		const data = await getDogsByFilter(experience, gabaritValue, sexValue, startYearBirthday, endYearBirthday, tags);
+		const data = await getDogsByFilter(
+			experience,
+			gabaritValue,
+			sexValue,
+			startYearBirthday,
+			endYearBirthday,
+			tags
+		);
 		console.log(data);
 		setFilteredDogs(data.data);
 		setFilter(false);
@@ -94,13 +105,9 @@ function FilterDog({
 		const tagFound = dataTags.find((tag) => tag.id === tagId);
 		return (
 			<div className='container-badge'>
-				<Badge key={tagId}>
-					{tagFound.name}
-				</Badge>
-				<CloseButton
-					onClick={() => cancelTag(tag)}
-				/>
-			</div>	
+				<Badge key={tagId}>{tagFound.name}</Badge>
+				<CloseButton onClick={() => cancelTag(tag)} />
+			</div>
 		);
 	};
 
@@ -111,7 +118,7 @@ function FilterDog({
 					<Modal.Title>Filtres</Modal.Title>
 				</Modal.Header>
 
-				<Form onSubmit={handleOnSubmit} id="filter-form">
+				<Form onSubmit={handleOnSubmit} id='filter-form'>
 					<Modal.Body>
 						<div className='container-filter'>
 							<div className='filter-part'>
@@ -187,27 +194,23 @@ function FilterDog({
 									aria-label='Default select example'
 									onChange={handleOnAddTag}
 								>
-									<option >Sélectionner</option>
-									{
-										tagsList.map((tag) => <option key={tag.id} value={`${tag.id}`}>{tag.name}</option>)
-									}							
+									<option>Sélectionner</option>
+									{tagsList.map((tag) => (
+										<option key={tag.id} value={`${tag.id}`}>
+											{tag.name}
+										</option>
+									))}
 								</Form.Select>
-					
+
 								<div className='tags-container'>
-									{tags &&
-										(tags.map((tag) => renderTag(tag)))
-									}
+									{tags && tags.map((tag) => renderTag(tag))}
 								</div>
-								
 							</div>
 						</div>
 					</Modal.Body>
 
 					<Modal.Footer>
-						<Button 
-							variant='secondary'
-							onClick={cancelFilter}
-						>
+						<Button variant='secondary' onClick={cancelFilter}>
 							Annuler
 						</Button>
 						<Button variant='primary' type='submit'>
@@ -222,7 +225,7 @@ function FilterDog({
 
 FilterDog.propTypes = {
 	getDogsByFilter: PropTypes.func.isRequired,
-	setFilteredDogs: PropTypes.func.isRequired, 
+	setFilteredDogs: PropTypes.func.isRequired,
 	setFilter: PropTypes.func.isRequired,
 	setReloadButton: PropTypes.func.isRequired,
 };

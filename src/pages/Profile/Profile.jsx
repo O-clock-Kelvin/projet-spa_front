@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { actionSetToken } from '../../actions/tokenAction';
+import experienceUtil from '../../utils/experience.utils';
+
 const schema = yup.object().shape({
 	firstname: yup
 		.string()
@@ -146,19 +148,6 @@ const ProfilePage = () => {
 
 	const [showEditor, setShowEditor] = useState(false);
 
-	const renderExperienceLevel = (level) => {
-		switch (level) {
-			case 'BEGINNER':
-				return 'débutant';
-			case 'MEDIUM':
-				return 'intermédiaire';
-			case 'EXPERT':
-				return 'expert';
-			default:
-				return 'débutant';
-		}
-	};
-
 	const renderError = (error) => {
 		if (error.response) {
 			switch (error.response.data.message) {
@@ -213,7 +202,10 @@ const ProfilePage = () => {
 									<li>prénom: {user.firstname}</li>
 									<li>nom: {user.name}</li>
 									<li>role: {user.admin ? 'employé' : 'bénévole'}</li>
-									<li>expérience: {renderExperienceLevel(user.experience)}</li>
+									<li>
+										expérience:{' '}
+										{experienceUtil.renderExperienceLevel(user.experience)}
+									</li>
 									<li>Téléphone: {user.phone_number || 'non renseigné'}</li>
 								</ul>
 								<button

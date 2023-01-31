@@ -6,18 +6,18 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 // composants
 import Header from '../Header/Header';
 import MobileHeader from '../MobileHeader/MobileHeader';
-import LoginForm from '../LoginForm/LoginForm';
-import Home from '../Home/Home';
-import Dashboard from '../Dashboard/Dashboard';
-import DashboardVolunteerCreation from '../DashboardVolunteerCreation/DashboardVolunteerCreation';
-import DashboardAnimalCreation from '../DashboardAnimalCreation/DashboardAnimalCreation';
+import LoginForm from '../../pages/LoginForm/LoginForm';
+import Home from '../../pages/Home/Home';
+import Dashboard from '../../pages/Dashboard/Dashboard';
+import DashboardVolunteerCreation from '../../pages/DashboardVolunteerCreation/DashboardVolunteerCreation';
+import DashboardAnimalCreation from '../../pages/DashboardAnimalCreation/DashboardAnimalCreation';
 import PrivateRoutes from '../PrivateRoutes/PrivateRoutes';
 import PrivateRoutesAdmin from '../PrivateRoutesAdmin/PrivateRoutesAdmin';
-import Error404 from '../Error404/Error404';
-import WalkingDog from '../WalkingDog/WalkingDog';
-import VisitsCats from '../VisitsCats/VisitsCats';
+import Error404 from '../../pages/Error404/Error404';
+import WalkingDog from '../../pages/WalkingDog/WalkingDog';
+import VisitsCats from '../../pages/VisitsCats/VisitsCats';
 import Footer from '../Footer/Footer';
-import AnimalPage from '../AnimalPage';
+import AnimalPage from '../../pages/AnimalPage/AnimalPage';
 
 // fonctions
 import { useSelector } from 'react-redux';
@@ -26,8 +26,8 @@ import { actionSetToken, actionTokenChecked } from '../../actions/tokenAction';
 import './styles.scss';
 
 import { useDispatch } from 'react-redux';
-import ProfilePage from '../Profile';
-import ListAnimals from '../ListAnimals/ListAnimals';
+import ProfilePage from '../../pages/Profile/Profile';
+import ListAnimals from '../../pages/ListAnimals/ListAnimals';
 
 function App() {
 	const { isConnected, admin, token, authLoaded } = useSelector(

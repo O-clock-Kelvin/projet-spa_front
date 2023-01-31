@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import PropTypes from 'prop-types';
 
-import VisitSummary from '../VisitSummary';
+import VisitSummary from '../VisitSummary/VisitSummary';
 import boxesRequest from '../../requests/boxes.request';
 
 const LoadNextButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {

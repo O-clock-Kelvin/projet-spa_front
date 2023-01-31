@@ -6,20 +6,9 @@ import { useSelector } from 'react-redux';
 import { DateTime } from 'luxon';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import WalkEditor from '../WalkEditor';
+import WalkEditor from '../WalkEditor/WalkEditor';
 import walksRequest from '../../requests/walks.request';
-
-const experienceConverter = (level) => {
-	switch (level) {
-		case 'MEDIUM':
-			return 1;
-		case 'EXPERT':
-			return 2;
-		default: // retourne par défault un niveau débutant (BEGINNER=0)
-			return 0;
-	}
-};
-
+import experienceUtil from '../../utils/experience.utils';
 /**
  * design de test, a supprimer
  */
@@ -60,8 +49,8 @@ const StartWalkButton = ({ animal }) => {
 				startedWalk == undefined)
 		) {
 			if (
-				experienceConverter(experience) >=
-				experienceConverter(animal.volunteer_experience)
+				experienceUtil.experienceConverter(experience) >=
+				experienceUtil.experienceConverter(animal.volunteer_experience)
 			) {
 				return (
 					<>

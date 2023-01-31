@@ -5,8 +5,8 @@ import Reaptcha from 'reaptcha';
 // composants
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import WrongAuthentification from '../WrongAuthentification/WrongAuthentification';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import WrongAuthentification from '../../components/WrongAuthentification/WrongAuthentification';
 import Container from 'react-bootstrap/Container';
 import InputGroup from 'react-bootstrap/InputGroup';
 
@@ -24,7 +24,6 @@ import manWalkingDog from '../../assets/images/clipart1525964.png';
 import { ImUser, ImLock } from 'react-icons/im';
 
 function LoginForm() {
-	
 	// utilisation du state pour variables utiles dans le composant
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');

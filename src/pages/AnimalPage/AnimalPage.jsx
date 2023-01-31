@@ -4,9 +4,9 @@ import { useParams } from 'react-router-dom';
 import animalsRequest from '../../requests/animals.request';
 import PropTypes from 'prop-types';
 
-import StartWalkButton from '../WalkStartButton';
-import AnimalWalksList from '../AnimalWalksList';
-import BoxVisitsList from '../BoxVisitsList';
+import StartWalkButton from '../../components/WalkStartButton/WalkStartButton';
+import AnimalWalksList from '../../components/AnimalWalksList';
+import BoxVisitsList from '../../components/BoxVisitsList/BoxVisits';
 
 const TagsList = ({ tags }) => {
 	if (tags) {

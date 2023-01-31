@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import PropTypes from 'prop-types';
 import animalsRequest from '../../requests/animals.request';
-import WalkSummary from '../WalkSummary';
+import WalkSummary from '../WalkSummary/WalkSummary';
 
 const LoadNextButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {
 	if (isFetchingNextPage) {
