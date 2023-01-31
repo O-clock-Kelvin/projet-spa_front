@@ -10,6 +10,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { actionSetToken } from '../../actions/tokenAction';
 import experienceUtil from '../../utils/experience.utils';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+
+
 
 const schema = yup.object().shape({
 	firstname: yup
@@ -166,20 +170,6 @@ const ProfilePage = () => {
 		if (!error && user) {
 			return (
 				<div>
-					{user.firstname} {user.name}
-					<br />
-					{user.admin ? 'Employé' : 'Bénévole'}
-					<div>
-						<img
-							width={100}
-							src={
-								user.profile_picture
-									? user.profile_picture
-									: 'https://thispersondoesnotexist.com/image'
-							}
-							alt={` ${user.firstname} ${user.name}`}
-						/>
-					</div>
 					<div>
 						{showEditor ? (
 							<ProfileEditor
@@ -197,28 +187,37 @@ const ProfilePage = () => {
 							/>
 						) : (
 							<>
-								<ul>
-									<li>email: {user.email}</li>
-									<li>prénom: {user.firstname}</li>
-									<li>nom: {user.name}</li>
-									<li>role: {user.admin ? 'employé' : 'bénévole'}</li>
-									<li>
-										expérience:{' '}
-										{experienceUtil.renderExperienceLevel(user.experience)}
-									</li>
-									<li>Téléphone: {user.phone_number || 'non renseigné'}</li>
-								</ul>
-								<button
-									onClick={() => {
+
+    <Card className='profile' style={{ width: '18rem' }} >
+      <Card.Header className="text-center"><br />
+					{user.admin ? 'Employé' : 'Bénévole'}</Card.Header>
+	<Card.Img variant="top" width={100}
+							src={
+								user.profile_picture
+									? user.profile_picture
+									: 'https://thispersondoesnotexist.com/image'
+							}
+							alt={` ${user.firstname} ${user.name}`}
+	
+							/>
+      <Card.Body>
+        <Card.Title>{user.firstname}</Card.Title>
+		<Card.Title>{user.name}</Card.Title>
+		<Card.Text>Rôle: {user.admin ? 'employé' : 'bénévole'}</Card.Text>
+		<Card.Text>Expérience :{''} {experienceUtil.renderExperienceLevel(user.experience)}</Card.Text>
+		<Card.Text>Email : {user.email}</Card.Text>
+		<Card.Text>Téléphone: {user.phone_number || 'non renseigné'}</Card.Text>
+        
+		<Button onClick={() => {
 										setShowEditor(true);
-									}}
-								>
-									Editer mes informations
-								</button>
+									}}>Editer mes informations</Button>
+      </Card.Body>
+    </Card>
+
 							</>
 						)}
 					</div>
-				</div>
+					</div>
 			);
 		} else {
 			return renderError(error);
