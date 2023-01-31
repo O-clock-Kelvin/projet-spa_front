@@ -8,9 +8,13 @@ export const getToken = () =>
 
 const api = axios.create({
 	baseURL: `${process.env.REACT_APP_API_URL}/v1`,
-	headers: {
-		Authorization: `Bearer ${getToken()}`,
-	},
+});
+
+// Middleware axios qui permet de conserver le token lors de chaque requête au back
+api.interceptors.request.use((config) => {
+	config.headers['Authorization'] = `Bearer ${getToken()}`;
+	console.log('CONFIG', config);
+	return config;
 });
 
 export default api;
