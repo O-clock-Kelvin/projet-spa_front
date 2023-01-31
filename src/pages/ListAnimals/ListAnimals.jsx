@@ -1,17 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
-// composants
+// composants bootstrap
 // import { Button } from 'react-bootstrap';
 import { ImEqualizer } from 'react-icons/im';
+import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+// composants
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 // fonctions
 import animalsRequest from '../../requests/animals.request';
 
+// images
+import Diego from '../../assets/images/Diego.jpeg';
+
 function ListAnimals() {
 
     // récupération de l'experience du bénévole pour récupérer les bons chiens
-    // const [animals, setAnimals] = useState([]);
+    const [animals, setAnimals] = useState([]);
     // const [reloadButton, setReloadButton] = useState(false);
     // const [filter, setFilter] = useState(false);
 
@@ -21,6 +29,7 @@ function ListAnimals() {
     useEffect(() => {
       if (data) {
         console.log(data);
+        setAnimals(data.data);
       }
     }, [isLoading, error, data, isFetching]);
 
@@ -28,6 +37,35 @@ function ListAnimals() {
     // const openFilter = () => {
     //   setFilter(true);
     // };
+
+    
+	// on affiche chaque carte du chien de la liste récupérée
+	const renderAnimal = (animal) => {
+		return (
+			<Card key={animal.id}>
+				<Link
+					to={`/animal/${animal.id}`}
+				>
+					<Card.Img variant='top' className='card-dog' src={Diego} />
+					<Card.Body>
+						<Card.Title>{animal.name}</Card.Title>
+						{/* <Card.Text>
+							<span className='age'>
+								{age} an{age > 1 ? 's' : ''}
+							</span>
+							<span>
+								{dog.gender === 'MALE' ? (
+									<BiMaleSign className='gender' size={30} />
+									) : (
+									<BiFemaleSign className='gender' size={30} />
+								)}
+							</span>
+						</Card.Text> */}
+					</Card.Body>
+				</Link>
+			</Card>
+		);
+	};
 
     return (
       <>
@@ -51,11 +89,11 @@ function ListAnimals() {
             />
           )} */}
         <div className='cards-container'>
-          {/* {!isLoading && dogs ? (
-            dogs.map((dog) => renderDog(dog))
+          {!isLoading && animals ? (
+            animals.map((animal) => renderAnimal(animal))
           ) : (
             <LoadingSpinner />
-          )} */}
+          )}
 			</div>
 		</>
     );
