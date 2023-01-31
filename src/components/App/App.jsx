@@ -23,7 +23,7 @@ import AnimalPage from '../../pages/AnimalPage/AnimalPage';
 import { useSelector } from 'react-redux';
 import { actionSetToken, actionTokenChecked } from '../../actions/tokenAction';
 
-import './styles.scss';
+import './App.scss';
 
 import { useDispatch } from 'react-redux';
 import ProfilePage from '../../pages/Profile/Profile';

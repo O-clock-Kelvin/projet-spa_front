@@ -9,7 +9,7 @@ import FilterDog from '../../components/FilterDog/FilterDog';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 // style
-import './styles.scss';
+import './WalkingDog.scss';
 import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
 import { ImEqualizer } from 'react-icons/im';
 import { useQuery } from 'react-query';
@@ -76,7 +76,7 @@ function WalkingDog() {
 	const renderDog = (dog) => {
 		const age = timeUtil.convertBirthdayInAge(dog.age);
 
-		return (
+		return (		
 			<Card key={dog.id}>
 				<Card.Img variant='top' className='card-dog' src={Diego} />
 				<Card.Body>

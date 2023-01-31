@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
 
+import Stack from 'react-bootstrap/Stack';
+
+import './WalkSummary.scss';
+
 const WalkFeeling = ({ feeling }) => {
 	switch (feeling) {
 		case 'BAD':
@@ -26,17 +30,15 @@ WalkFeeling.propTypes = {
 const WalkSummary = (props) => {
 	if (props.walk) {
 		return (
-			<div
-				style={{
-					backgroundColor: 'lightgray',
-					marginTop: '5px',
-					marginBottom: '5px',
-					width: '25vw',
-				}}
-			>
-				le{' '}
-				{DateTime.fromISO(props.walk.date).toLocaleString(DateTime.DATE_SHORT)}{' '}
-				- {props.walk.comment} - <WalkFeeling feeling={props.walk.feeling} />
+			<div className='animal-walks'>
+				
+				<p>le{' '}{DateTime.fromISO(props.walk.date).toLocaleString(DateTime.DATE_SHORT)}{' '}</p>
+				<Stack direction='horizontal' gap={2}>
+					<p> {props.walk.comment} </p> 
+					<span>
+						<WalkFeeling feeling={props.walk.feeling} />
+					</span>
+				</Stack>
 			</div>
 		);
 	} else {

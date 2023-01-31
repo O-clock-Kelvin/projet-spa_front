@@ -4,6 +4,13 @@ import { useParams } from 'react-router-dom';
 import animalsRequest from '../../requests/animals.request';
 import PropTypes from 'prop-types';
 
+import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import './AnimalPage.scss';
+
 import StartWalkButton from '../../components/WalkStartButton/WalkStartButton';
 import AnimalWalksList from '../../components/AnimalWalksList';
 import BoxVisitsList from '../../components/BoxVisitsList/BoxVisits';
@@ -11,7 +18,7 @@ import BoxVisitsList from '../../components/BoxVisitsList/BoxVisits';
 const TagsList = ({ tags }) => {
 	if (tags) {
 		return (
-			<ul>
+			<ul className='tag'>
 				{tags.map((tag) => (
 					<li key={tag.tag_id}>{tag.tag.name}</li>
 				))}
@@ -73,39 +80,59 @@ const AnimalPage = () => {
 	if (!isLoading) {
 		if (animal) {
 			return (
-				<>
-					<h1>Page de {animal.name}</h1>
-					<div>
-						<img
-							width={200}
-							src={
-								animal.url_image || renderDefaultAnimalPicture(animal.species)
-							}
-							alt={animal.name}
-						/>
-						<TagsList tags={animal.tags} />
-						{animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id}
-						<br />
-						{animal.species === 'DOG' && <StartWalkButton animal={animal} />}
-					</div>
-					<div>
-						<h4>Notes sur l'animal</h4>
-						<div>{animal.bio ?? "Cet animal n'a pas de bio"}</div>
-					</div>
+				<>	
+					<h1 className ='title-page'>Fiche de {animal.name}</h1>
 
-					{animal.species === 'DOG' && (
-						<>
-							<h4>Dernières balades</h4>
-							<AnimalWalksList animalId={animal.id} />
-						</>
-					)}
-					{animal.species === 'CAT' && (
-						<>
-							<h4>Dernières visites du box</h4>
-							<BoxVisitsList boxId={animal.box_id} />
-						</>
-					)}
-				</>
+				<Container className='animal-container'>
+					<Row>
+						<Col className='animal-information' lg={4}>
+							<div >
+								<Image className='rounded'
+									width={200}
+									src={
+										animal.url_image || renderDefaultAnimalPicture(animal.species)
+									}
+									alt={animal.name}
+								/>
+								
+									<TagsList tags={animal.tags} />
+								
+								<span> {animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id} </span>
+								<br />
+								{animal.species === 'DOG' && <StartWalkButton animal={animal} />}
+							</div>
+						</Col>
+						<Col>
+							<Container>
+								<Row>
+									<Col>
+										<div>
+											<h4 className="subtitle-page">Biographie</h4>
+											<div className='animal-bio'>{animal.bio ?? "Cet animal n'a pas de bio"}</div>
+										</div>
+									</Col>
+								</Row>
+								<Row>
+									<Col>
+									{animal.species === 'DOG' && (
+										<>
+											<h4 className="subtitle-page">Dernières balades</h4>
+											<AnimalWalksList animalId={animal.id} />
+										</>
+									)}
+									{animal.species === 'CAT' && (
+										<>
+											<h4>Dernières visites du box</h4>
+											<BoxVisitsList boxId={animal.box_id} />
+										</>
+									)}
+									</Col>
+								</Row>
+							</Container>
+						</Col>
+					</Row>
+				</Container>
+			</>
 			);
 		} else {
 			return (

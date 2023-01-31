@@ -54,14 +54,15 @@ const StartWalkButton = ({ animal }) => {
 			) {
 				return (
 					<>
-						<div
+						<Button 
 							onClick={() => setShowModal(true)}
 							role='button'
 							tabIndex='0'
-							style={buttonStyle}
+							variant='primary'
+							lg={2}													
 						>
 							Partir en balade
-						</div>
+						</Button>
 
 						{/* Modale de confirmation de la balade */}
 						<Modal show={showModal} onHide={() => setShowModal(false)}>

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import animalsRequest from '../../requests/animals.request';
 import WalkSummary from '../WalkSummary/WalkSummary';
 
+import './AnimalWalksList.scss';
+
 const LoadNextButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {
 	if (isFetchingNextPage) {
 		return 'Fetching next page...';

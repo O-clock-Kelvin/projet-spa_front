@@ -1,0 +1,9 @@
+@use '../../styles/vars';
+
+.animal-walks {
+    box-shadow: vars.$shadow;
+    border-radius: 10px;
+    padding: vars.$gutter;
+    text-align: justify;
+    background-color: white ;
+}
