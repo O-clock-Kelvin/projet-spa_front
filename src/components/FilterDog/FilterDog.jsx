@@ -24,7 +24,6 @@ import dataTags from '../../data/tags';
 
 // styles
 import './styles.scss';
-
 function FilterDog({
 	getDogsByFilter,
 	setFilteredDogs,
@@ -197,6 +196,7 @@ function FilterDog({
 									{tags && tags.map((tag) => renderTag(tag))}
 								</div>
 							</div>
+
 						</div>
 					</Modal.Body>
 

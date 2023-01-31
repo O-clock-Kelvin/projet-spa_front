@@ -20,7 +20,7 @@ import { ImEqualizer } from 'react-icons/im';
 import Diego from '../../assets/images/Diego.jpeg';
 
 // fonctions
-import { getDogsByExperience, getDogsByFilter } from '../../requests/Dogs';
+import { getDogsByExperience, getDogsByFilter } from '../../requests/dogs.request';
 import timeUtil from '../../utils/time.utils';
 import sortUtils from '../../utils/sort.utils';
 
