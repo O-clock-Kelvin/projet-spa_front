@@ -1,9 +1,8 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
-// import { useQuery } from 'react-query';
+import { useSelector } from 'react-redux';
 
 // composants
 import {
@@ -17,68 +16,56 @@ import {
 } from 'react-bootstrap';
 
 // fonctions
+import timeUtil from '../../utils/time.utils';
+import sortUtils from '../../utils/sort.utils';
 
 // data
 import dataTags from '../../data/tags';
 
 // styles
 import './styles.scss';
-import { useSelector } from 'react-redux';
-import timeUtil from '../../utils/time.utils';
+
 function FilterDog({
 	getDogsByFilter,
 	setFilteredDogs,
 	setFilter,
 	setReloadButton,
 }) {
-	const experience = useSelector(
-		(fullstate) => fullstate.loginSettings.experience
-	);
 
+	// récupération de l'experience du bénévole pour récupérer les bons chiens
+	const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
+
+	// déclaration des variables du state
 	const [gabaritValue, setGabaritValue] = useState('big');
 	const [sexValue, setSexValue] = useState('male');
 	const [valueAge, setvalueAge] = useState(5);
+
+	// tableau des tags envoyé pour la requête
 	const [tags, setTags] = useState([]);
+	// liste des tags du select
 	const [tagsList, setTagsList] = useState(dataTags);
 
-	const handleOnChangeGabarit = (e) => {
-		console.log(e.target.value);
-		setGabaritValue(e.target.value);
-	};
-
-	const handleOnChangeSex = (e) => {
-		console.log(e.target.value);
-		setSexValue(e.target.value);
-	};
-
+	// on met à jour les tags en fonction de la sélection
 	const handleOnAddTag = (e) => {
-		console.log(e.target.value);
-		console.log(tagsList);
 		setTagsList((oldState) =>
 			oldState.filter((tag) => tag.id !== Number(e.target.value))
 		);
 		setTags((oldState) => [...oldState, e.target.value]);
 	};
 
+	// si on enlève un tag de la sélection, il revient dans la liste
 	const cancelTag = (tagToCancel) => {
-		console.log(tagToCancel);
-
 		setTags((oldState) => oldState.filter((tag) => tag !== tagToCancel));
 		const oldTag = dataTags.filter((tag) => tag.id == tagToCancel);
-		console.log(oldTag);
 		setTagsList((oldState) => [...oldState, oldTag[0]]);
 	};
 
-	useEffect(() => {
-		console.log(tags);
-	}, [tags]);
-
+	// à la soumission du foraulaire on récupère toutes les données des states
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
 
 		// conversion de l'age en un intervalle de dates (3ans => né entre le 01/01/2020 et le 31/12/2020)
-		const { startYearBirthday, endYearBirthday } =
-			timeUtil.convertAgeInIntervalDate(valueAge);
+		const { startYearBirthday, endYearBirthday } = timeUtil.convertAgeInIntervalDate(valueAge);
 
 		// requête pour récupérer la nouvelle liste des chiens avec les filtres
 		const data = await getDogsByFilter(
@@ -89,20 +76,24 @@ function FilterDog({
 			endYearBirthday,
 			tags
 		);
-		console.log(data);
-		setFilteredDogs(data.data);
+
+		// on trie les chiens récupérés de la requête par ordre de priorité, et on les renvoie au composant WalkingDog pour affichage
+		const sortedDogs = sortUtils.sortDogsByLastWalk(data.data);
+		setFilteredDogs(sortedDogs);
 		setFilter(false);
 		setReloadButton(true);
 	};
 
+	// si on fait Annuler dans le filtre, on ferme le composant FilterDog
 	const cancelFilter = () => {
-		setFilter(false);
-		console.log(experience, gabaritValue, sexValue, tags);
+		setFilter(false);	
 	};
 
 	const renderTag = (tag) => {
+		// on récupère l'id du tag pour afficher le composant tag
 		const tagId = Number(tag);
 		const tagFound = dataTags.find((tag) => tag.id === tagId);
+
 		return (
 			<div className='container-badge'>
 				<Badge key={tagId}>{tagFound.name}</Badge>
@@ -131,21 +122,21 @@ function FilterDog({
 									<ToggleButton
 										id='tbg-radio-1'
 										value='big'
-										onChange={handleOnChangeGabarit}
+										onChange={(e) => setGabaritValue(e.target.value)}
 									>
 										GROS
 									</ToggleButton>
 									<ToggleButton
 										id='tbg-radio-2'
 										value='medium'
-										onChange={handleOnChangeGabarit}
+										onChange={(e) => setGabaritValue(e.target.value)}
 									>
 										MOYEN
 									</ToggleButton>
 									<ToggleButton
 										id='tbg-radio-3'
 										value='small'
-										onChange={handleOnChangeGabarit}
+										onChange={(e) => setGabaritValue(e.target.value)}
 									>
 										PETIT
 									</ToggleButton>
@@ -162,14 +153,14 @@ function FilterDog({
 									<ToggleButton
 										id='tbg-radio-4'
 										value='male'
-										onChange={handleOnChangeSex}
+										onChange={(e) => setSexValue(e.target.value)}
 									>
 										MALE
 									</ToggleButton>
 									<ToggleButton
 										id='tbg-radio-5'
 										value='female'
-										onChange={handleOnChangeSex}
+										onChange={(e) => setSexValue(e.target.value)}
 									>
 										FEMELLE
 									</ToggleButton>
