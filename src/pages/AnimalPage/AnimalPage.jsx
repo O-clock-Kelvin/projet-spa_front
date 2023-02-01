@@ -77,6 +77,18 @@ const AnimalPage = () => {
 		}
 	};
 
+	const renderElapsedTimeSinceLastWalk = (date) => {
+		const duration = timeUtil.convertDateInDaysUntilToday(date);
+		switch (duration) {
+			case 0:
+				return "aujourd'hui";
+			case 1:
+				return "hier";
+			default:
+				return `il y a ${duration} jours`;
+		}
+		};
+		
 	if (!isLoading) {
 		if (animal) {
 			return (
@@ -110,7 +122,7 @@ const AnimalPage = () => {
 								<span className='tag-info'> {animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id} </span>
 								<br />
 								{animal.species === 'DOG' && <StartWalkButton animal={animal} />}
-								{animal.walks[0]?<p className='mt-3'>Dernière sortie : il y a {' '}{timeUtil.convertDateInDaysUntilToday(animal.walks[0].date)}{' '}jours</p>:<p className='mt-3'>Jamais sorti</p>}
+								{animal.walks[0]?<p className='mt-3'>Dernière sortie : {renderElapsedTimeSinceLastWalk(animal.walks[animal.walks.length-1].date)}</p>:<p className='mt-3'>Jamais sorti</p>}
 								
 							</div>
 						</div>
