@@ -109,7 +109,11 @@ const VisitsCats = () => {
 						>
 							{boxes.map((box) => {
 								return (
-									<Link to={`/box/${box.id}`} key={box.id}>
+									<Link
+										to={`/box/${box.id}`}
+										key={box.id}
+										className='link-no-decoration'
+									>
 										<div
 											style={{
 												backgroundColor: "lightgray",
