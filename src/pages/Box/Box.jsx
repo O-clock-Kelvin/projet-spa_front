@@ -1,26 +1,26 @@
-import { useState } from 'react';
-import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import boxesRequest from '../../requests/boxes.request';
+import { useState } from "react";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
+import boxesRequest from "../../requests/boxes.request";
 
-import AnimalCard from '../../components/AnimalCard/AnimalCard';
-import VisitStartButton from '../../components/VisitStartButton/VisitStartButton';
+import AnimalCard from "../../components/AnimalCard/AnimalCard";
+import VisitStartButton from "../../components/VisitStartButton/VisitStartButton";
 /**
  * FONCTIONS
  */
 const errorHandler = (error) => {
 	if (error && error.response?.data?.message) {
 		switch (error.response.data.message) {
-			case 'NOT_FOUND':
+			case "NOT_FOUND":
 				return "Ce box n'existe pas";
-			case 'BAD_INPUT':
-				return 'Erreur de requête, mauvais paramètre. Merci de retenter plus tard';
+			case "BAD_INPUT":
+				return "Erreur de requête, mauvais paramètre. Merci de retenter plus tard";
 			default:
-				return 'Erreur du serveur, merci de retenter plus tard';
+				return "Erreur du serveur, merci de retenter plus tard";
 		}
 	} else {
-		return 'Erreur du serveur, merci de retenter plus tard';
+		return "Erreur du serveur, merci de retenter plus tard";
 	}
 };
 
@@ -33,7 +33,7 @@ const RenderAnimalsList = ({ animals }) => {
 			return <AnimalCard animal={animal} key={animal.id} showSpecie />;
 		});
 	} else {
-		return 'Ce box est vide';
+		return "Ce box est vide";
 	}
 };
 RenderAnimalsList.propTypes = {
@@ -43,9 +43,9 @@ RenderAnimalsList.propTypes = {
 const Box = () => {
 	const { boxId } = useParams();
 	const [box, setBox] = useState();
-	const { isLoading, error } = useQuery('getBox', {
+	const { isLoading, error } = useQuery("getBox", {
 		queryFn: async () =>
-			boxesRequest.get(boxId, {
+			boxesRequest.getOne(boxId, {
 				includeVisits: true,
 				includeAnimals: true,
 			}),
