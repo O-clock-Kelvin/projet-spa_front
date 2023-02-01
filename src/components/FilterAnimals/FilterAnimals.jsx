@@ -21,7 +21,6 @@ import sortUtils from '../../utils/sort.utils';
 import './FilterAnimals.scss';
 
 function FilterDog({
-	// getDogsByFilter,
 	setFilteredAnimals,
 	setFilter,
 	setReloadButton,

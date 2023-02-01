@@ -84,7 +84,6 @@ function ListAnimals() {
         </div>
           {filter && (
             <FilterAnimals
-              // getDogsByFilter={getDogsByFilter}
               setFilter={setFilter}
               setFilteredAnimals={setAnimals}
               setReloadButton={setReloadButton}

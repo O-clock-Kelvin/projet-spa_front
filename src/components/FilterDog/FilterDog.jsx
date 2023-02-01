@@ -23,7 +23,7 @@ import sortUtils from '../../utils/sort.utils';
 import dataTags from '../../data/tags';
 
 // styles
-import './styles.scss';
+import './FilterDog.scss';
 function FilterDog({
 	getDogsByFilter,
 	setFilteredDogs,

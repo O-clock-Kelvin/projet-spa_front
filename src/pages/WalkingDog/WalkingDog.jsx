@@ -8,13 +8,15 @@ import { useQuery } from 'react-query';
 import Card from 'react-bootstrap/Card';
 import FilterDog from '../../components/FilterDog/FilterDog';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
-import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-// style
-import './styles.scss';
+// bootstrap
 import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
 import { ImEqualizer } from 'react-icons/im';
+import { Button } from 'react-bootstrap';
+
+// style
+import './WalkingDog.scss';
 
 // images
 import Diego from '../../assets/images/Diego.jpeg';
