@@ -88,8 +88,9 @@ function DashboardAnimalCreation() {
     const tagFound = dataTags.find((tag) => tag.id === tagId);
     return (
       <div className='container-badge'>
-        <Badge key={tagId}>{tagFound.name}</Badge>
-        <CloseButton onClick={() => cancelTag(tag)} />
+        <Badge className='position-relative' key={tagId}>{tagFound.name}
+          <CloseButton className='position-absolute top-0 start-100 translate-middle' onClick={() => cancelTag(tag)} />
+        </Badge>
       </div>
     );
   };
