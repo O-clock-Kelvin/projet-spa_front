@@ -42,13 +42,15 @@ const AnimalWalksList = ({ animalId }) => {
 			},
 		}
 	);
+
+
 	const { hasNextPage, isFetchingNextPage, fetchNextPage, isLoading, error } =
 		infinite;
 
 	
 	if (!isLoading) {
 		if (!error) {
-			if (walks.pages && walks.pages[0].length > 0) {
+			if (walks.pages && walks.pages[0].data.walks?.length > 0) {
 				return (
 					<>
 						{walks.pages.map((page) =>
