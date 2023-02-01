@@ -15,6 +15,15 @@
         .search-button {
             width: vars.$gutter *10 !important;
         }
-    } 
+    }
+
+    .default-picture {
+        opacity: 0.3;
+    }
+
+    .card-title {
+        color: vars.$font-color;
+    }
 }
+
 

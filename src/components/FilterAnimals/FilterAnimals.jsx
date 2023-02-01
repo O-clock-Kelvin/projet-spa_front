@@ -106,7 +106,7 @@ function FilterDog({
 }
 
 FilterDog.propTypes = {
-	setSpecie: PropTypes.func.isRequired,
+	setSpecies: PropTypes.func.isRequired,
 	setFilter: PropTypes.func.isRequired,
 	setReloadButton: PropTypes.func.isRequired,
 	setFilteredAnimals: PropTypes.func.isRequired,

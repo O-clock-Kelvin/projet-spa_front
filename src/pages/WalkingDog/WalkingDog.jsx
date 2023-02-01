@@ -108,7 +108,8 @@ function WalkingDog() {
 								<Card.Text
 									className={classnames('last-walking',emergencyWalking(dog.walks[0].date))}
 								>
-									Dernière sortie : il y a {timeUtil.convertDateInDaysUntilToday(dog.walks[0].date)} jours
+									Dernière sortie : il y a{' '}{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date)}{' '} 
+									jour{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date) > 1 ? 's' : ''}
 								</Card.Text>
 							)}
 					</Card.Body>

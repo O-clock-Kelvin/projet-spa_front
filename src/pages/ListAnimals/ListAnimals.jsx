@@ -16,12 +16,14 @@ import FilterAnimals from '../../components/FilterAnimals/FilterAnimals';
 import animalsRequest from '../../requests/animals.request';
 
 // images
-import Diego from '../../assets/images/Diego.jpeg';
-import Cat from '../../assets/images/photo-cat.jpg';
+// import Diego from '../../assets/images/Diego.jpeg';
+import catProfil from '../../assets/images/chat-patte.png';
 import sortUtils from '../../utils/sort.utils';
+import dogProfil from '../../assets/images/dogProfil.png';
 
 // styles
 import "./ListAnimals.scss";
+import classnames from 'classnames';
 
 function ListAnimals() {
 
@@ -74,13 +76,16 @@ function ListAnimals() {
 	// on affiche chaque carte du chien de la liste récupérée
 	const renderAnimal = (animal) => {
 		return (
-			<Card key={animal.id}>
+			<Card key={animal.id} className='container-card-dog'>
 				<Link
 					to={`/animal/${animal.id}`}
 				>
-					<Card.Img variant='top' className='card-dog' src={animal.species === 'CAT' ? Cat : Diego} />
+					<Card.Img 
+						variant='top' 
+						className={classnames('card-dog', animal.url_image? '': 'default-picture')} 
+						src={animal.url_image ? animal.url_image : (animal.species === 'CAT') ? catProfil : dogProfil} />
 					<Card.Body>
-						<Card.Title>{animal.name.toUpperCase()}</Card.Title>
+						<Card.Title className='card-title'>{animal.name.toUpperCase()}</Card.Title>
 					</Card.Body>
 				</Link>
 			</Card>
