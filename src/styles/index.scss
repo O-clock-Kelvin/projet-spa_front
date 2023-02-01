@@ -72,11 +72,10 @@ a {
 .btn-close {
     border: 2px solid;
     border-radius: 25px;
-    margin-left: 65px;
     width: 7px;
     height: 7px;
-    display: block;
-    margin-top: -34px;
+    margin: 2px 0 0 -5px;
+    color: vars.$icons-secondary-color;
 }
 
 // end overrides bootstrap
