@@ -17,6 +17,7 @@ import animalsRequest from '../../requests/animals.request';
 // images
 import Diego from '../../assets/images/Diego.jpeg';
 import Cat from '../../assets/images/photo-cat.jpg';
+import sortUtils from '../../utils/sort.utils';
 
 function ListAnimals() {
 
@@ -29,8 +30,8 @@ function ListAnimals() {
 
     useEffect(() => {
       if (data) {
-        console.log(data);
-        setAnimals(data.data);
+        const sortedAnimals = sortUtils.sortAnimalsByName(data.data);
+        setAnimals(sortedAnimals);
       }
     }, [isLoading, error, data, isFetching]);
 
@@ -44,7 +45,8 @@ function ListAnimals() {
     const reloadAnimals = async () => {
       try {
         const data = await animalsRequest.getAllAnimals();
-        setAnimals(data.data);
+        const sortedAnimals = sortUtils.sortAnimalsByName(data.data);
+        setAnimals(sortedAnimals);
         setReloadButton(false);	
       } catch (error) {
         console.log(error);
@@ -60,7 +62,7 @@ function ListAnimals() {
           >
             <Card.Img variant='top' className='card-dog' src={animal.species === 'CAT' ? Cat : Diego} />
             <Card.Body>
-              <Card.Title>{animal.name}</Card.Title>
+              <Card.Title>{animal.name.toUpperCase()}</Card.Title>
             </Card.Body>
           </Link>
         </Card>

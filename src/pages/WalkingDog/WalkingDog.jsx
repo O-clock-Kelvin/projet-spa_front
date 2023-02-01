@@ -89,7 +89,7 @@ function WalkingDog() {
 				>
 					<Card.Img variant='top' className='card-dog' src={Diego} />
 					<Card.Body>
-						<Card.Title>{dog.name}</Card.Title>
+						<Card.Title>{dog.name.toUpperCase()}</Card.Title>
 						<Card.Text>
 							<span className='age'>
 								{age} an{age > 1 ? 's' : ''}

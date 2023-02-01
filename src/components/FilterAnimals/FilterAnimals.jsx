@@ -15,6 +15,7 @@ import {
 
 // fonctions
 import animalsRequest from '../../requests/animals.request';
+import sortUtils from '../../utils/sort.utils';
 
 // styles
 import './FilterAnimals.scss';
@@ -34,14 +35,11 @@ function FilterDog({
 		try {
 			// requête pour récupérer les animaux de la bonne espèce et envoie des résultats à ListAnimals pour affichage
 			const data = await animalsRequest.getAnimalsBySpecies(species);
-			setFilteredAnimals(data.data);
+			const sortedAnimals = sortUtils.sortAnimalsByName(data.data);
+			setFilteredAnimals(sortedAnimals);
 		} catch (error) {
 			console.log(error);
 		}
-
-		// on trie les animaux récupérés par ordre alphabétique , et on les renvoie au composant ListsAnimals pour affichage
-		// const sortedDogs = sortUtils.sortDogsByLastWalk(data.data);
-
 		setFilter(false);
 		setReloadButton(true);
 	};
