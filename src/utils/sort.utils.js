@@ -19,8 +19,6 @@ const sortUtils = {
     },
 
     sortAnimalsByName: (animals) => {
-        console.log(animals);
-        console.log("sortAnimalsByName");
         return animals.sort(function(a, b) {
             if (a.name > b.name) {
                 return 1;

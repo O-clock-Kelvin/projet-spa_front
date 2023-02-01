@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 // composants
 import {
 	ToggleButtonGroup,
-	// CloseButton,
 	ToggleButton,
 	Form,
 	Modal,
