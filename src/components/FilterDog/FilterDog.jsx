@@ -37,7 +37,7 @@ function FilterDog({
 	// déclaration des variables du state
 	const [gabaritValue, setGabaritValue] = useState('big');
 	const [sexValue, setSexValue] = useState('male');
-	const [valueAge, setvalueAge] = useState(5);
+	const [valueAge, setvalueAge] = useState(0);
 
 	// tableau des tags envoyé pour la requête
 	const [tags, setTags] = useState([]);
@@ -59,7 +59,7 @@ function FilterDog({
 		setTagsList((oldState) => [...oldState, oldTag[0]]);
 	};
 
-	// à la soumission du foraulaire on récupère toutes les données des states
+	// à la soumission du formulaire on récupère toutes les données des states
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
 

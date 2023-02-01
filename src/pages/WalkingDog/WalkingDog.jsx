@@ -51,9 +51,10 @@ function WalkingDog() {
 	// au click sur le filtre on affiche le composant
 	const openFilter = () => {
 		setFilter(true);
+		setReloadButton(false);
 	};
 
-	// pour revoir la liste des chiens on refait la même requête
+	// pour revoir la liste de tous les chiens on refait la requête
 	const reloadDogs = async () => {
 		try {
 			const dogsReloaded = await animalsRequest.getDogsByExperience(experience);
@@ -123,7 +124,7 @@ function WalkingDog() {
 			<div>
 				{reloadButton && (
 					<Button className='reload-button' type='button' onClick={reloadDogs}>
-						Revoir la liste
+						Revoir la liste des chiens
 					</Button>
 				)}
 			</div>
