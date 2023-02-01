@@ -87,7 +87,6 @@ const AnimalPage = () => {
 						<div className='d-flex flex-row p-3 animal-information me-5'>
 							<div className='d-flex flex-column'>
 								<div className='d-flex flex-row mb-2 ' >
-									{console.log(animal)}
 									<Image className='rounded'
 										width={200}
 										src={
@@ -111,7 +110,8 @@ const AnimalPage = () => {
 								<span className='tag-info'> {animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id} </span>
 								<br />
 								{animal.species === 'DOG' && <StartWalkButton animal={animal} />}
-								<p className='mt-3'>Dernière sortie : il y a {' '}{timeUtil.convertDateInDaysUntilToday(animal.walks[0].date)}{' '}jours</p>
+								{animal.walks[0]?<p className='mt-3'>Dernière sortie : il y a {' '}{timeUtil.convertDateInDaysUntilToday(animal.walks[0].date)}{' '}jours</p>:<p className='mt-3'>Jamais sorti</p>}
+								
 							</div>
 						</div>
 						<div className='d-flex flex-column'>
