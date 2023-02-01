@@ -110,7 +110,7 @@ const AnimalPage = () => {
 									/>									
 									<div className='d-flex flex-column mb-3'>
 										<div className="p-2 tag-info" >
-											<p>Age<br/>{timeUtil.convertBirthdayInAge(animal.age)} </p>
+											<p>{timeUtil.convertBirthdayInAge(animal.age)}<br/>An{timeUtil.convertBirthdayInAge(animal.age)> 1 ? 's' : ''} </p>
 										</div>
 										<div className='p-2 tag-info'>
 											<p>{animal.size}</p>
@@ -125,7 +125,6 @@ const AnimalPage = () => {
 								<br />
 								{animal.species === 'DOG' && <StartWalkButton animal={animal} />}
 								{animal.walks[0]?<p className='mt-3'>Dernière sortie : {renderElapsedTimeSinceLastWalk(animal.walks[animal.walks.length-1].date)}</p>:<p className='mt-3'>Jamais sorti</p>}
-								
 							</div>
 						</div>
 						<div className='d-flex flex-column'>
