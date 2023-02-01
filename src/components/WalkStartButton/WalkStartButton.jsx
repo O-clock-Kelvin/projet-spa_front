@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {  useState } from 'react';
 import { useMutation } from 'react-query';
 
 import PropTypes from 'prop-types';
@@ -20,7 +20,7 @@ const StartWalkButton = ({ animal }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [showEndEditor, setShowEndEditor] = useState(false);
 	const [lastWalk, setLastWalk] = useState(
-		animal.walks[animal.walks.length - 1] || undefined
+		animal.walks[animal.walks.length - 1] ?? null
 	);
 	const {
 		isLoading,
@@ -32,6 +32,7 @@ const StartWalkButton = ({ animal }) => {
 		},
 		onSuccess: (data) => {
 			setStartedWalk(data.data);
+			setLastWalk(data.data);
 			setShowModal(false);
 		},
 	});
@@ -43,10 +44,9 @@ const StartWalkButton = ({ animal }) => {
 		 */
 
 		if (
-			lastWalk == undefined ||
+			lastWalk === null ||
 			(DateTime.fromISO(lastWalk?.date).plus({ hour: 1 }) <= DateTime.now() &&
-				DateTime.fromISO(lastWalk?.date) <= DateTime.now().startOf('day') &&
-				startedWalk == undefined)
+				DateTime.fromISO(lastWalk?.date) <= DateTime.now().startOf('day') )
 		) {
 			if (
 				experienceUtil.experienceConverter(experience) >=
@@ -118,9 +118,9 @@ const StartWalkButton = ({ animal }) => {
 							show={showEndEditor}
 							endingWalk={true}
 							onClose={() => setShowEndEditor(false)}
-							onUpdate={() => {
+							onUpdate={(data) => {
 								setStartedWalk(undefined);
-								setLastWalk(undefined);
+								setLastWalk(data);
 							}}
 						/>
 						<div

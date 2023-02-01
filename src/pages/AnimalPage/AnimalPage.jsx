@@ -14,6 +14,7 @@ import './AnimalPage.scss';
 import StartWalkButton from '../../components/WalkStartButton/WalkStartButton';
 import AnimalWalksList from '../../components/AnimalWalksList';
 import BoxVisitsList from '../../components/BoxVisitsList/BoxVisits';
+import { DateTime } from 'luxon';
 
 const TagsList = ({ tags }) => {
 	if (tags) {
@@ -78,7 +79,8 @@ const AnimalPage = () => {
 	};
 
 	const renderElapsedTimeSinceLastWalk = (date) => {
-		const duration = timeUtil.convertDateInDaysUntilToday(date);
+		const startOfDay = DateTime.fromISO(date).startOf('day').toISO();
+		const duration = timeUtil.convertDateInDaysUntilToday(startOfDay);
 		switch (duration) {
 			case 0:
 				return "aujourd'hui";
