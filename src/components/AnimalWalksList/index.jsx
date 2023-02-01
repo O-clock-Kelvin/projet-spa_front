@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import PropTypes from 'prop-types';
 import animalsRequest from '../../requests/animals.request';
