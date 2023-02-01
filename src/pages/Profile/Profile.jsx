@@ -93,7 +93,7 @@ const ProfileEditor = ({ user, closeEditor, setUser }) => {
 				
 			<Card className="edit">
 				<Card.Body>
-					<Card.Title className="text-center">PROFIL</Card.Title>
+					<Card.Title className="text-center">FICHE PROFIL</Card.Title>
 				<ListGroup>
     <ListGroup.Item><input className="form-control" {...register('name')}/></ListGroup.Item>
     <ListGroup.Item><input className="form-control"  {...register('firstname')}/></ListGroup.Item>
@@ -111,11 +111,10 @@ const ProfileEditor = ({ user, closeEditor, setUser }) => {
 				{!isLoading ? (
 					<>
 				
-				<Card.Footer>
-				<Button onClick={('')} role='button'>valider</Button></Card.Footer>
-				<Card.Footer>
-				<Button onClick={() => closeEditor()} role='button' tabIndex='0'>annuler</Button>
-				</Card.Footer>
+				<>
+				<Button onClick={('')} size="lg">valider</Button>
+				<Button variant="" onClick={() => closeEditor()} role='button' tabIndex='0'><Card>annuler</Card></Button>
+				</>
 					</>
 				) : (
 					'Loading'
@@ -211,10 +210,11 @@ const ProfilePage = () => {
 		<Card.Text>Expérience :{''} {experienceUtil.renderExperienceLevel(user.experience)}</Card.Text>
 		<Card.Text>Email : {user.email}</Card.Text>
 		<Card.Text>Téléphone: {user.phone_number || 'non renseigné'}</Card.Text>
-        
+			<Card.Footer>
 		<Button onClick={() => {
 										setShowEditor(true);
 									}}>Editer mes informations</Button>
+			</Card.Footer>
       </Card.Body>
     </Card>
 
