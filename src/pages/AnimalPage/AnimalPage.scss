@@ -1,42 +1,35 @@
 @use '../../styles/vars';
 
-.animal-container{
-    margin-top: 80px;
-}
+
 .animal-information {
     box-shadow: vars.$shadow;
     border-radius: 10px;
     padding: vars.$gutter * 2;
     text-align: center;
     background-color: white;
-    height: 400px;
-
     & img {
         margin-bottom: vars.$gutter * 2;
     }
-    & span {
+    & .tag-info {
         display: inline-block;
-        width:40%;
-        padding: vars.$gutter;
+        padding: 0.3rem 1rem;
         border: 1px solid vars.$primary-color;
         border-radius: 10px;
-        margin : vars.$gutter * 2;
-    }
-    & .tag{
-        display: flex;
-        flex-direction: row;
-        justify-content: center; 
-        margin-bottom: 0;
-
-        & li{
-            background-color : vars.$primary-color;
-            margin: vars.$gutter vars.$gutter 0 vars.$gutter;
-            padding: 3px 10px;
-            border-radius: 10px;
-            color: white;
+        margin: 0.5rem 2rem;
+        color: vars.$primary-color;
+        font-weight: bold;
+        & p{
+            margin-bottom:0;
         }
-
-    }    
+    }        
+    & .tag{
+        background-color : vars.$primary-color;
+        margin: vars.$gutter vars.$gutter 0 vars.$gutter;
+        padding: 3px 10px;
+        border-radius: 10px;
+        color: white;
+    }
+   
 }
 .animal-bio {
     box-shadow: vars.$shadow;

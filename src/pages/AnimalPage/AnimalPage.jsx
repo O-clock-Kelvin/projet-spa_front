@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import animalsRequest from '../../requests/animals.request';
+import timeUtil from '../../utils/time.utils';
 import PropTypes from 'prop-types';
 
-import Container from 'react-bootstrap/Container';
+
 import Image from 'react-bootstrap/Image';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+
 
 import './AnimalPage.scss';
 
@@ -18,9 +18,9 @@ import BoxVisitsList from '../../components/BoxVisitsList/BoxVisits';
 const TagsList = ({ tags }) => {
 	if (tags) {
 		return (
-			<ul className='tag'>
+			<ul className='d-flex flex-row justify-content-center'>
 				{tags.map((tag) => (
-					<li key={tag.tag_id}>{tag.tag.name}</li>
+					<li className='tag' key={tag.tag_id}>{tag.tag.name}</li>
 				))}
 			</ul>
 		);
@@ -48,7 +48,7 @@ const renderDefaultAnimalPicture = (specie) => {
 
 const AnimalPage = () => {
 	let { animalId } = useParams();
-	const [animal, setAnimal] = useState();
+	const [animal, setAnimal] = useState();	
 	// use query
 	const { error, isLoading } = useQuery('getAnimal', {
 		queryFn: async () =>
@@ -83,55 +83,59 @@ const AnimalPage = () => {
 				<>	
 					<h1 className ='title-page'>Fiche de {animal.name}</h1>
 
-				<Container className='animal-container'>
-					<Row>
-						<Col className='animal-information' lg={4}>
-							<div >
-								<Image className='rounded'
-									width={200}
-									src={
-										animal.url_image || renderDefaultAnimalPicture(animal.species)
-									}
-									alt={animal.name}
-								/>
-								
-									<TagsList tags={animal.tags} />
-								
-								<span> {animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id} </span>
+					<div className='d-flex flex-row justify-content-center mt-5 mb-5 flex-wrap'>
+						<div className='d-flex flex-row p-3 animal-information me-5'>
+							<div className='d-flex flex-column'>
+								<div className='d-flex flex-row mb-2 ' >
+									{console.log(animal)}
+									<Image className='rounded'
+										width={200}
+										src={
+											animal.url_image || renderDefaultAnimalPicture(animal.species)
+										}
+										alt={animal.name}
+									/>									
+									<div className='d-flex flex-column mb-3'>
+										<div className="p-2 tag-info" >
+											<p>Age<br/>{timeUtil.convertBirthdayInAge(animal.age)} </p>
+										</div>
+										<div className='p-2 tag-info'>
+											<p>{animal.size}</p>
+										</div>
+										<div className='p-2 tag-info'>
+											<p>{animal.gender}</p>
+										</div>									
+									</div>								
+								</div>								
+								<TagsList tags={animal.tags} />
+								<span className='tag-info'> {animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id} </span>
 								<br />
 								{animal.species === 'DOG' && <StartWalkButton animal={animal} />}
+								<p className='mt-3'>Dernière sortie : il y a {' '}{timeUtil.convertDateInDaysUntilToday(animal.walks[0].date)}{' '}jours</p>
 							</div>
-						</Col>
-						<Col>
-							<Container>
-								<Row>
-									<Col>
-										<div>
-											<h4 className="subtitle-page">Biographie</h4>
-											<div className='animal-bio'>{animal.bio ?? "Cet animal n'a pas de bio"}</div>
-										</div>
-									</Col>
-								</Row>
-								<Row>
-									<Col>
-									{animal.species === 'DOG' && (
-										<>
-											<h4 className="subtitle-page">Dernières balades</h4>
-											<AnimalWalksList animalId={animal.id} />
-										</>
-									)}
-									{animal.species === 'CAT' && (
-										<>
-											<h4>Dernières visites du box</h4>
-											<BoxVisitsList boxId={animal.box_id} />
-										</>
-									)}
-									</Col>
-								</Row>
-							</Container>
-						</Col>
-					</Row>
-				</Container>
+						</div>
+						<div className='d-flex flex-column'>
+							<div>
+								<h4 className="subtitle-page">Biographie</h4>
+								<div className='animal-bio'>{animal.bio ?? "Cet animal n'a pas de bio"}</div>
+							</div>
+							<div>
+								{animal.species === 'DOG' && (
+									<>
+										<h4 className="subtitle-page">Dernières balades</h4>
+										<AnimalWalksList animalId={animal.id} />
+									</>
+								)}
+								{animal.species === 'CAT' && (
+									<>
+										<h4>Dernières visites du box</h4>
+										<BoxVisitsList boxId={animal.box_id} />
+									</>
+								)}
+							</div>
+									
+						</div>
+					</div>				
 			</>
 			);
 		} else {
