@@ -11,7 +11,7 @@ function Error404() {
   return (
     <Container className='error-container'>
       <Row>
-        <Col xs={12} >
+        <Col className='error' xs={12} md={10} >
           <div className='error-text' >
             <h1 className='error-text-title' >Erreur 404</h1>
           </div>
