@@ -12,8 +12,10 @@ import { actionSetToken } from '../../actions/tokenAction';
 import experienceUtil from '../../utils/experience.utils';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import ListGroup from 'react-bootstrap/ListGroup';
 
-
+//SCSS
+import "./Profile.scss";
 
 const schema = yup.object().shape({
 	firstname: yup
@@ -88,42 +90,37 @@ const ProfileEditor = ({ user, closeEditor, setUser }) => {
 					mutate({ id: user.id, newUserData: data })
 				)}
 			>
-				<fieldset>
-					<input {...register('email')} />
-				</fieldset>
-				<fieldset>
-					<input {...register('firstname')} />
-				</fieldset>
-				<fieldset>
-					<input {...register('name')} />
-				</fieldset>
-				<fieldset>
-					<input
+				
+			<Card >
+				<Card.Body>
+				<ListGroup>
+    <ListGroup.Item><input className="form-control" {...register('name')}/></ListGroup.Item>
+    <ListGroup.Item><input className="form-control"  {...register('firstname')}/></ListGroup.Item>
+    <ListGroup.Item><input className="form-control" {...register('email')} /></ListGroup.Item>
+    <ListGroup.Item><input className="form-control" 
 						placeholder='********'
 						{...register('password', {
 							required: false,
 							value: null, // pour contourner la validation de Yup, en back si le password=null, il n'est pas mis à jour
 						})}
-					/>
-				</fieldset>
-				<fieldset>
-					<input {...register('phone_number')} />
-				</fieldset>
-
+					/></ListGroup.Item>
+    <ListGroup.Item><input className="form-control" {...register('phone_number')} /></ListGroup.Item>
+				</ListGroup>
+				</Card.Body>
 				{!isLoading ? (
 					<>
-						<button type='submit'>Valider</button>
-						<span onClick={() => closeEditor()} role='button' tabIndex='0'>
-							annuler
-						</span>
+				<Button onClick={('')} role='button'>valider</Button>
+				<Button onClick={() => closeEditor()} role='button' tabIndex='0'>annuler</Button>
 					</>
 				) : (
 					'Loading'
 				)}
+			</Card>
 			</form>
 		</>
 	);
 };
+
 ProfileEditor.propTypes = {
 	user: PropTypes.object,
 	closeEditor: PropTypes.func,
@@ -188,10 +185,10 @@ const ProfilePage = () => {
 						) : (
 							<>
 
-    <Card className='profile' style={{ width: '22rem' }} >
+    <Card className='profile' style = {{width:'28rem'}}> 
       <Card.Header className="text-center">
-					<Card.Title>{user.admin ? 'EMPLOYE' : 'BENEVOLE'}</Card.Title><Card.Title>{user.name}</Card.Title></Card.Header>
-	<Card.Img variant="top" width={60}
+					<Card.Title>{user.admin ? 'EMPLOYE' : 'BENEVOLE'}</Card.Title></Card.Header>
+	<Card.Img variant="top" width={100}
 							src={
 								user.profile_picture
 									? user.profile_picture
@@ -202,7 +199,7 @@ const ProfilePage = () => {
 							/>
       <Card.Body>
 		
-        <Card.Title className="text-center">{user.firstname}</Card.Title>
+        <Card.Title className="text-center">{user.firstname}  {user.name}</Card.Title>
 		<Card.Text>Expérience :{''} {experienceUtil.renderExperienceLevel(user.experience)}</Card.Text>
 		<Card.Text>Email : {user.email}</Card.Text>
 		<Card.Text>Téléphone: {user.phone_number || 'non renseigné'}</Card.Text>
