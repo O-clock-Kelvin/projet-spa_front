@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
+import classnames from 'classnames';
 
 // composants bootstrap
 import { Button } from 'react-bootstrap';
@@ -16,14 +17,12 @@ import FilterAnimals from '../../components/FilterAnimals/FilterAnimals';
 import animalsRequest from '../../requests/animals.request';
 
 // images
-// import Diego from '../../assets/images/Diego.jpeg';
 import catProfil from '../../assets/images/chat-patte.png';
 import sortUtils from '../../utils/sort.utils';
 import dogProfil from '../../assets/images/dogProfil.png';
 
 // styles
 import "./ListAnimals.scss";
-import classnames from 'classnames';
 
 function ListAnimals() {
 

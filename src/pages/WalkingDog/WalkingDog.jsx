@@ -19,7 +19,7 @@ import { Button } from 'react-bootstrap';
 import './WalkingDog.scss';
 
 // images
-import Diego from '../../assets/images/Diego.jpeg';
+import dogProfil from '../../assets/images/dogProfil.png';
 
 // fonctions
 import animalsRequest from '../../requests/animals.request';
@@ -89,7 +89,11 @@ function WalkingDog() {
 				<Link
 					to={`/animal/${dog.id}`}
 				>
-					<Card.Img variant='top' className='card-dog' src={Diego} />
+					<Card.Img 
+						variant='top' 
+						className={classnames('card-dog', dog.url_image? '': 'default-picture')} 
+						src={dog.url_image ? dog.url_image : dogProfil}
+						/>
 					<Card.Body>
 						<Card.Title>{dog.name.toUpperCase()}</Card.Title>
 						<Card.Text>
@@ -98,9 +102,9 @@ function WalkingDog() {
 							</span>
 							<span>
 								{dog.gender === 'MALE' ? (
-									<BiMaleSign className='gender' size={30} />
+									<BiMaleSign className='gender' size={35} />
 									) : (
-									<BiFemaleSign className='gender' size={30} />
+									<BiFemaleSign className='gender' size={35} />
 								)}
 							</span>
 						</Card.Text>
