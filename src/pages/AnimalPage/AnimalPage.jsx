@@ -14,6 +14,7 @@ import './AnimalPage.scss';
 import StartWalkButton from '../../components/WalkStartButton/WalkStartButton';
 import AnimalWalksList from '../../components/AnimalWalksList';
 import BoxVisitsList from '../../components/BoxVisitsList/BoxVisits';
+import { DateTime } from 'luxon';
 
 const TagsList = ({ tags }) => {
 	if (tags) {
@@ -77,6 +78,19 @@ const AnimalPage = () => {
 		}
 	};
 
+	const renderElapsedTimeSinceLastWalk = (date) => {
+		const startOfDay = DateTime.fromISO(date).startOf('day').toISO();
+		const duration = timeUtil.convertDateInDaysUntilToday(startOfDay);
+		switch (duration) {
+			case 0:
+				return "aujourd'hui";
+			case 1:
+				return "hier";
+			default:
+				return `il y a ${duration} jours`;
+		}
+		};
+		
 	if (!isLoading) {
 		if (animal) {
 			return (
@@ -110,11 +124,7 @@ const AnimalPage = () => {
 								<span className='tag-info'> {animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id} </span>
 								<br />
 								{animal.species === 'DOG' && <StartWalkButton animal={animal} />}
-
-								{animal.walks[0]?<p className='mt-3'>Dernière sortie : il y a {' '}{timeUtil.convertDateInDaysUntilToday(animal.walks[0].date)}{' '}jours</p>:<p className='mt-3'>Jamais sorti</p>}
-								
-
-
+								{animal.walks[0]?<p className='mt-3'>Dernière sortie : {renderElapsedTimeSinceLastWalk(animal.walks[animal.walks.length-1].date)}</p>:<p className='mt-3'>Jamais sorti</p>}
 							</div>
 						</div>
 						<div className='d-flex flex-column'>
