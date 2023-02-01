@@ -1,7 +1,59 @@
 @use '../../styles/vars';
 
 
+.profile {
+    width: 50%;
+    margin: 0 auto;
 
-@media(width: 28rem){
-
+    & img {
+        width: 50%;
+        margin: auto;
+        display: block;
+    }
 }
+
+.card {
+    border-radius: 10px !important;
+    border:none !important;
+    box-shadow: vars.$shadow;
+    background: vars.$primary-background-color !important;
+    width: 50%;
+    margin: 0 auto;
+
+    &-header &-title{
+        margin-block: 5rem;
+        font-family: vars.$title-font;
+        font-size: vars.$h1-font-size;
+        }
+
+    &-img-top {
+    padding: vars.$gutter * 5;
+    }
+
+    &-body &-title {
+        font-family: vars.$text-font;
+        font-size: vars.$h2-font-size;
+    }
+
+    &-body &-text {
+        font-family: vars.$text-font;
+        font-size: vars.$h3-font-size;
+    } 
+}
+
+
+.edit {
+        font-family: vars.$text-font;
+        font-size: vars.$h3-font-size;
+        margin-block: 5rem;
+      
+    &-body {
+        font-family: vars.$text-font;
+        font-size: vars.$h2-font-size;
+    }
+
+    &-button {
+        padding: vars.$gutter * 5;
+    }
+
+    }

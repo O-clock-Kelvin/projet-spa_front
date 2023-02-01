@@ -91,8 +91,9 @@ const ProfileEditor = ({ user, closeEditor, setUser }) => {
 				)}
 			>
 				
-			<Card >
+			<Card className="edit">
 				<Card.Body>
+					<Card.Title className="text-center">PROFIL</Card.Title>
 				<ListGroup>
     <ListGroup.Item><input className="form-control" {...register('name')}/></ListGroup.Item>
     <ListGroup.Item><input className="form-control"  {...register('firstname')}/></ListGroup.Item>
@@ -109,8 +110,12 @@ const ProfileEditor = ({ user, closeEditor, setUser }) => {
 				</Card.Body>
 				{!isLoading ? (
 					<>
-				<Button onClick={('')} role='button'>valider</Button>
+				
+				<Card.Footer>
+				<Button onClick={('')} role='button'>valider</Button></Card.Footer>
+				<Card.Footer>
 				<Button onClick={() => closeEditor()} role='button' tabIndex='0'>annuler</Button>
+				</Card.Footer>
 					</>
 				) : (
 					'Loading'
@@ -185,10 +190,10 @@ const ProfilePage = () => {
 						) : (
 							<>
 
-    <Card className='profile' style = {{width:'28rem'}}> 
-      <Card.Header className="text-center">
-					<Card.Title>{user.admin ? 'EMPLOYE' : 'BENEVOLE'}</Card.Title></Card.Header>
-	<Card.Img variant="top" width={100}
+    <Card className='profile'> 
+      <Card.Header className="text-center"><Card.Title className="text-center">{user.firstname}  {user.name}</Card.Title>
+					</Card.Header>
+	<Card.Img variant="top"
 							src={
 								user.profile_picture
 									? user.profile_picture
@@ -197,9 +202,12 @@ const ProfilePage = () => {
 							alt={` ${user.firstname} ${user.name}`}
 	
 							/>
-      <Card.Body>
+      
+	<Card.Body >
+        <Card.Title className="text-center">{user.admin ? 'EMPLOYE' : 'BENEVOLE'}</Card.Title>
+	</Card.Body>
 		
-        <Card.Title className="text-center">{user.firstname}  {user.name}</Card.Title>
+	<Card.Body>
 		<Card.Text>Expérience :{''} {experienceUtil.renderExperienceLevel(user.experience)}</Card.Text>
 		<Card.Text>Email : {user.email}</Card.Text>
 		<Card.Text>Téléphone: {user.phone_number || 'non renseigné'}</Card.Text>
