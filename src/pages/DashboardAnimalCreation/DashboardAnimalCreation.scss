@@ -1,0 +1,7 @@
+@use '../../styles/vars';
+
+.tags-container {
+	display: flex;
+	justify-content: center;
+	margin: vars.$gutter * 0.7 0 
+}

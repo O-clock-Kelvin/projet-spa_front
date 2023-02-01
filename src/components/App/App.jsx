@@ -74,64 +74,71 @@ function App() {
 						<MobileHeader />
 					</div>
 				</div>
-				<Routes>
-					{/* pages accessibles à l'utilisateur connecté */}
-					<Route element={<PrivateRoutes />}>
-						<Route path='/home' element={<Home />} />
-						<Route path='/walks' element={<WalkingDog />} />
-						<Route path='/visits' element={<VisitsCats />} />
-						<Route path='/animals' element={<ListAnimals />} />
-					</Route>
+				<div className='main'>
+					<Routes>
+						{/* pages accessibles à l'utilisateur connecté */}
+						<Route element={<PrivateRoutes />}>
+							<Route path='/home' element={<Home />} />
+							<Route path='/walks' element={<WalkingDog />} />
+							<Route path='/visits' element={<VisitsCats />} />
+							<Route path='/animal' element={<ListAnimals />} />
+						</Route>
 
-					{/* pages accessibles à l'admin connecté */}
-					<Route element={<PrivateRoutesAdmin />}>
-						<Route path='/admin' element={<Dashboard />} />
+						{/* pages accessibles à l'admin connecté */}
+						<Route element={<PrivateRoutesAdmin />}>
+							<Route path='/admin' element={<Dashboard />} />
+							<Route
+								path='/admin/create/user'
+								element={<DashboardVolunteerCreation />}
+							/>
+							<Route
+								path='/admin/create/card'
+								element={<DashboardAnimalCreation />}
+							/>
+						</Route>
+
 						<Route
-							path='/admin/create/user'
-							element={<DashboardVolunteerCreation />}
+							path='/profile'
+							element={
+								isConnected ? <ProfilePage /> : <Navigate to='/login' replace />
+							}
 						/>
 						<Route
-							path='/admin/create/card'
-							element={<DashboardAnimalCreation />}
+							path='/animal/:animalId'
+							element={
+								isConnected ? <AnimalPage /> : <Navigate to='/login' replace />
+							}
 						/>
-					</Route>
-
-					<Route
-						path='/profile'
-						element={
-							isConnected ? <ProfilePage /> : <Navigate to='/login' replace />
-						}
-					/>
-					<Route
-						path='/animals/:animalId'
-						element={
-							isConnected ? <AnimalPage /> : <Navigate to='/login' replace />
-						}
-					/>
 
 					<Route
 						path='/box/:boxId'
 						element={isConnected ? <Box /> : <Navigate to='/login' replace />}
 					/>
+          
+						<Route
+							path='/'
+							element={
+								isConnected && !admin ? (
+									<Navigate to='/home' replace />
+								) : isConnected && admin ? (
+									<Navigate to='/admin' replace />
+								) : (
+									<Navigate to='/login' replace />
+								)
+							}
+						/>
 
-					<Route
-						path='/'
-						element={
-							isConnected && !admin ? (
-								<Navigate to='/home' replace />
-							) : isConnected && admin ? (
-								<Navigate to='/admin' replace />
-							) : (
-								<Navigate to='/login' replace />
-							)
-						}
-					/>
-					<Route
+				
+          
+          	<Route
 						path='/login'
 						element={isConnected ? <Navigate to='/' replace /> : <LoginForm />}
 					/>
-					<Route path='*' element={<Error404 />} />
+          		<Route path='*' element={<Error404 />} />
 				</Routes>
+
+				</div>
+
 				<Footer />
 			</div>
 		);
