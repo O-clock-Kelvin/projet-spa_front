@@ -85,7 +85,8 @@ function FilterDog({
 
 	// si on fait Annuler dans le filtre, on ferme le composant FilterDog
 	const cancelFilter = () => {
-		setFilter(false);	
+		setFilter(false);
+		setReloadButton(true);
 	};
 
 	const renderTag = (tag) => {

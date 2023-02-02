@@ -26,6 +26,7 @@ function FilterDog({
 }) {
 
 	const [species, setSpecies] = useState("DOG");
+	// const [firstSubmit, setFirstSubmit] = useState(false);
 
 	// à la soumission du formulaire on récupère toutes les données des states
 	const handleOnSubmit = async (e) => {
@@ -40,11 +41,16 @@ function FilterDog({
 		}
 		setFilter(false);
 		setReloadButton(true);
+		// setFirstSubmit(true);
+		// console.log(firstSubmit);
 	};
 
 	// si on fait Annuler dans le filtre, on ferme le composant FilterDog
 	const cancelFilter = () => {
-		setFilter(false);	
+		setFilter(false);
+		// if (firstSubmit) {
+			setReloadButton(true);
+		// }
 	};
 
 	return (
