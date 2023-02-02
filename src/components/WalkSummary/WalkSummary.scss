@@ -1,0 +1,27 @@
+@use '../../styles/vars';
+
+.animal-walks {
+    box-shadow: vars.$shadow;
+    border-radius: 10px;
+    padding: vars.$gutter;
+    text-align: justify;
+    background-color: white ;
+    margin-bottom : 5px;
+    & p {
+        margin-bottom :0;
+    }
+    & .tag-mood {        
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    & .tag-mood--bad {
+        color : red;
+    }
+    & .tag-mood--medium {
+        color : orangered;
+    }
+    & .tag-mood--good {
+        color : green;
+    }
+   
+}
