@@ -1,8 +1,8 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
-import classnames from 'classnames';
-import { useQuery } from 'react-query';
+import React, { useState, useEffect } from "react";
+import classnames from "classnames";
+import { useQuery } from "react-query";
 
 // composants
 import Card from 'react-bootstrap/Card';
@@ -27,7 +27,6 @@ import timeUtil from '../../utils/time.utils';
 import sortUtils from '../../utils/sort.utils';
 
 function WalkingDog() {
-
 	// récupération de l'experience du bénévole pour récupérer les bons chiens
 	const [dogs, setDogs] = useState([]);
 	const [reloadButton, setReloadButton] = useState(false);
@@ -40,6 +39,7 @@ function WalkingDog() {
 
 	// on fait la requête qui récupère tous les chiens correspondant à l'experience du bénévole. React-query permet de voir comment comment se passe la requête
 	const { isLoading, error, data, isFetching } = useQuery('repoData', () => animalsRequest.getDogsByExperience(experience));
+
 
 	// si la requête se passe bien et qu'on nous retourne data, on trie la liste par ordre de priorité (le tableau se trouve dans data.data)
 	useEffect(() => {
@@ -62,7 +62,7 @@ function WalkingDog() {
 			const dogsReloaded = await animalsRequest.getDogsByExperience(experience);
 			const sortedDogs = sortUtils.sortDogsByLastWalk(dogsReloaded.data);
 			setDogs(sortedDogs);
-			setReloadButton(false);	
+			setReloadButton(false);
 		} catch (error) {
 			console.log(error);
 		}
@@ -73,11 +73,11 @@ function WalkingDog() {
 		const result = timeUtil.convertDateInDaysUntilToday(date);
 		switch (result) {
 			case 1:
-				return 'green';
+				return "green";
 			case 2:
-				return 'orange';
+				return "orange";
 			default:
-				return 'red';
+				return "red";
 		}
 	};
 
@@ -94,11 +94,12 @@ function WalkingDog() {
 						className={classnames('card-dog', dog.url_image? '': 'default-picture')} 
 						src={dog.url_image ? dog.url_image : dogProfil}
 						/>
+
 					<Card.Body>
 						<Card.Title>{dog.name.toUpperCase()}</Card.Title>
 						<Card.Text>
 							<span className='age'>
-								{age} an{age > 1 ? 's' : ''}
+								{age} an{age > 1 ? "s" : ""}
 							</span>
 							<span>
 								{dog.gender === 'MALE' ? (
@@ -116,6 +117,7 @@ function WalkingDog() {
 									jour{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date) > 1 ? 's' : ''}
 								</Card.Text>
 							)}
+
 					</Card.Body>
 				</Link>
 			</Card>
@@ -156,6 +158,7 @@ function WalkingDog() {
 						<LoadingSpinner />
 					)}
 				</div>
+
 
 			</div>
 			

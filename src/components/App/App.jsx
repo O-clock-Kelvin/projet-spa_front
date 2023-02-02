@@ -21,12 +21,14 @@ import Footer from '../Footer/Footer';
 import AnimalPage from '../../pages/AnimalPage/AnimalPage';
 import ProfilePage from '../../pages/Profile/Profile';
 import ListAnimals from '../../pages/ListAnimals/ListAnimals';
+import Box from '../../pages/Box/Box';
+
 
 // fonctions
 import { useSelector } from 'react-redux';
 import { actionSetToken, actionTokenChecked } from '../../actions/tokenAction';
 
-import './styles.scss';
+import './App.scss';
 
 
 function App() {
@@ -61,77 +63,89 @@ function App() {
 		}
 	}, [token]);
 
-	if (authLoaded) {
-		return (
-			<div>
-				<div className='menu'>
-					<div className='menu-desktop'>
-						<Header />
-					</div>
-					<div className='menu-mobile'>
-						<MobileHeader />
-					</div>
-				</div>
-				<Routes>
-					{/* pages accessibles à l'utilisateur connecté */}
-					<Route element={<PrivateRoutes />}>
-						<Route path='/home' element={<Home />} />
-						<Route path='/walks' element={<WalkingDog />} />
-						<Route path='/visits' element={<VisitsCats />} />
-						<Route path='/animals' element={<ListAnimals />} />
-					</Route>
+  if (authLoaded) {
+    return (
+      <div className='app'>
+        <div className='menu'>
+          <div className='menu-desktop'>
+            <Header />
+          </div>
+          <div className='menu-mobile'>
+            <MobileHeader />
+          </div>
+        </div>
+        <div className='main'>
+          <Routes>
+            {/* pages accessibles à l'utilisateur connecté */}
+            <Route element={<PrivateRoutes />}>
+              <Route path='/home' element={<Home />} />
+              <Route path='/walks' element={<WalkingDog />} />
+              <Route path='/visits' element={<VisitsCats />} />
+              <Route path='/animal' element={<ListAnimals />} />
+            </Route>
 
-					{/* pages accessibles à l'admin connecté */}
-					<Route element={<PrivateRoutesAdmin />}>
-						<Route path='/admin' element={<Dashboard />} />
-						<Route
-							path='/admin/create/user'
-							element={<DashboardVolunteerCreation />}
-						/>
-						<Route
-							path='/admin/create/card'
-							element={<DashboardAnimalCreation />}
-						/>
-					</Route>
+            {/* pages accessibles à l'admin connecté */}
+            <Route element={<PrivateRoutesAdmin />}>
+              <Route path='/admin' element={<Dashboard />} />
+              <Route
+                path='/admin/create/user'
+                element={<DashboardVolunteerCreation />}
+              />
+              <Route
+                path='/admin/create/card'
+                element={<DashboardAnimalCreation />}
+              />
+            </Route>
 
-					<Route
-						path='/profile'
-						element={
-							isConnected ? <ProfilePage /> : <Navigate to='/login' replace />
-						}
-					/>
-					<Route
-						path='/animal/:animalId'
-						element={
-							isConnected ? <AnimalPage /> : <Navigate to='/login' replace />
-						}
-					/>
+            <Route
+              path='/profile'
+              element={
+                isConnected ? <ProfilePage /> : <Navigate to='/login' replace />
+              }
+            />
+            <Route
+              path='/animal/:animalId'
+              element={
+                isConnected ? <AnimalPage /> : <Navigate to='/login' replace />
+              }
+            />
 
-					<Route
-						path='/'
-						element={
-							isConnected && !admin ? (
-								<Navigate to='/home' replace />
-							) : isConnected && admin ? (
-								<Navigate to='/admin' replace />
-							) : (
-								<Navigate to='/login' replace />
-							)
-						}
-					/>
-					<Route
-						path='/login'
-						element={isConnected ? <Navigate to='/' replace /> : <LoginForm />}
-					/>
-					<Route path='*' element={<Error404 />} />
-				</Routes>
-				<Footer />
-			</div>
-		);
-	} else {
-		//@TODO
-		return <p>Loading</p>;
-	}
+            <Route
+              path='/box/:boxId'
+              element={isConnected ? <Box /> : <Navigate to='/login' replace />}
+            />
+          
+            <Route
+              path='/'
+              element={
+                isConnected && !admin ? (
+                  <Navigate to='/home' replace />
+                ) : isConnected && admin ? (
+                  <Navigate to='/admin' replace />
+                ) : (
+                  <Navigate to='/login' replace />
+                )
+              }
+            />
+
+				
+          
+            <Route
+              path='/login'
+              element={isConnected ? <Navigate to='/' replace /> : <LoginForm />}
+            />
+            <Route path='*' element={<Error404 />} />
+          </Routes>
+
+        </div>
+
+        <Footer />
+      </div>
+    );
+  } else {
+    //@TODO
+    return <p>Loading</p>;
+  }
 }
 
 App.propTypes = {};

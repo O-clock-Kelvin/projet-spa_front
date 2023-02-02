@@ -1,0 +1,61 @@
+@use "../../styles/vars";
+
+.profile-card-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100%;
+	width: 100%;
+}
+.edit-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100%;
+	width: 100%;
+}
+.profile {
+	border-radius: 10px !important;
+	border: none !important;
+	box-shadow: vars.$shadow;
+	background: vars.$primary-background-color !important;
+	width: 50%;
+
+	& .h5 {
+		margin: 0 !important;
+	}
+	& img {
+		width: 50%;
+		margin: auto;
+		display: block;
+	}
+}
+
+// .user-card {
+// }
+
+.edit {
+	display: flex;
+	font-family: vars.$text-font;
+	font-size: vars.$h3-font-size;
+	margin-block: 5rem;
+	min-width: 50% !important;
+
+	background-color: pink;
+	justify-content: center;
+	align-items: center;
+
+	& .card-body {
+		font-family: vars.$text-font;
+		font-size: vars.$h2-font-size;
+		min-width: 100% !important;
+	}
+
+	& .edit-button {
+		width: 90%;
+	}
+
+	& .edit-form {
+		width: 100%;
+	}
+}

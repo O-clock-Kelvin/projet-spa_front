@@ -6,79 +6,67 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import walksRequest from '../../requests/walks.request';
 import { DateTime } from 'luxon';
+import visitsRequest from '../../requests/visits.request';
+
 const schema = yup.object().shape({
 	comment: yup.string().nullable(),
-	feeling: yup.string().oneOf(['BAD', 'MEDIUM', 'GOOD']),
 });
 
-const WalkEditor = ({ walk, show, endingWalk, onClose, onUpdate }) => {
-	console.log(walk);
+const VisitEditor = ({ visit, show, endingVisit, onClose, onUpdate }) => {
 	const {
 		register,
 		handleSubmit,
-		// 		formState: { errors },
-		// $
+		// formState: { errors },
 	} = useForm({
 		defaultValues: {
-			comment: walk.comment || '',
-			feeling: walk.feeling || 'GOOD',
+			comment: visit.comment || '',
 		},
 		resolver: yupResolver(schema),
 	});
+
 	const {
 		isLoading,
 		error,
-		mutate: editWalk,
+		mutate: editVisit,
 	} = useMutation({
 		mutationFn: (data) => {
-			if (endingWalk) {
-				walksRequest.update(walk.id, {
+			if (endingVisit) {
+				return visitsRequest.update(visit.id, {
 					...data,
 					end_date: DateTime.now().toISO(),
 				});
 			} else {
-				walksRequest.update(walk.id, data);
+				return visitsRequest.update(visit.id, data);
 			}
 		},
-		onSuccess: (_, data) => {
-			onUpdate(data); // on utilise la fonction de callback défini dans le composant parent
+		onSuccess: (data) => {
+			onUpdate(data.data); // on utilise la fonction de callback défini dans le composant parent
 		},
 	});
 
 	const submitUpdate = (formData) => {
-		editWalk(formData);
+		editVisit(formData);
 	};
 	return (
 		<Modal show={show} onHide={onClose}>
 			<Modal.Header closeButton>
 				<Modal.Title>
-					{endingWalk ? 'Fin de balade' : 'Edition de la balade'}
+					{endingVisit ? 'Fin de visite' : 'Edition de la visite'}
 				</Modal.Title>
 			</Modal.Header>
 
 			<Modal.Body>
 				<Form onSubmit={handleSubmit((data) => submitUpdate(data))}>
-					<div className='m-5 d-flex flex-column' >
-						<textarea type={'text'} {...register('comment')} />
-						<select
-							{...register('feeling')}
-							defaultChecked={walk.feeling || 'GOOD'}
-							defaultValue={walk.feeling || 'GOOD'}
-						>
-							<option value='GOOD'>Bonne</option>
-							<option value='MEDIUM'>Moyenne</option>
-							<option value='BAD'>Mauvaise</option>
-						</select>
-					</div>
-					{endingWalk ? (
+					<input type={'text'} {...register('comment')} />
+
+					{endingVisit ? (
 						<Button
 							variant='primary'
 							type='submit'
 							disabled={isLoading ? true : false}
 						>
-							{isLoading ? 'Loading...' : 'Terminer la balade'}
+							{isLoading ? 'Loading...' : 'Terminer la visite'}
 						</Button>
 					) : (
 						<Button
@@ -98,12 +86,12 @@ const WalkEditor = ({ walk, show, endingWalk, onClose, onUpdate }) => {
 	);
 };
 
-WalkEditor.propTypes = {
-	walk: PropTypes.object,
+VisitEditor.propTypes = {
+	visit: PropTypes.object,
 	show: PropTypes.bool,
-	endingWalk: PropTypes.bool,
+	endingVisit: PropTypes.bool,
 	onClose: PropTypes.func,
 	onUpdate: PropTypes.func,
 };
 
-export default WalkEditor;
+export default VisitEditor;

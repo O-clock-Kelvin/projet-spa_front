@@ -1,80 +1,107 @@
-@use 'reset';
-@use 'vars';
+@use "reset";
+@use "vars";
 
 @import "~bootstrap/scss/bootstrap";
 
 body {
-    font-family: vars.$text-font;
-    background-color: vars.$secondary-background-color;
-    color: vars.$font-color;
+	font-family: vars.$text-font;
+	background-color: vars.$secondary-background-color;
+	color: vars.$font-color;
 }
-
 
 // overrides bootstrap
 
 a {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 .bg-light {
-    background-color: vars.$primary-background-color !important;
+	background-color: vars.$primary-background-color !important;
 }
 
-
 .btn-primary {
-    width: 100%;
-    background: vars.$primary-color;
-    border: none;
-    text-transform: uppercase;
-    &:hover {
-        background-color: vars.$primary-color-hoover ;
-    }
+	width: 100%;
+	background: vars.$primary-color;
+	border: none;
+	text-transform: uppercase;
+	&:hover {
+		background-color: vars.$primary-color-hoover;
+	}
 }
 
 .form-control {
-    background: vars.$primary-background-color;
-    border: none;   
+	background: vars.$primary-background-color;
+	border: none;
 }
 
 .input-group {
-    box-shadow: 1px 1px 36px rgba(0, 0, 0, 0.09);
-    border-radius: 5px;
-    &-text {
-        border: none;
-        background: vars.$primary-background-color;
-        color: vars.$primary-color;
-    }
+	box-shadow: 1px 1px 36px rgba(0, 0, 0, 0.09);
+	border-radius: 5px;
+	&-text {
+		border: none;
+		background: vars.$primary-background-color;
+		color: vars.$primary-color;
+	}
 }
 
 .navbar > .container {
-    justify-content: space-around;
+	justify-content: space-around;
 }
 
 .navbar-text {
-    text-transform: uppercase;
+	text-transform: uppercase;
 }
 
 .navbar-toggler {
-    border-radius: 70px;
-    width: 55px;
-    height: 55px;
-    color: vars.$primary-color;
-    background-color: #d9d9d9;
-    padding: 1px;
+	border-radius: 70px;
+	width: 55px;
+	height: 55px;
+	color: vars.$primary-color;
+	background-color: #d9d9d9;
+	padding: 1px;
 }
 
+.bg-primary {
+	background-color: vars.$primary-color !important;
+	padding: vars.$gutter * 0.7 vars.$gutter * 1.3;
+	border-radius: 25px;
+}
 
+.btn-close {
+	border: 2px solid;
+	border-radius: 25px;
+	width: 7px;
+	height: 7px;
+	margin: 2px 0 0 -5px;
+	color: vars.$icons-secondary-color;
+}
 
 // end overrides bootstrap
 
 .title-page {
+	font-family: vars.$title-font;
+	font-size: vars.$h1-font-size;
+	text-align: center;
+	margin-top: vars.$gutter * 5;
+}
+
+.subtitle-page {
     font-family: vars.$title-font;
-    font-size: vars.$h1-font-size;
-    text-align: center;
-    margin-top: vars.$gutter * 5;
+    font-size: vars.$subtitle;
+    text-align: left;
+    margin-top: vars.$gutter;
+    font-weight: bold;
 }
 
 .dashboard-container {
-    max-width: 1200px;
-    margin: 100px auto ;
+	max-width: 1200px;
+	margin: 100px auto;
+}
+
+.link-no-decoration {
+	color: vars.$font-color;
+
+	&:hover {
+		color: vars.$font-color;
+	}
 }

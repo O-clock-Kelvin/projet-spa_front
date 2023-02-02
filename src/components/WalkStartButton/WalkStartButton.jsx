@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {  useState } from 'react';
 import { useMutation } from 'react-query';
 
 import PropTypes from 'prop-types';
@@ -9,6 +9,8 @@ import Modal from 'react-bootstrap/Modal';
 import WalkEditor from '../WalkEditor/WalkEditor';
 import walksRequest from '../../requests/walks.request';
 import experienceUtil from '../../utils/experience.utils';
+
+import './WalkStartButton.scss';
 /**
  * design de test, a supprimer
  */
@@ -20,7 +22,7 @@ const StartWalkButton = ({ animal }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [showEndEditor, setShowEndEditor] = useState(false);
 	const [lastWalk, setLastWalk] = useState(
-		animal.walks[animal.walks.length - 1] || undefined
+		animal.walks[animal.walks.length - 1] ?? null
 	);
 	const {
 		isLoading,
@@ -32,6 +34,7 @@ const StartWalkButton = ({ animal }) => {
 		},
 		onSuccess: (data) => {
 			setStartedWalk(data.data);
+			setLastWalk(data.data);
 			setShowModal(false);
 		},
 	});
@@ -43,10 +46,9 @@ const StartWalkButton = ({ animal }) => {
 		 */
 
 		if (
-			lastWalk == undefined ||
+			lastWalk === null ||
 			(DateTime.fromISO(lastWalk?.date).plus({ hour: 1 }) <= DateTime.now() &&
-				DateTime.fromISO(lastWalk?.date) <= DateTime.now().startOf('day') &&
-				startedWalk == undefined)
+				DateTime.fromISO(lastWalk?.date) <= DateTime.now().startOf('day') )
 		) {
 			if (
 				experienceUtil.experienceConverter(experience) >=
@@ -54,31 +56,31 @@ const StartWalkButton = ({ animal }) => {
 			) {
 				return (
 					<>
-						<div
+						<Button 
 							onClick={() => setShowModal(true)}
 							role='button'
 							tabIndex='0'
-							style={buttonStyle}
+							variant='primary'
+							lg={2}													
 						>
 							Partir en balade
-						</div>
+						</Button>
 
 						{/* Modale de confirmation de la balade */}
+						
 						<Modal show={showModal} onHide={() => setShowModal(false)}>
 							<Modal.Header closeButton>
 								<Modal.Title>confirmation de balade</Modal.Title>
 							</Modal.Header>
 							<Modal.Body>
-								Etes vous sur de vouloir partir en balade ?
+								Etes vous sur de vouloir sortir cet animal ?
 							</Modal.Body>
 							<Modal.Footer>
-								<Button variant='secondary' onClick={() => setShowModal(false)}>
-									Annuler
-								</Button>
+								<div className="d-flex">								
 								{isLoading ? (
 									'Loading...'
 								) : (
-									<Button
+									<Button className='me-2'
 										variant='primary'
 										onClick={() => {
 											startWalk({ animal_id: animal.id });
@@ -86,12 +88,15 @@ const StartWalkButton = ({ animal }) => {
 									>
 										Oui
 									</Button>
+									
 								)}
 								{error && (
 									<div style={buttonStyle}>
 										Une erreur est survenue, merci de retenter plus tard
 									</div>
 								)}
+								<Button variant='secondary' onClick={() => setShowModal(false)}>Annuler	</Button>
+								</div>
 							</Modal.Footer>
 						</Modal>
 					</>
@@ -117,13 +122,13 @@ const StartWalkButton = ({ animal }) => {
 							show={showEndEditor}
 							endingWalk={true}
 							onClose={() => setShowEndEditor(false)}
-							onUpdate={() => {
+							onUpdate={(data) => {
 								setStartedWalk(undefined);
-								setLastWalk(undefined);
+								setLastWalk(data);
 							}}
 						/>
-						<div
-							style={buttonStyle}
+						<Button
+							variant='primary'
 							onClick={() => {
 								setShowEndEditor(true);
 							}}
@@ -131,7 +136,7 @@ const StartWalkButton = ({ animal }) => {
 							tabIndex='0'
 						>
 							Terminer la balade
-						</div>
+						</Button>
 					</>
 				);
 			} else {
@@ -140,11 +145,11 @@ const StartWalkButton = ({ animal }) => {
 					lastWalk.end_date == undefined
 				) {
 					return (
-						<div style={buttonStyle}>Cet animal est en cours de sortie</div>
+						<div className='bg-secondary p-2 text-light'>Cet animal est en cours de sortie</div>
 					);
 				} else {
 					return (
-						<div style={buttonStyle}>Cet animal est déjà sorti aujourd'hui</div>
+						<div className='bg-secondary p-2 text-light'>Cet animal est déjà sorti aujourd'hui</div>
 					);
 				}
 			}
