@@ -23,10 +23,11 @@ function FilterDog({
 	setFilteredAnimals,
 	setFilter,
 	setReloadButton,
+	show
 }) {
 
 	const [species, setSpecies] = useState("DOG");
-	// const [firstSubmit, setFirstSubmit] = useState(false);
+	const [firstSubmit, setFirstSubmit] = useState(false);
 
 	// à la soumission du formulaire on récupère toutes les données des states
 	const handleOnSubmit = async (e) => {
@@ -41,21 +42,20 @@ function FilterDog({
 		}
 		setFilter(false);
 		setReloadButton(true);
-		// setFirstSubmit(true);
-		// console.log(firstSubmit);
+		setFirstSubmit(true);
 	};
 
 	// si on fait Annuler dans le filtre, on ferme le composant FilterDog
 	const cancelFilter = () => {
 		setFilter(false);
-		// if (firstSubmit) {
+		if (firstSubmit) {
 			setReloadButton(true);
-		// }
+		}
 	};
 
 	return (
-		<div className='modal show' style={{ display: 'block', position: 'fixed' }}>
-			<Modal.Dialog>
+	
+			<Modal show={show}>
 				<Modal.Header>
 					<Modal.Title>Filtre</Modal.Title>
 				</Modal.Header>
@@ -106,8 +106,8 @@ function FilterDog({
 						</Button>
 					</Modal.Footer>
 				</Form>
-			</Modal.Dialog>
-		</div>
+			</Modal>
+		
 	);
 }
 
@@ -116,6 +116,7 @@ FilterDog.propTypes = {
 	setFilter: PropTypes.func.isRequired,
 	setReloadButton: PropTypes.func.isRequired,
 	setFilteredAnimals: PropTypes.func.isRequired,
+	show: PropTypes.bool.isRequeried
 };
 
 export default React.memo(FilterDog);

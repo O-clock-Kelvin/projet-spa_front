@@ -29,6 +29,7 @@ function FilterDog({
 	setFilteredDogs,
 	setFilter,
 	setReloadButton,
+	show
 }) {
 
 	// récupération de l'experience du bénévole pour récupérer les bons chiens
@@ -38,6 +39,8 @@ function FilterDog({
 	const [gabaritValue, setGabaritValue] = useState('big');
 	const [sexValue, setSexValue] = useState('male');
 	const [valueAge, setvalueAge] = useState(0);
+
+	const [firstSubmit, setFirstSubmit] = useState(false);
 
 	// tableau des tags envoyé pour la requête
 	const [tags, setTags] = useState([]);
@@ -81,12 +84,15 @@ function FilterDog({
 		setFilteredDogs(sortedDogs);
 		setFilter(false);
 		setReloadButton(true);
+		setFirstSubmit(true);
 	};
 
 	// si on fait Annuler dans le filtre, on ferme le composant FilterDog
 	const cancelFilter = () => {
 		setFilter(false);
-		setReloadButton(true);
+		if (firstSubmit) {
+			setReloadButton(true);
+		}
 	};
 
 	const renderTag = (tag) => {
@@ -103,8 +109,8 @@ function FilterDog({
 	};
 
 	return (
-		<div className='modal show' style={{ display: 'block', position: 'fixed' }}>
-			<Modal.Dialog>
+		
+			<Modal show={show} onHide={cancelFilter}>
 				<Modal.Header>
 					<Modal.Title>Filtres</Modal.Title>
 				</Modal.Header>
@@ -210,8 +216,8 @@ function FilterDog({
 						</Button>
 					</Modal.Footer>
 				</Form>
-			</Modal.Dialog>
-		</div>
+			</Modal>
+		
 	);
 }
 
@@ -220,6 +226,7 @@ FilterDog.propTypes = {
 	setFilteredDogs: PropTypes.func.isRequired,
 	setFilter: PropTypes.func.isRequired,
 	setReloadButton: PropTypes.func.isRequired,
+	show: PropTypes.bool.isRequired,
 };
 
 export default React.memo(FilterDog);
