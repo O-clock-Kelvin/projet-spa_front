@@ -1,4 +1,4 @@
-import {  useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from 'react-query';
 
 import PropTypes from 'prop-types';
@@ -9,8 +9,6 @@ import Modal from 'react-bootstrap/Modal';
 import WalkEditor from '../WalkEditor/WalkEditor';
 import walksRequest from '../../requests/walks.request';
 import experienceUtil from '../../utils/experience.utils';
-
-import './WalkStartButton.scss';
 /**
  * design de test, a supprimer
  */
@@ -22,7 +20,7 @@ const StartWalkButton = ({ animal }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [showEndEditor, setShowEndEditor] = useState(false);
 	const [lastWalk, setLastWalk] = useState(
-		animal.walks[animal.walks.length - 1] ?? null
+		animal.walks[animal.walks.length - 1] || undefined
 	);
 	const {
 		isLoading,
@@ -34,7 +32,6 @@ const StartWalkButton = ({ animal }) => {
 		},
 		onSuccess: (data) => {
 			setStartedWalk(data.data);
-			setLastWalk(data.data);
 			setShowModal(false);
 		},
 	});
@@ -46,9 +43,10 @@ const StartWalkButton = ({ animal }) => {
 		 */
 
 		if (
-			lastWalk === null ||
+			lastWalk == undefined ||
 			(DateTime.fromISO(lastWalk?.date).plus({ hour: 1 }) <= DateTime.now() &&
-				DateTime.fromISO(lastWalk?.date) <= DateTime.now().startOf('day') )
+				DateTime.fromISO(lastWalk?.date) <= DateTime.now().startOf('day') &&
+				startedWalk == undefined)
 		) {
 			if (
 				experienceUtil.experienceConverter(experience) >=
@@ -56,31 +54,31 @@ const StartWalkButton = ({ animal }) => {
 			) {
 				return (
 					<>
-						<Button 
+						<div
 							onClick={() => setShowModal(true)}
 							role='button'
 							tabIndex='0'
-							variant='primary'
-							lg={2}													
+							style={buttonStyle}
 						>
 							Partir en balade
-						</Button>
+						</div>
 
 						{/* Modale de confirmation de la balade */}
-						
 						<Modal show={showModal} onHide={() => setShowModal(false)}>
 							<Modal.Header closeButton>
 								<Modal.Title>confirmation de balade</Modal.Title>
 							</Modal.Header>
 							<Modal.Body>
-								Etes vous sur de vouloir sortir cet animal ?
+								Etes vous sur de vouloir partir en balade ?
 							</Modal.Body>
 							<Modal.Footer>
-								<div className="d-flex">								
+								<Button variant='secondary' onClick={() => setShowModal(false)}>
+									Annuler
+								</Button>
 								{isLoading ? (
 									'Loading...'
 								) : (
-									<Button className='me-2'
+									<Button
 										variant='primary'
 										onClick={() => {
 											startWalk({ animal_id: animal.id });
@@ -88,15 +86,12 @@ const StartWalkButton = ({ animal }) => {
 									>
 										Oui
 									</Button>
-									
 								)}
 								{error && (
 									<div style={buttonStyle}>
 										Une erreur est survenue, merci de retenter plus tard
 									</div>
 								)}
-								<Button variant='secondary' onClick={() => setShowModal(false)}>Annuler	</Button>
-								</div>
 							</Modal.Footer>
 						</Modal>
 					</>
@@ -122,13 +117,13 @@ const StartWalkButton = ({ animal }) => {
 							show={showEndEditor}
 							endingWalk={true}
 							onClose={() => setShowEndEditor(false)}
-							onUpdate={(data) => {
+							onUpdate={() => {
 								setStartedWalk(undefined);
-								setLastWalk(data);
+								setLastWalk(undefined);
 							}}
 						/>
-						<Button
-							variant='primary'
+						<div
+							style={buttonStyle}
 							onClick={() => {
 								setShowEndEditor(true);
 							}}
@@ -136,7 +131,7 @@ const StartWalkButton = ({ animal }) => {
 							tabIndex='0'
 						>
 							Terminer la balade
-						</Button>
+						</div>
 					</>
 				);
 			} else {
@@ -145,11 +140,11 @@ const StartWalkButton = ({ animal }) => {
 					lastWalk.end_date == undefined
 				) {
 					return (
-						<div className='bg-secondary p-2 text-light'>Cet animal est en cours de sortie</div>
+						<div style={buttonStyle}>Cet animal est en cours de sortie</div>
 					);
 				} else {
 					return (
-						<div className='bg-secondary p-2 text-light'>Cet animal est déjà sorti aujourd'hui</div>
+						<div style={buttonStyle}>Cet animal est déjà sorti aujourd'hui</div>
 					);
 				}
 			}
