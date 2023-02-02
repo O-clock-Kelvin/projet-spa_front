@@ -75,7 +75,7 @@ function ListAnimals() {
 	// on affiche chaque carte du chien de la liste récupérée
 	const renderAnimal = (animal) => {
 		return (
-			<Card key={animal.id} className='container-card-dog'>
+			<Card key={animal.id}  className={classnames('container-card-dog', {'dark-card': filter})}>
 				<Link
 					to={`/animal/${animal.id}`}
 				>
@@ -92,39 +92,51 @@ function ListAnimals() {
 	};
 
 	return (
-		<>
+		<div  className={classnames({'dark-background': filter})}>
 			<h1 className='title-page'>Liste des animaux</h1>
+
 			<div className='main-container'>
-				<div className='search-container'>
+
+				<div className="header-container">
+
+					<div className='search-container'>		
+						
+							<Form className="d-flex search-form" onSubmit={handleOnSubmit}>
+								<Form.Control
+									type="search"
+									placeholder="Rechercher par le nom"
+									className="me-2 search-bar"
+									aria-label="Search"
+									value={searchName}
+									onChange={(e) => setSearchName(e.target.value)}
+								/>
+								<Button type="submit" className="search-button">Valider</Button>
+							</Form>		
+						
+							<ImEqualizer className='filter' size={30} onClick={openFilter} />
+									
+					</div>
 					
-						<Form className="d-flex search-form" onSubmit={handleOnSubmit}>
-							<Form.Control
-								type="search"
-								placeholder="Rechercher par le nom"
-								className="me-2 search-bar"
-								aria-label="Search"
-								value={searchName}
-								onChange={(e) => setSearchName(e.target.value)}
-							/>
-							<Button type="submit" className="search-button">Valider</Button>
-						</Form>		
-						<ImEqualizer className='filter' size={30} onClick={openFilter} />
-					
-				</div>
-				<div>
-					{reloadButton && (
-						<Button className='reload-button' type='button' onClick={reloadAnimals}>
-							Revoir la liste de tous les animaux
-						</Button>
+					<div>
+						{reloadButton && (
+							<Button className='reload-button' type='button' onClick={reloadAnimals}>
+								Revoir la liste de tous les animaux
+							</Button>
+						)}
+					</div>
+
+					<div>
+					{filter && (
+						<FilterAnimals
+							setFilter={setFilter}
+							setFilteredAnimals={setAnimals}
+							setReloadButton={setReloadButton}
+						/>
 					)}
+					</div>
+
 				</div>
-				{filter && (
-					<FilterAnimals
-						setFilter={setFilter}
-						setFilteredAnimals={setAnimals}
-						setReloadButton={setReloadButton}
-					/>
-				)}
+			
 				<div className='cards-container'>
 					{!isLoading && animals ? (
 						animals.map((animal) => renderAnimal(animal))
@@ -132,8 +144,9 @@ function ListAnimals() {
 						<LoadingSpinner />
 					)}
 				</div>
+
 			</div>
-		</>
+		</div>
 	);
 }
 

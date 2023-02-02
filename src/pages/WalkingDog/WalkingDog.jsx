@@ -125,6 +125,10 @@ function WalkingDog() {
 	return (
 		<>
 			<h1 className='title-page'>Sortir un chien</h1>
+
+			<div className='main-container'>
+				<div className='head-container'></div>
+			</div>
 			<div>
 				<ImEqualizer className='filter' size={30} onClick={openFilter} />
 			</div>

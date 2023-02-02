@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 // composants
 import Header from '../Header/Header';
@@ -18,6 +19,8 @@ import WalkingDog from '../../pages/WalkingDog/WalkingDog';
 import VisitsCats from '../../pages/VisitsCats/VisitsCats';
 import Footer from '../Footer/Footer';
 import AnimalPage from '../../pages/AnimalPage/AnimalPage';
+import ProfilePage from '../../pages/Profile/Profile';
+import ListAnimals from '../../pages/ListAnimals/ListAnimals';
 
 // fonctions
 import { useSelector } from 'react-redux';
@@ -25,14 +28,10 @@ import { actionSetToken, actionTokenChecked } from '../../actions/tokenAction';
 
 import './styles.scss';
 
-import { useDispatch } from 'react-redux';
-import ProfilePage from '../../pages/Profile/Profile';
-import ListAnimals from '../../pages/ListAnimals/ListAnimals';
 
 function App() {
-	const { isConnected, admin, token, authLoaded } = useSelector(
-		(fullstate) => fullstate.loginSettings
-	);
+
+	const { isConnected, admin, token, authLoaded } = useSelector((fullstate) => fullstate.loginSettings);
 
 	const dispatch = useDispatch();
 
@@ -64,7 +63,7 @@ function App() {
 
 	if (authLoaded) {
 		return (
-			<div className='app'>
+			<div>
 				<div className='menu'>
 					<div className='menu-desktop'>
 						<Header />
