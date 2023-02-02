@@ -40,6 +40,8 @@ function FilterDog({
 	const [sexValue, setSexValue] = useState('male');
 	const [valueAge, setvalueAge] = useState(0);
 
+	const [firstSubmit, setFirstSubmit] = useState(false);
+
 	// tableau des tags envoyé pour la requête
 	const [tags, setTags] = useState([]);
 	// liste des tags du select
@@ -82,12 +84,15 @@ function FilterDog({
 		setFilteredDogs(sortedDogs);
 		setFilter(false);
 		setReloadButton(true);
+		setFirstSubmit(true);
 	};
 
 	// si on fait Annuler dans le filtre, on ferme le composant FilterDog
 	const cancelFilter = () => {
 		setFilter(false);
-		setReloadButton(true);
+		if (firstSubmit) {
+			setReloadButton(true);
+		}
 	};
 
 	const renderTag = (tag) => {
