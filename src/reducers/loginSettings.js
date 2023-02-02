@@ -25,14 +25,12 @@ const initialState = {
 const loginSettingsReducer = (state = initialState, action = {}) => {
 	switch (action.type) {
 		case LOGIN_PENDING: {
-			console.log(LOGIN_PENDING);
 			return {
 				...state,
 				isLoading: true,
 			};
 		}
 		case LOGIN_FULFILLED: {
-			console.log(LOGIN_FULFILLED);
 			return {
 				...state,
 				token: action.payload.token,
@@ -46,7 +44,6 @@ const loginSettingsReducer = (state = initialState, action = {}) => {
 			};
 		}
 		case SET_TOKEN: {
-			console.log(SET_TOKEN);
 			return {
 				...state,
 				token: action.payload.token,
@@ -67,7 +64,6 @@ const loginSettingsReducer = (state = initialState, action = {}) => {
 			};
 		}
 		case LOGIN_REJECTED: {
-			console.log(LOGIN_REJECTED);
 			return {
 				...state,
 				isLoading: false,

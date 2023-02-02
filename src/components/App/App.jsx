@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 // composants
 import Header from '../Header/Header';
@@ -18,7 +19,10 @@ import WalkingDog from '../../pages/WalkingDog/WalkingDog';
 import VisitsCats from '../../pages/VisitsCats/VisitsCats';
 import Footer from '../Footer/Footer';
 import AnimalPage from '../../pages/AnimalPage/AnimalPage';
+import ProfilePage from '../../pages/Profile/Profile';
+import ListAnimals from '../../pages/ListAnimals/ListAnimals';
 import Box from '../../pages/Box/Box';
+
 
 // fonctions
 import { useSelector } from 'react-redux';
@@ -26,42 +30,38 @@ import { actionSetToken, actionTokenChecked } from '../../actions/tokenAction';
 
 import './App.scss';
 
-import { useDispatch } from 'react-redux';
-import ProfilePage from '../../pages/Profile/Profile';
-import ListAnimals from '../../pages/ListAnimals/ListAnimals';
 
 function App() {
-  const { isConnected, admin, token, authLoaded } = useSelector(
-    (fullstate) => fullstate.loginSettings
-  );
 
-  const dispatch = useDispatch();
+	const { isConnected, admin, token, authLoaded } = useSelector((fullstate) => fullstate.loginSettings);
 
-  useEffect(() => {
-    try {
-      // on vérifie si on a un token déjà présent dans le localstorage
-      const tokenFromLocalStorage = localStorage.getItem('token');
+	const dispatch = useDispatch();
 
-      // si oui on l'envoie au state de redux
-      if (tokenFromLocalStorage) {
-        const parsedToken = JSON.parse(tokenFromLocalStorage);
-        dispatch(actionSetToken(parsedToken));
-        dispatch(actionTokenChecked());
-      } else {
-        dispatch(actionTokenChecked());
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+	useEffect(() => {
+		try {
+			// on vérifie si on a un token déjà présent dans le localstorage
+			const tokenFromLocalStorage = localStorage.getItem('token');
 
-  useEffect(() => {
-    // à chaque changement du token du state de redux, on le modifie dans le localstorage
-    if (token) {
-      const stringifiedToken = JSON.stringify(token);
-      localStorage.setItem('token', stringifiedToken);
-    }
-  }, [token]);
+			// si oui on l'envoie au state de redux
+			if (tokenFromLocalStorage) {
+				const parsedToken = JSON.parse(tokenFromLocalStorage);
+				dispatch(actionSetToken(parsedToken));
+				dispatch(actionTokenChecked());
+			} else {
+				dispatch(actionTokenChecked());
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	}, []);
+
+	useEffect(() => {
+		// à chaque changement du token du state de redux, on le modifie dans le localstorage
+		if (token) {
+			const stringifiedToken = JSON.stringify(token);
+			localStorage.setItem('token', stringifiedToken);
+		}
+	}, [token]);
 
   if (authLoaded) {
     return (

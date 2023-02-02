@@ -1,7 +1,7 @@
 import React from 'react';
 import Alert from 'react-bootstrap/Alert';
 
-import './styles.scss';
+import './WrongAuthentification.scss';
 
 function WrongAuthentification() {
   return (

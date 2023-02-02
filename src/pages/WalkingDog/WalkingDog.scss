@@ -1,21 +1,57 @@
 @use '../../styles/vars';
 
+.main-container {
+    margin: 50px 80px 0 80px;
+
+    
+}
+
+.head-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .cards-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 50px 80px 0 80px;
-}
-
-.card-img-top {
-    padding: vars.$gutter * 2;
-}
-
-.card-dog {
+    justify-content: space-between;
     margin: 0;
-    width: 300px !important;
-    box-shadow: vars.$shadow;
+    margin-top: vars.$gutter * 3;
+
+    .card {
+        margin-top: vars.$gutter * 3;
+        transition: all .2s ease-in-out;
+
+        &:hover { 
+            transform: scale(1.1); 
+        }
+
+        &-img-top {
+            padding: vars.$gutter * 2;
+        }
+
+        &-dog {
+            margin: 0;
+            width: 300px !important;
+            box-shadow: vars.$shadow;
+        }
+
+        &-title {
+            color: vars.$font-color;
+        }
+
+        .age {
+            color: vars.$font-color;
+            font-size: 1.2rem;
+        }
+    }
+
+    .default-picture {
+        opacity: 0.3;
+    }
+
 }
 
 .red {
@@ -35,15 +71,14 @@
     color: vars.$primary-color;
 }
 
-.filter {
-    margin-top: 30px;
-    width: 100px;
-    position: absolute;
-    right: 150px;
+.reload-button-dog {
+    width: vars.$gutter *20 !important;
+    margin: 0;
 }
 
-.reload-button {
-    width: vars.$gutter *10 !important;
-    margin-left: vars.$gutter *10;
-    font-size: 0.8rem;
+.filter-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
 }
