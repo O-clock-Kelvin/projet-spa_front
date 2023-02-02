@@ -1,17 +1,22 @@
 .app {
-    height: 100vh;
-    margin: 0 auto;
-    position : relative;
+	position: relative;
+	min-height: 100vh;
+	margin: 0 auto;
 }
-
+.main {
+	padding-bottom: 5rem;
+}
 @media (max-width: 599px) {
-    .menu-desktop {
-        display: none;
-    }
+	.menu-desktop {
+		display: none;
+	}
+	.main {
+		padding-bottom: 12rem;
+	}
 }
 
 @media (min-width: 600px) {
-    .menu-mobile {
-        display: none;
-    }
+	.menu-mobile {
+		display: none;
+	}
 }

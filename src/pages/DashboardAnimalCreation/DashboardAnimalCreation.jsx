@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState} from "react";
 import { useForm } from "react-hook-form";
-import { Form, Button, Row, Col} from "react-bootstrap";
+import { Form, Button, Row, Badge, CloseButton, Col } from "react-bootstrap";
 
 import api from "../../api";
 import {useNavigate} from "react-router-dom";
@@ -9,6 +9,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import "./DashboardAnimalCreation.scss";
+
+// data
+import dataTags from "../../data/tags";
 
 // Schéma pour la géstion des champs obligatoires dans le formulaire d'envoi d'une fiche animal
 
@@ -49,7 +52,50 @@ const schema = yup.object().shape({
     .required("Veuillez renseigner la data de naissance."),
 });
 
+
+
+
 function DashboardAnimalCreation() {
+
+  // Gestion de tags 
+  const [tags, setTags] = useState([]);
+  const [tagsList, setTagsList] = useState(dataTags);
+
+  const handleOnAddTag = (e) => {
+    console.log(e.target.value);
+    console.log(tagsList);
+    setTagsList((oldState) =>
+      oldState.filter((tag) => tag.id !== Number(e.target.value))
+    );
+    setTags((oldState) => [...oldState, Number(e.target.value)]);
+  };
+
+  const cancelTag = (tagToCancel) => {
+    console.log(tagToCancel);
+
+    setTags((oldState) => oldState.filter((tag) => tag !== tagToCancel));
+    const oldTag = dataTags.filter((tag) => tag.id == tagToCancel);
+    console.log(oldTag);
+    setTagsList((oldState) => [...oldState, oldTag[0]]);
+  };
+
+  useEffect(() => {
+    console.log(tags);
+  }, [tags]);
+
+  const renderTag = (tag) => {
+    const tagId = Number(tag);
+    const tagFound = dataTags.find((tag) => tag.id === tagId);
+    return (
+      <div className='container-badge'>
+        <Badge className='position-relative' key={tagId}>{tagFound.name}
+          <CloseButton className='position-absolute top-0 start-100 translate-middle' onClick={() => cancelTag(tag)} />
+        </Badge>
+      </div>
+    );
+  };
+
+  // end gestion tags
 
   const { 
     register, 
@@ -69,9 +115,10 @@ function DashboardAnimalCreation() {
 
   const onSubmitHandler = (data) => {
     console.log(data);
-
+    delete data.tags;
+    console.log("SENT DATA", { ...data, tags: tags });
     api
-      .post("/animals", data)
+      .post("/animals", {...data, tags:tags})
       .then(function (response) {
         console.log(response.status);
         if (response.status === 201) {
@@ -101,7 +148,7 @@ function DashboardAnimalCreation() {
         >
           {/* ==================colonne 1================== */}
           <Row>
-            <Col xs={6}>
+            <Col md={6} xs={12} >
               <Form.Group className="mb-3">
                 <Form.Label>Espèce</Form.Label>
                 <Form.Select
@@ -127,23 +174,28 @@ function DashboardAnimalCreation() {
                 </div>
               </Form.Group>
 
-              {/* <Form.Group className="mb-3">
+              <Form.Group className="mb-3">
                 <Form.Label>Tempéramment</Form.Label>
-                <Form.Select aria-label="" name="tags" {...register("tags")}>
-                  <option>Séléctionner</option>
-                  <option value="1">Joueur</option>
-                  <option value="4">Doux</option>
-                  <option value="2">Sociable</option>
-                  <option value="5">Calin</option>
-                  <option value="3">Energique</option>
-                  <option value="6">Calme</option>
-                  <option value="7">Associable</option>
-                  <option value="8">Fugueur</option>
+                <Form.Select
+                  aria-label='Default select example'
+                  {...register("tags")}
+                  onChange={handleOnAddTag}
+                  
+                >
+                  <option>Sélectionner</option>
+                  {tagsList.map((tag) => (
+                    <option key={tag.id} value={`${tag.id}`}>
+                      {tag.name}
+                    </option>
+                  ))}
                 </Form.Select>
-              </Form.Group> */}
+                <div className='tags-container'>
+                  {tags && tags.map((tag) => renderTag(tag))}
+                </div>
+              </Form.Group>
 
               <Row>
-                <Col xs={6}>
+                <Col md={6} xs={12} >
                   <Form.Group className="mb-3">
                     <Form.Label>Âge</Form.Label>
                     <Form.Control
@@ -225,7 +277,7 @@ function DashboardAnimalCreation() {
 
             {/* ==================colonne 2================== */}
 
-            <Col xs={6}>
+            <Col md={6} xs={12} >
               <Form.Group className="mb-3">
                 <Form.Label>Image profil</Form.Label>
                 <Form.Control
