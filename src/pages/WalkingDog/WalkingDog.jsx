@@ -127,33 +127,38 @@ function WalkingDog() {
 			<h1 className='title-page'>Sortir un chien</h1>
 
 			<div className='main-container'>
-				<div className='head-container'></div>
+
+				<div className='head-container'>
+					{reloadButton && (
+						<Button className='reload-button-dog' type='button' onClick={reloadDogs}>
+							Revoir la liste des chiens
+						</Button>
+					)}
+					<div>
+						{filter && (
+							<FilterDog
+								getDogsByFilter={animalsRequest.getDogsByFilter}
+								setFilteredDogs={setDogs}
+								setFilter={setFilter}
+								setReloadButton={setReloadButton}
+							/>
+						)}
+					</div>
+					<div className='filter-container'>
+						<ImEqualizer className='filter' size={30} onClick={openFilter} />
+					</div>	
+				</div>
+
+				<div className='cards-container'>
+					{!isLoading && dogs ? (
+						dogs.map((dog) => renderDog(dog))
+					) : (
+						<LoadingSpinner />
+					)}
+				</div>
+
 			</div>
-			<div>
-				<ImEqualizer className='filter' size={30} onClick={openFilter} />
-			</div>
-			<div>
-				{reloadButton && (
-					<Button className='reload-button' type='button' onClick={reloadDogs}>
-						Revoir la liste des chiens
-					</Button>
-				)}
-			</div>
-				{filter && (
-					<FilterDog
-						getDogsByFilter={animalsRequest.getDogsByFilter}
-						setFilteredDogs={setDogs}
-						setFilter={setFilter}
-						setReloadButton={setReloadButton}
-					/>
-				)}
-			<div className='cards-container'>
-				{!isLoading && dogs ? (
-					dogs.map((dog) => renderDog(dog))
-				) : (
-					<LoadingSpinner />
-				)}
-			</div>
+			
 		</>
 	);
 }

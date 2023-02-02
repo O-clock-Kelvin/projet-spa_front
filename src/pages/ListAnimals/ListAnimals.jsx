@@ -126,13 +126,13 @@ function ListAnimals() {
 					</div>
 
 					<div>
-					{filter && (
-						<FilterAnimals
-							setFilter={setFilter}
-							setFilteredAnimals={setAnimals}
-							setReloadButton={setReloadButton}
-						/>
-					)}
+						{filter && (
+							<FilterAnimals
+								setFilter={setFilter}
+								setFilteredAnimals={setAnimals}
+								setReloadButton={setReloadButton}
+							/>
+						)}
 					</div>
 
 				</div>
