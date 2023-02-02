@@ -1,31 +1,33 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
-import classnames from 'classnames';
-import { useQuery } from 'react-query';
+import React, { useState, useEffect } from "react";
+import classnames from "classnames";
+import { useQuery } from "react-query";
 
 // composants
-import Card from 'react-bootstrap/Card';
-import FilterDog from '../../components/FilterDog/FilterDog';
-import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
-import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import Card from "react-bootstrap/Card";
+import FilterDog from "../../components/FilterDog/FilterDog";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 // style
-import './styles.scss';
-import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
-import { ImEqualizer } from 'react-icons/im';
+import "./WalkingDog.scss";
+import { BiFemaleSign, BiMaleSign } from "react-icons/bi";
+import { ImEqualizer } from "react-icons/im";
 
 // images
-import Diego from '../../assets/images/Diego.jpeg';
+import Diego from "../../assets/images/Diego.jpeg";
 
 // fonctions
-import { getDogsByExperience, getDogsByFilter } from '../../requests/dogs.request';
-import timeUtil from '../../utils/time.utils';
-import sortUtils from '../../utils/sort.utils';
+import {
+	getDogsByExperience,
+	getDogsByFilter,
+} from "../../requests/dogs.request";
+import timeUtil from "../../utils/time.utils";
+import sortUtils from "../../utils/sort.utils";
 
 function WalkingDog() {
-
 	// récupération de l'experience du bénévole pour récupérer les bons chiens
 	const [dogs, setDogs] = useState([]);
 	const [reloadButton, setReloadButton] = useState(false);
@@ -37,7 +39,9 @@ function WalkingDog() {
 	const experience = "beginner";
 
 	// on fait la requête qui récupère tous les chiens correspondant à l'experience du bénévole. React-query permet de voir comment comment se passe la requête
-	const { isLoading, error, data, isFetching } = useQuery('repoData', () => getDogsByExperience(experience));
+	const { isLoading, error, data, isFetching } = useQuery("repoData", () =>
+		getDogsByExperience(experience)
+	);
 
 	// si la requête se passe bien et qu'on nous retourne data, on trie la liste par ordre de priorité (le tableau se trouve dans data.data)
 	useEffect(() => {
@@ -47,7 +51,6 @@ function WalkingDog() {
 			setDogs(sortedDogs);
 		}
 	}, [isLoading, error, data, isFetching]);
-
 
 	// au click sur le filtre on affiche le composant
 	const openFilter = () => {
@@ -60,7 +63,7 @@ function WalkingDog() {
 			const dogsReloaded = await getDogsByExperience(experience);
 			const sortedDogs = sortUtils.sortDogsByLastWalk(dogsReloaded.data);
 			setDogs(sortedDogs);
-			setReloadButton(false);	
+			setReloadButton(false);
 		} catch (error) {
 			console.log(error);
 		}
@@ -71,11 +74,11 @@ function WalkingDog() {
 		const result = timeUtil.convertDateInDaysUntilToday(date);
 		switch (result) {
 			case 1:
-				return 'green';
+				return "green";
 			case 2:
-				return 'orange';
+				return "orange";
 			default:
-				return 'red';
+				return "red";
 		}
 	};
 
@@ -84,31 +87,33 @@ function WalkingDog() {
 		const age = timeUtil.convertBirthdayInAge(dog.age);
 		return (
 			<Card key={dog.id}>
-				<Link
-					to={`/animal/${dog.id}`}
-				>
+				<Link to={`/animal/${dog.id}`}>
 					<Card.Img variant='top' className='card-dog' src={Diego} />
 					<Card.Body>
 						<Card.Title>{dog.name}</Card.Title>
 						<Card.Text>
 							<span className='age'>
-								{age} an{age > 1 ? 's' : ''}
+								{age} an{age > 1 ? "s" : ""}
 							</span>
 							<span>
-								{dog.gender === 'MALE' ? (
+								{dog.gender === "MALE" ? (
 									<BiMaleSign className='gender' size={30} />
-									) : (
+								) : (
 									<BiFemaleSign className='gender' size={30} />
 								)}
 							</span>
 						</Card.Text>
-							{dog.walks && dog.walks.length > 0 && (
-								<Card.Text
-									className={classnames('last-walking',emergencyWalking(dog.walks[0].date))}
-								>
-									Dernière sortie : il y a {timeUtil.convertDateInDaysUntilToday(dog.walks[0].date)} jours
-								</Card.Text>
-							)}
+						{dog.walks && dog.walks.length > 0 && (
+							<Card.Text
+								className={classnames(
+									"last-walking",
+									emergencyWalking(dog.walks[0].date)
+								)}
+							>
+								Dernière sortie : il y a{" "}
+								{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date)} jours
+							</Card.Text>
+						)}
 					</Card.Body>
 				</Link>
 			</Card>
@@ -128,14 +133,14 @@ function WalkingDog() {
 					</Button>
 				)}
 			</div>
-				{filter && (
-					<FilterDog
-						getDogsByFilter={getDogsByFilter}
-						setFilteredDogs={setDogs}
-						setFilter={setFilter}
-						setReloadButton={setReloadButton}
-					/>
-				)}
+			{filter && (
+				<FilterDog
+					getDogsByFilter={getDogsByFilter}
+					setFilteredDogs={setDogs}
+					setFilter={setFilter}
+					setReloadButton={setReloadButton}
+				/>
+			)}
 			<div className='cards-container'>
 				{!isLoading && dogs ? (
 					dogs.map((dog) => renderDog(dog))
