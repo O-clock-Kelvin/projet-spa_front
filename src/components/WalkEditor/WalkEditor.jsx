@@ -60,18 +60,17 @@ const WalkEditor = ({ walk, show, endingWalk, onClose, onUpdate }) => {
 
 			<Modal.Body>
 				<Form onSubmit={handleSubmit((data) => submitUpdate(data))}>
-					<div className='m-5 d-flex flex-column' >
-						<textarea type={'text'} {...register('comment')} />
-						<select
-							{...register('feeling')}
-							defaultChecked={walk.feeling || 'GOOD'}
-							defaultValue={walk.feeling || 'GOOD'}
-						>
-							<option value='GOOD'>Bonne</option>
-							<option value='MEDIUM'>Moyenne</option>
-							<option value='BAD'>Mauvaise</option>
-						</select>
-					</div>
+					<input type={'text'} {...register('comment')} />
+					<select
+						{...register('feeling')}
+						defaultChecked={walk.feeling || 'GOOD'}
+						defaultValue={walk.feeling || 'GOOD'}
+					>
+						<option value='GOOD'>Bonne</option>
+						<option value='MEDIUM'>Moyenne</option>
+						<option value='BAD'>Mauvaise</option>
+					</select>
+
 					{endingWalk ? (
 						<Button
 							variant='primary'

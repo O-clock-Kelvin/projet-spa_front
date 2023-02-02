@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import animalsRequest from '../../requests/animals.request';
 import WalkSummary from '../WalkSummary/WalkSummary';
 
-import './AnimalWalksList.scss';
-
 const LoadNextButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {
 	if (isFetchingNextPage) {
 		return 'Fetching next page...';
@@ -16,9 +14,6 @@ const LoadNextButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {
 					Load more
 				</div>
 			);
-		}
-		else{
-			return null;
 		}
 	}
 };
@@ -42,15 +37,12 @@ const AnimalWalksList = ({ animalId }) => {
 			},
 		}
 	);
-
-
 	const { hasNextPage, isFetchingNextPage, fetchNextPage, isLoading, error } =
 		infinite;
 
-	
 	if (!isLoading) {
 		if (!error) {
-			if (walks.pages && walks.pages[0].data.walks?.length > 0) {
+			if (walks.pages && walks.pages?.length > 0) {
 				return (
 					<>
 						{walks.pages.map((page) =>
@@ -66,15 +58,12 @@ const AnimalWalksList = ({ animalId }) => {
 					</>
 				);
 			} else {
-				return 'Aucune balade';
+				return 'Aucune balade;';
 			}
 		} else {
 			return 'Une erreur est survenue, veuillez retenter plus tard';
 		}
 	} else {
-		/**
-		 * @todo better loading indicator
-		 */
 		return 'Loading...';
 	}
 };

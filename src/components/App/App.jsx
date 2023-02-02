@@ -24,7 +24,7 @@ import Box from '../../pages/Box/Box';
 import { useSelector } from 'react-redux';
 import { actionSetToken, actionTokenChecked } from '../../actions/tokenAction';
 
-import './App.scss';
+import './styles.scss';
 
 import { useDispatch } from 'react-redux';
 import ProfilePage from '../../pages/Profile/Profile';
