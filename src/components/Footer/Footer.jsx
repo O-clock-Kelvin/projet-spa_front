@@ -4,12 +4,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Icon from '../../assets/icon.svg';
-import { Link } from 'react-router-dom';
-import Pdf from '../../assets/rgpd.pdf';
-
 
 //SCSS
 import "./Footer.scss";
+import { Link } from 'react-router-dom';
 
 function Footer() {
 
@@ -17,7 +15,7 @@ return (
     <Container className='footer' fluid>
       <Row className='footer-row'>
         <Col sm={12} md={3} lg={2} className="align-self-center">
-        <a href={Pdf}>Mentions Légales</a>
+          <Link to="">Mentions Légales</Link>
         </Col>
         <Col sm={12} md={3} lg={2} className="align-self-center">
           <Link to="">Politique de confidentialité</Link>
