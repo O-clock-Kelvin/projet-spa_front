@@ -1,15 +1,21 @@
 /** @format */
 
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { useQuery, useMutation } from 'react-query';
-import { useDispatch, useSelector } from 'react-redux';
-import usersRequest from '../../requests/users.requests';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { actionSetToken } from '../../actions/tokenAction';
-import experienceUtil from '../../utils/experience.utils';
+import { useState } from "react";
+import PropTypes from "prop-types";
+import { useQuery, useMutation } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+import usersRequest from "../../requests/users.requests";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { actionSetToken } from "../../actions/tokenAction";
+import experienceUtil from "../../utils/experience.utils";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import ListGroup from "react-bootstrap/ListGroup";
+
+//SCSS
+import "./Profile.scss";
 
 const schema = yup.object().shape({
 	firstname: yup
@@ -25,13 +31,13 @@ const schema = yup.object().shape({
 		.notRequired(true)
 		.matches(
 			/(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/m,
-			'Veuillez renseigner un numero de telephone valide'
+			"Veuillez renseigner un numero de telephone valide"
 		),
 	password: yup
 		.string()
 		.nullable(true)
 		.notRequired(true)
-		.min(8, 'Les mots de passe doivent comporter au moins 8 caractères')
+		.min(8, "Les mots de passe doivent comporter au moins 8 caractères")
 		.max(24),
 });
 
@@ -67,12 +73,12 @@ const ProfileEditor = ({ user, closeEditor, setUser }) => {
 	const renderError = (error) => {
 		if (error.response) {
 			switch (error.response.data.message) {
-				case 'BAD_INPUT':
-					return 'Données non valides, vérifiez votre formulaire';
-				case 'INTERNAL_ERROR':
-					return 'Erreur interne. Merci de retenter plus tard';
+				case "BAD_INPUT":
+					return "Données non valides, vérifiez votre formulaire";
+				case "INTERNAL_ERROR":
+					return "Erreur interne. Merci de retenter plus tard";
 				default:
-					return 'Erreur interne. Merci de retenter plus tard';
+					return "Erreur interne. Merci de retenter plus tard";
 			}
 		}
 	};
@@ -83,39 +89,56 @@ const ProfileEditor = ({ user, closeEditor, setUser }) => {
 				onSubmit={handleSubmit((data) =>
 					mutate({ id: user.id, newUserData: data })
 				)}
+				className=' edit-container'
 			>
-				<fieldset>
-					<input {...register('email')} />
-				</fieldset>
-				<fieldset>
-					<input {...register('firstname')} />
-				</fieldset>
-				<fieldset>
-					<input {...register('name')} />
-				</fieldset>
-				<fieldset>
-					<input
-						placeholder='********'
-						{...register('password', {
-							required: false,
-							value: null, // pour contourner la validation de Yup, en back si le password=null, il n'est pas mis à jour
-						})}
-					/>
-				</fieldset>
-				<fieldset>
-					<input {...register('phone_number')} />
-				</fieldset>
-
-				{!isLoading ? (
-					<>
-						<button type='submit'>Valider</button>
-						<span onClick={() => closeEditor()} role='button' tabIndex='0'>
-							annuler
-						</span>
-					</>
-				) : (
-					'Loading'
-				)}
+				<Card className='edit'>
+					<Card.Body>
+						<Card.Title className='text-center'>FICHE PROFIL</Card.Title>
+						<ListGroup className='edit-form'>
+							<ListGroup.Item>
+								<input className='form-control' {...register("name")} />
+							</ListGroup.Item>
+							<ListGroup.Item>
+								<input className='form-control' {...register("firstname")} />
+							</ListGroup.Item>
+							<ListGroup.Item>
+								<input className='form-control' {...register("email")} />
+							</ListGroup.Item>
+							<ListGroup.Item>
+								<input
+									className='form-control'
+									placeholder='********'
+									{...register("password", {
+										required: false,
+										value: null, // pour contourner la validation de Yup, en back si le password=null, il n'est pas mis à jour
+									})}
+								/>
+							</ListGroup.Item>
+							<ListGroup.Item>
+								<input className='form-control' {...register("phone_number")} />
+							</ListGroup.Item>
+						</ListGroup>
+					</Card.Body>
+					{!isLoading ? (
+						<>
+							<>
+								<Button onClick={""} className='edit-button'>
+									valider
+								</Button>
+								<Button
+									variant=''
+									onClick={() => closeEditor()}
+									role='button'
+									tabIndex='0'
+								>
+									annuler
+								</Button>
+							</>
+						</>
+					) : (
+						"Loading"
+					)}
+				</Card>
 			</form>
 		</>
 	);
@@ -135,7 +158,7 @@ const ProfilePage = () => {
 	const dispatch = useDispatch();
 	const [user, setUserData] = useState(null);
 	const { isLoading: loading, error } = useQuery(
-		'LoadProfile',
+		"LoadProfile",
 		() => usersRequest.getProfile(id),
 		{
 			onSuccess: (data) => {
@@ -151,14 +174,14 @@ const ProfilePage = () => {
 	const renderError = (error) => {
 		if (error.response) {
 			switch (error.response.data.message) {
-				case 'BAD_INPUT':
-					return 'Données requises non valides';
-				case 'INTERNAL_ERROR':
-					return 'Erreur interne. Merci de retenter plus tard';
-				case 'NOT_FOUND':
-					return 'Profile non trouvé';
+				case "BAD_INPUT":
+					return "Données requises non valides";
+				case "INTERNAL_ERROR":
+					return "Erreur interne. Merci de retenter plus tard";
+				case "NOT_FOUND":
+					return "Profile non trouvé";
 				default:
-					return 'Erreur interne. Merci de retenter plus tard';
+					return "Erreur interne. Merci de retenter plus tard";
 			}
 		}
 	};
@@ -166,21 +189,7 @@ const ProfilePage = () => {
 		if (!error && user) {
 			return (
 				<div>
-					{user.firstname} {user.name}
-					<br />
-					{user.admin ? 'Employé' : 'Bénévole'}
-					<div>
-						<img
-							width={100}
-							src={
-								user.profile_picture
-									? user.profile_picture
-									: 'https://thispersondoesnotexist.com/image'
-							}
-							alt={` ${user.firstname} ${user.name}`}
-						/>
-					</div>
-					<div>
+					<div className='profile-card-container'>
 						{showEditor ? (
 							<ProfileEditor
 								user={user}
@@ -197,24 +206,48 @@ const ProfilePage = () => {
 							/>
 						) : (
 							<>
-								<ul>
-									<li>email: {user.email}</li>
-									<li>prénom: {user.firstname}</li>
-									<li>nom: {user.name}</li>
-									<li>role: {user.admin ? 'employé' : 'bénévole'}</li>
-									<li>
-										expérience:{' '}
-										{experienceUtil.renderExperienceLevel(user.experience)}
-									</li>
-									<li>Téléphone: {user.phone_number || 'non renseigné'}</li>
-								</ul>
-								<button
-									onClick={() => {
-										setShowEditor(true);
-									}}
-								>
-									Editer mes informations
-								</button>
+								<Card className='profile'>
+									<Card.Header className='text-center'>
+										<Card.Title className='text-center'>
+											{user.firstname} {user.name}
+										</Card.Title>
+									</Card.Header>
+									<Card.Img
+										variant='top'
+										src={
+											user.profile_picture
+												? user.profile_picture
+												: "https://thispersondoesnotexist.com/image"
+										}
+										alt={` ${user.firstname} ${user.name}`}
+									/>
+
+									<Card.Body>
+										<Card.Title className='text-center'>
+											{user.admin ? "EMPLOYE" : "BENEVOLE"}
+										</Card.Title>
+									</Card.Body>
+
+									<Card.Body>
+										<Card.Text>
+											Expérience :{""}{" "}
+											{experienceUtil.renderExperienceLevel(user.experience)}
+										</Card.Text>
+										<Card.Text>Email : {user.email}</Card.Text>
+										<Card.Text>
+											Téléphone: {user.phone_number || "non renseigné"}
+										</Card.Text>
+										<Card.Footer>
+											<Button
+												onClick={() => {
+													setShowEditor(true);
+												}}
+											>
+												Editer mes informations
+											</Button>
+										</Card.Footer>
+									</Card.Body>
+								</Card>
 							</>
 						)}
 					</div>
