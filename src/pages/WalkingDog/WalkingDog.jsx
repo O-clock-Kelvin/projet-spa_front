@@ -2,40 +2,35 @@
 
 import React, { useState, useEffect } from "react";
 import classnames from "classnames";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { useQuery } from "react-query";
 
 // composants
-import Card from 'react-bootstrap/Card';
-import FilterDog from '../../components/FilterDog/FilterDog';
-import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
-import { Link } from 'react-router-dom';
+import Card from "react-bootstrap/Card";
+import FilterDog from "../../components/FilterDog/FilterDog";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import { Link } from "react-router-dom";
 
 // bootstrap
-import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
-import { ImEqualizer } from 'react-icons/im';
-import { Button } from 'react-bootstrap';
+import { BiFemaleSign, BiMaleSign } from "react-icons/bi";
+import { ImEqualizer } from "react-icons/im";
+import { Button } from "react-bootstrap";
 
 // style
-import './WalkingDog.scss';
+import "./WalkingDog.scss";
 
 // images
-import dogProfil from '../../assets/images/dogProfil.png';
+import dogProfil from "../../assets/images/dogProfil.png";
 
 // fonctions
-import animalsRequest from '../../requests/animals.request';
-import timeUtil from '../../utils/time.utils';
-import sortUtils from '../../utils/sort.utils';
-// import { Modal } from "react-bootstrap";
+import animalsRequest from "../../requests/animals.request";
+import timeUtil from "../../utils/time.utils";
+import sortUtils from "../../utils/sort.utils";
 
-function WalkingDog({
-	filter,
-	setFilter
-}) {
+function WalkingDog({ filter, setFilter }) {
 	// récupération de l'experience du bénévole pour récupérer les bons chiens
 	const [dogs, setDogs] = useState([]);
 	const [reloadButton, setReloadButton] = useState(false);
-	
 
 	// const experience = useSelector(
 	// 	(fullstate) => fullstate.loginSettings.experience
@@ -43,8 +38,9 @@ function WalkingDog({
 	const experience = "beginner";
 
 	// on fait la requête qui récupère tous les chiens correspondant à l'experience du bénévole. React-query permet de voir comment comment se passe la requête
-	const { isLoading, error, data, isFetching } = useQuery('repoData', () => animalsRequest.getDogsByExperience(experience));
-
+	const { isLoading, error, data, isFetching } = useQuery("repoData", () =>
+		animalsRequest.getDogsByExperience(experience)
+	);
 
 	// si la requête se passe bien et qu'on nous retourne data, on trie la liste par ordre de priorité (le tableau se trouve dans data.data)
 	useEffect(() => {
@@ -91,14 +87,15 @@ function WalkingDog({
 		const age = timeUtil.convertBirthdayInAge(dog.age);
 		return (
 			<Card key={dog.id}>
-				<Link
-					to={`/animal/${dog.id}`}
-				>
-					<Card.Img 
-						variant='top' 
-						className={classnames('card-dog', dog.url_image? '': 'default-picture')} 
+				<Link to={`/animal/${dog.id}`}>
+					<Card.Img
+						variant='top'
+						className={classnames(
+							"card-dog",
+							dog.url_image ? "" : "default-picture"
+						)}
 						src={dog.url_image ? dog.url_image : dogProfil}
-						/>
+					/>
 
 					<Card.Body>
 						<Card.Title>{dog.name.toUpperCase()}</Card.Title>
@@ -107,22 +104,27 @@ function WalkingDog({
 								{age} an{age > 1 ? "s" : ""}
 							</span>
 							<span>
-								{dog.gender === 'MALE' ? (
+								{dog.gender === "MALE" ? (
 									<BiMaleSign className='gender' size={35} />
-									) : (
+								) : (
 									<BiFemaleSign className='gender' size={35} />
 								)}
 							</span>
 						</Card.Text>
-							{dog.walks && dog.walks.length > 0 && (
-								<Card.Text
-									className={classnames('last-walking',emergencyWalking(dog.walks[0].date))}
-								>
-									Dernière sortie : il y a{' '}{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date)}{' '} 
-									jour{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date) > 1 ? 's' : ''}
-								</Card.Text>
-							)}
-
+						{dog.walks && dog.walks.length > 0 && (
+							<Card.Text
+								className={classnames(
+									"last-walking",
+									emergencyWalking(dog.walks[0].date)
+								)}
+							>
+								Dernière sortie : il y a{" "}
+								{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date)} jour
+								{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date) > 1
+									? "s"
+									: ""}
+							</Card.Text>
+						)}
 					</Card.Body>
 				</Link>
 			</Card>
@@ -134,27 +136,28 @@ function WalkingDog({
 			<h1 className='title-page'>Sortir un chien</h1>
 
 			<div className='main-container'>
-
 				<div className='head-container'>
 					{reloadButton && (
-						<Button className='reload-button-dog' type='button' onClick={reloadDogs}>
+						<Button
+							className='reload-button-dog'
+							type='button'
+							onClick={reloadDogs}
+						>
 							Revoir la liste des chiens
 						</Button>
 					)}
 					<div>
-										
-							<FilterDog
-								show={filter}
-								getDogsByFilter={animalsRequest.getDogsByFilter}
-								setFilteredDogs={setDogs}
-								setFilter={setFilter}
-								setReloadButton={setReloadButton}
-							/>			
-					
+						<FilterDog
+							show={filter}
+							getDogsByFilter={animalsRequest.getDogsByFilter}
+							setFilteredDogs={setDogs}
+							setFilter={setFilter}
+							setReloadButton={setReloadButton}
+						/>
 					</div>
 					<div className='filter-container'>
 						<ImEqualizer className='filter' size={30} onClick={openFilter} />
-					</div>	
+					</div>
 				</div>
 
 				<div className='cards-container'>
@@ -164,9 +167,7 @@ function WalkingDog({
 						<LoadingSpinner />
 					)}
 				</div>
-
 			</div>
-			
 		</>
 	);
 }

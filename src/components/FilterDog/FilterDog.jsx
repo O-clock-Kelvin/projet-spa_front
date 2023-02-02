@@ -1,8 +1,8 @@
 /** @format */
 
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 // composants
 import {
@@ -13,32 +13,34 @@ import {
 	Modal,
 	Button,
 	Badge,
-} from 'react-bootstrap';
+} from "react-bootstrap";
 
 // fonctions
-import timeUtil from '../../utils/time.utils';
-import sortUtils from '../../utils/sort.utils';
+import timeUtil from "../../utils/time.utils";
+import sortUtils from "../../utils/sort.utils";
 
 // data
-import dataTags from '../../data/tags';
+import dataTags from "../../data/tags";
 
 // styles
-import './FilterDog.scss';
+import "./FilterDog.scss";
 function FilterDog({
 	getDogsByFilter,
 	setFilteredDogs,
 	setFilter,
 	setReloadButton,
-	show
-}) {
 
+	show,
+}) {
 	// récupération de l'experience du bénévole pour récupérer les bons chiens
-	const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
+	const experience = useSelector(
+		(fullstate) => fullstate.loginSettings.experience
+	);
 
 	// déclaration des variables du state
-	const [gabaritValue, setGabaritValue] = useState('big');
-	const [sexValue, setSexValue] = useState('male');
-	const [valueAge, setvalueAge] = useState(0);
+	const [gabaritValue, setGabaritValue] = useState();
+	const [sexValue, setSexValue] = useState();
+	const [valueAge, setvalueAge] = useState(undefined);
 
 	const [firstSubmit, setFirstSubmit] = useState(false);
 
@@ -67,7 +69,8 @@ function FilterDog({
 		e.preventDefault();
 
 		// conversion de l'age en un intervalle de dates (3ans => né entre le 01/01/2020 et le 31/12/2020)
-		const { startYearBirthday, endYearBirthday } = timeUtil.convertAgeInIntervalDate(valueAge);
+		let { startYearBirthday, endYearBirthday } =
+			timeUtil.convertAgeInIntervalDate(valueAge);
 
 		// requête pour récupérer la nouvelle liste des chiens avec les filtres
 		const data = await getDogsByFilter(
@@ -108,116 +111,138 @@ function FilterDog({
 		);
 	};
 
+	const updateGabarit = (gabarit) => {
+		if (gabaritValue != undefined) {
+			setGabaritValue(undefined);
+		} else {
+			setGabaritValue(gabarit);
+		}
+	};
+
+	const updateSex = (sex) => {
+		if (sexValue != undefined) {
+			setSexValue(undefined);
+		} else {
+			setSexValue(sex);
+		}
+	};
 	return (
-		
-			<Modal show={show} onHide={cancelFilter}>
-				<Modal.Header>
-					<Modal.Title>Filtres</Modal.Title>
-				</Modal.Header>
+		<Modal show={show} onHide={cancelFilter}>
+			<Modal.Header>
+				<Modal.Title>Filtres</Modal.Title>
+			</Modal.Header>
 
-				<Form onSubmit={handleOnSubmit} id='filter-form'>
-					<Modal.Body>
-						<div className='container-filter'>
-							<div className='filter-part'>
-								<h3 className='category'>Gabarit</h3>
-								<ToggleButtonGroup
-									type='radio'
-									name='size'
-									defaultValue={gabaritValue}
+			<Form onSubmit={handleOnSubmit} id='filter-form'>
+				<Modal.Body>
+					<div className='container-filter'>
+						<div className='filter-part'>
+							<h3 className='category'>Gabarit</h3>
+							<ToggleButtonGroup
+								type='checkbox'
+								name='size'
+								defaultValue={gabaritValue}
+							>
+								<ToggleButton
+									id='tbg-radio-1'
+									value='big'
+									type='checkbox'
+									disabled={gabaritValue != "big" && gabaritValue != undefined}
+									onChange={(e) => updateGabarit(e.target.value)}
 								>
-									<ToggleButton
-										id='tbg-radio-1'
-										value='big'
-										onChange={(e) => setGabaritValue(e.target.value)}
-									>
-										GROS
-									</ToggleButton>
-									<ToggleButton
-										id='tbg-radio-2'
-										value='medium'
-										onChange={(e) => setGabaritValue(e.target.value)}
-									>
-										MOYEN
-									</ToggleButton>
-									<ToggleButton
-										id='tbg-radio-3'
-										value='small'
-										onChange={(e) => setGabaritValue(e.target.value)}
-									>
-										PETIT
-									</ToggleButton>
-								</ToggleButtonGroup>
-							</div>
-
-							<div className='filter-part'>
-								<h3 className='category'>Sexe</h3>
-								<ToggleButtonGroup
-									type='radio'
-									name='gender'
-									defaultValue={sexValue}
+									GROS
+								</ToggleButton>
+								<ToggleButton
+									id='tbg-radio-2'
+									value='medium'
+									disabled={
+										gabaritValue != "medium" && gabaritValue != undefined
+									}
+									onChange={(e) => updateGabarit(e.target.value)}
 								>
-									<ToggleButton
-										id='tbg-radio-4'
-										value='male'
-										onChange={(e) => setSexValue(e.target.value)}
-									>
-										MALE
-									</ToggleButton>
-									<ToggleButton
-										id='tbg-radio-5'
-										value='female'
-										onChange={(e) => setSexValue(e.target.value)}
-									>
-										FEMELLE
-									</ToggleButton>
-								</ToggleButtonGroup>
-							</div>
-
-							<div className='filter-part'>
-								<h3 className='category'>Age</h3>
-								<Form.Range
-									min='0'
-									max='15'
-									step='1'
-									value={valueAge}
-									onChange={(e) => setvalueAge(e.target.value)}
-								/>
-								<p>{valueAge} ans</p>
-							</div>
-
-							<div className='filter-part'>
-								<h3 className='category'>Tempéramment</h3>
-								<Form.Select
-									aria-label='Default select example'
-									onChange={handleOnAddTag}
+									MOYEN
+								</ToggleButton>
+								<ToggleButton
+									id='tbg-radio-3'
+									value='small'
+									disabled={
+										gabaritValue != "small" && gabaritValue != undefined
+									}
+									onChange={(e) => updateGabarit(e.target.value)}
 								>
-									<option>Sélectionner</option>
-									{tagsList.map((tag) => (
-										<option key={tag.id} value={`${tag.id}`}>
-											{tag.name}
-										</option>
-									))}
-								</Form.Select>
-
-								<div className='tags-container'>
-									{tags && tags.map((tag) => renderTag(tag))}
-								</div>
-							</div>
-
+									PETIT
+								</ToggleButton>
+							</ToggleButtonGroup>
 						</div>
-					</Modal.Body>
 
-					<Modal.Footer>
-						<Button variant='secondary' onClick={cancelFilter}>
-							Annuler
-						</Button>
-						<Button variant='primary' type='submit'>
-							Valider
-						</Button>
-					</Modal.Footer>
-				</Form>
-			</Modal>
-		
+						<div className='filter-part'>
+							<h3 className='category'>Sexe</h3>
+							<ToggleButtonGroup
+								type='checkbox'
+								name='gender'
+								defaultValue={sexValue}
+							>
+								<ToggleButton
+									id='tbg-radio-4'
+									value='male'
+									disabled={sexValue != "male" && sexValue != undefined}
+									onChange={(e) => updateSex(e.target.value)}
+								>
+									MALE
+								</ToggleButton>
+								<ToggleButton
+									id='tbg-radio-5'
+									value='female'
+									disabled={sexValue != "female" && sexValue != undefined}
+									onChange={(e) => updateSex(e.target.value)}
+								>
+									FEMELLE
+								</ToggleButton>
+							</ToggleButtonGroup>
+						</div>
+
+						<div className='filter-part'>
+							<h3 className='category'>Age</h3>
+							<Form.Range
+								min='0'
+								max='15'
+								step='1'
+								value={valueAge}
+								onChange={(e) => setvalueAge(e.target.value)}
+							/>
+							<p>{valueAge} ans</p>
+						</div>
+
+						<div className='filter-part'>
+							<h3 className='category'>Tempéramment</h3>
+							<Form.Select
+								aria-label='Default select example'
+								onChange={handleOnAddTag}
+							>
+								<option>Sélectionner</option>
+								{tagsList.map((tag) => (
+									<option key={tag.id} value={`${tag.id}`}>
+										{tag.name}
+									</option>
+								))}
+							</Form.Select>
+
+							<div className='tags-container'>
+								{tags && tags.map((tag) => renderTag(tag))}
+							</div>
+						</div>
+					</div>
+				</Modal.Body>
+
+				<Modal.Footer>
+					<Button variant='secondary' onClick={cancelFilter}>
+						Annuler
+					</Button>
+					<Button variant='primary' type='submit'>
+						Valider
+					</Button>
+				</Modal.Footer>
+			</Form>
+		</Modal>
 	);
 }
 
