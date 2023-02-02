@@ -1,0 +1,76 @@
+@use '../../styles/vars';
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    margin: auto;
+    margin-top: 50px;
+
+    .card {
+        margin-top: vars.$gutter * 3;
+        transition: all .2s ease-in-out;
+
+        &:hover { 
+            transform: scale(1.1);
+        }
+    }
+    
+    .card-body {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 180px;
+        padding: vars.$gutter * 2;
+        
+        .card-title {
+            font-size: vars.$h3-font-size;
+            color: vars.$primary-color;
+        }
+
+        .description {
+            display: flex;
+            flex-direction: column;
+            width: 70%;
+            color: vars.$font-color;
+        }
+
+        .container-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+        }     
+    }
+}
+
+.image {
+    width: 160px;
+    display: block;
+    margin: auto;
+
+}
+
+.cat {
+    width: 100px;
+}
+
+
+
+@media screen and (max-width: 800px){
+    .home-container{
+        width : 100%;
+    }
+};
+    
+@media screen and (max-width: 480px){
+    .home-container .card-body{
+        flex-direction: column;
+        height:100%;
+        align-items: center;   
+       & .image {
+        margin : 1rem;
+       } 
+    }
+    
+}

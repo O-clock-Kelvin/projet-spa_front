@@ -1,32 +1,31 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
-        // "plugn:react/jsx-runtime"
-    ],
-    "overrides": [
-    ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-        "react/react-in-jsx-scope": "off",
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"node": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:jsx-a11y/recommended"
+	],
+	"overrides": [],
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"sourceType": "module"
+	},
+	"plugins": ["react", "jsx-a11y"],
+	"rules": {
+		"react/react-in-jsx-scope": "off",
 		"no-console": "off",
 		"semi": "error",
-        "react/no-unescaped-entities": 0,
+		"react/no-unescaped-entities": 0,
 		"import/no-extraneous-dependencies": [
 			"off",
 			{
 				"devDependencies": true
 			}
-		]
+		],
+		"jsx-a11y/click-events-have-key-events": "off"
 	}
 }

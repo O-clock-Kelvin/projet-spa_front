@@ -1,0 +1,84 @@
+@use '../../styles/vars';
+
+.main-container {
+    margin: 50px 80px 0 80px;
+
+    
+}
+
+.head-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cards-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0;
+    margin-top: vars.$gutter * 3;
+
+    .card {
+        margin-top: vars.$gutter * 3;
+        transition: all .2s ease-in-out;
+
+        &:hover { 
+            transform: scale(1.1); 
+        }
+
+        &-img-top {
+            padding: vars.$gutter * 2;
+        }
+
+        &-dog {
+            margin: 0;
+            width: 300px !important;
+            box-shadow: vars.$shadow;
+        }
+
+        &-title {
+            color: vars.$font-color;
+        }
+
+        .age {
+            color: vars.$font-color;
+            font-size: 1.2rem;
+        }
+    }
+
+    .default-picture {
+        opacity: 0.3;
+    }
+
+}
+
+.red {
+    color: rgb(240, 11, 11);
+}
+
+.orange {
+    color: orange;
+}
+
+.green {
+    color: rgb(17, 170, 17);
+}
+
+.gender {
+    width: 50px;
+    color: vars.$primary-color;
+}
+
+.reload-button-dog {
+    width: vars.$gutter *20 !important;
+    margin: 0;
+}
+
+.filter-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+}
