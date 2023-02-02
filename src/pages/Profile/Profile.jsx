@@ -143,7 +143,6 @@ const ProfileEditor = ({ user, closeEditor, setUser }) => {
 		</>
 	);
 };
-
 ProfileEditor.propTypes = {
 	user: PropTypes.object,
 	closeEditor: PropTypes.func,
