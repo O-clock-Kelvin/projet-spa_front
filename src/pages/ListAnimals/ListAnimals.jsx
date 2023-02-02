@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 // composants bootstrap
 import { Button } from 'react-bootstrap';
@@ -24,12 +25,15 @@ import dogProfil from '../../assets/images/dogProfil.png';
 // styles
 import "./ListAnimals.scss";
 
-function ListAnimals() {
+function ListAnimals({
+	filter,
+	setFilter
+}) {
 
 	const [allAnimals, setAllAnimals] = useState([]);
 	const [animals, setAnimals] = useState([]);
 	const [reloadButton, setReloadButton] = useState(false);
-	const [filter, setFilter] = useState(false);
+	// const [filter, setFilter] = useState(false);
 	const [searchName, setSearchName] = useState('');
 
 	// requête pour récupérer tous les animaux à l'affichage de la page
@@ -92,7 +96,7 @@ function ListAnimals() {
 	};
 
 	return (
-		<div  className={classnames({'dark-background': filter})}>
+		<div>
 			<h1 className='title-page'>Liste des animaux</h1>
 
 			<div className='main-container'>
@@ -126,13 +130,14 @@ function ListAnimals() {
 					</div>
 
 					<div>
-						{filter && (
+							
 							<FilterAnimals
+							show={filter}
 								setFilter={setFilter}
 								setFilteredAnimals={setAnimals}
 								setReloadButton={setReloadButton}
 							/>
-						)}
+				
 					</div>
 
 				</div>
@@ -149,6 +154,11 @@ function ListAnimals() {
 		</div>
 	);
 }
+
+ListAnimals.propTypes = {
+	setFilter: PropTypes.func.isRequired,
+	filter: PropTypes.bool.isRequired,
+};
 
 export default React.memo(ListAnimals);
 

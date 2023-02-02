@@ -25,9 +25,9 @@
         margin-top: vars.$gutter * 3;
     }
 
-    .default-picture {
-        opacity: 0.3;
-    }
+    // .default-picture {
+    //     opacity: 0.2;
+    // }
 
     .card-title {
         color: vars.$font-color;
@@ -41,14 +41,6 @@
 .filter {
     margin: 0;
     padding: 0;
-}
-
-.dark-background {
-    opacity: 0.8;
-}
-
-.dark-card {
-    opacity: 1;
 }
 
 .reload-button {

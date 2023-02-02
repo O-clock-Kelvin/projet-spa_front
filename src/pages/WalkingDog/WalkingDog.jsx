@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import classnames from "classnames";
+import PropTypes from 'prop-types';
 import { useQuery } from "react-query";
 
 // composants
@@ -25,12 +26,16 @@ import dogProfil from '../../assets/images/dogProfil.png';
 import animalsRequest from '../../requests/animals.request';
 import timeUtil from '../../utils/time.utils';
 import sortUtils from '../../utils/sort.utils';
+// import { Modal } from "react-bootstrap";
 
-function WalkingDog() {
+function WalkingDog({
+	filter,
+	setFilter
+}) {
 	// récupération de l'experience du bénévole pour récupérer les bons chiens
 	const [dogs, setDogs] = useState([]);
 	const [reloadButton, setReloadButton] = useState(false);
-	const [filter, setFilter] = useState(false);
+	
 
 	// const experience = useSelector(
 	// 	(fullstate) => fullstate.loginSettings.experience
@@ -45,7 +50,7 @@ function WalkingDog() {
 	useEffect(() => {
 		if (data) {
 			const sortedDogs = sortUtils.sortDogsByLastWalk(data.data);
-			// puis on met à jour lechiens à afficher
+			// puis on met à jour les chiens à afficher
 			setDogs(sortedDogs);
 		}
 	}, [isLoading, error, data, isFetching]);
@@ -137,14 +142,15 @@ function WalkingDog() {
 						</Button>
 					)}
 					<div>
-						{filter && (
+										
 							<FilterDog
+								show={filter}
 								getDogsByFilter={animalsRequest.getDogsByFilter}
 								setFilteredDogs={setDogs}
 								setFilter={setFilter}
 								setReloadButton={setReloadButton}
-							/>
-						)}
+							/>			
+					
 					</div>
 					<div className='filter-container'>
 						<ImEqualizer className='filter' size={30} onClick={openFilter} />
@@ -159,11 +165,15 @@ function WalkingDog() {
 					)}
 				</div>
 
-
 			</div>
 			
 		</>
 	);
 }
+
+WalkingDog.propTypes = {
+	setFilter: PropTypes.func.isRequired,
+	filter: PropTypes.bool.isRequired,
+};
 
 export default React.memo(WalkingDog);

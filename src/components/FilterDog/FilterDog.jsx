@@ -29,6 +29,7 @@ function FilterDog({
 	setFilteredDogs,
 	setFilter,
 	setReloadButton,
+	show
 }) {
 
 	// récupération de l'experience du bénévole pour récupérer les bons chiens
@@ -103,8 +104,8 @@ function FilterDog({
 	};
 
 	return (
-		<div className='modal show' style={{ display: 'block', position: 'fixed' }}>
-			<Modal.Dialog>
+		
+			<Modal show={show} onHide={cancelFilter}>
 				<Modal.Header>
 					<Modal.Title>Filtres</Modal.Title>
 				</Modal.Header>
@@ -210,8 +211,8 @@ function FilterDog({
 						</Button>
 					</Modal.Footer>
 				</Form>
-			</Modal.Dialog>
-		</div>
+			</Modal>
+		
 	);
 }
 
@@ -220,6 +221,7 @@ FilterDog.propTypes = {
 	setFilteredDogs: PropTypes.func.isRequired,
 	setFilter: PropTypes.func.isRequired,
 	setReloadButton: PropTypes.func.isRequired,
+	show: PropTypes.bool.isRequired,
 };
 
 export default React.memo(FilterDog);
