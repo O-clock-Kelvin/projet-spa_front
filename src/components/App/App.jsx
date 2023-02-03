@@ -21,6 +21,7 @@ import Footer from '../Footer/Footer';
 import AnimalPage from '../../pages/AnimalPage/AnimalPage';
 import ProfilePage from '../../pages/Profile/Profile';
 import ListAnimals from '../../pages/ListAnimals/ListAnimals';
+import UsersList from '../../pages/UsersList/UsersList';
 import Box from '../../pages/Box/Box';
 
 // fonctions
@@ -94,7 +95,14 @@ function App() {
                 path='/admin/create/card'
                 element={<DashboardAnimalCreation />}
               />
+              <Route
+                path='/admin/users'
+                element={<UsersList/>}
+              />
+
             </Route>
+            
+            
 
             <Route
               path='/profile'

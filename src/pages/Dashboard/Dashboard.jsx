@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import Volunteer from '../../assets/images/volunteer-with-dog.png';
 import DogAndCat from '../../assets/images/dog-and-cat.png';
 import DogHugsCat from '../../assets/images/dog-hugs-cat.png';
+import PersonAtDesk from '../../assets/images/personatdesk.png';
 
 // CSS
 import './styles.scss';
@@ -44,6 +45,13 @@ function Dashboard() {
             <Card.Img variant="top" src={DogHugsCat} />
             <Card.Body>
               <Button href="admin/create/card" variant="primary" type="submit">Créer un animal</Button>
+            </Card.Body>
+          </Card>
+
+          <Card>
+            <Card.Img variant="top" src={PersonAtDesk} />
+            <Card.Body>
+              <Button href="admin/users" variant="primary" type="submit">Liste utilisateurs</Button>
             </Card.Body>
           </Card>
         </CardGroup>
