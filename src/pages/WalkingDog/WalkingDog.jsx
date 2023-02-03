@@ -26,6 +26,28 @@ import dogProfil from "../../assets/images/dogProfil.png";
 import animalsRequest from "../../requests/animals.request";
 import timeUtil from "../../utils/time.utils";
 import sortUtils from "../../utils/sort.utils";
+import {DateTime} from 'luxon';
+
+const renderLastWalk = (date) => {
+	console.log('DATE', date);
+	if(date){
+		const startofDay = DateTime.fromISO(date).startOf("day").toISO();
+		const difference = timeUtil.convertDateInDaysUntilToday(startofDay);
+		switch (difference) {
+			case 0:
+				return (<span className="green">Dernière sortie : aujourd'hui</span>);
+			case 1:
+				return (<span className="green">Dernière sortie : hier</span>);
+			case 2:
+				return (<span className="orange">Dernière sortie : il y a 2 jours</span>);
+			default:
+				return (<span className="red">Dernière sortie : il y a {difference} jours</span>);		
+		}
+	} 
+	else{
+		return (<span className="red">Jamais sorti</span>);
+	}
+};
 
 function WalkingDog({ filter, setFilter }) {
 	// récupération de l'experience du bénévole pour récupérer les bons chiens
@@ -45,9 +67,33 @@ function WalkingDog({ filter, setFilter }) {
 	// si la requête se passe bien et qu'on nous retourne data, on trie la liste par ordre de priorité (le tableau se trouve dans data.data)
 	useEffect(() => {
 		if (data) {
-			const sortedDogs = sortUtils.sortDogsByLastWalk(data.data);
-			// puis on met à jour les chiens à afficher
-			setDogs(sortedDogs);
+		
+			// const sortedDogs = sortUtils.sortDogsByLastWalk(filteredDogs);
+			// // puis on met à jour les chiens à afficher
+			const dogsNeverWalked = data.data.filter(
+				(dog) => dog.walks?.length === 0
+			);
+
+			const dogsNotWalkedToday = data.data.filter(
+				(dog) =>
+					dog.walks?.length > 0 &&
+					DateTime.fromISO(dog.walks[dog.walks.length-1].date) <=
+						DateTime.now().startOf("day")
+			);
+
+			const dogsOrderedByDateDesc = dogsNotWalkedToday.sort((d1, d2) => {
+				const d1Date = DateTime.fromISO(d1.walks[d1.walks.length-1].date);
+				const d2Date = DateTime.fromISO(d2.walks[d2.walks.length-1].date);
+				if (d1Date > d2Date) {
+					return 1;
+				} else if (d1Date < d2Date) {
+					return -1;
+				} else {
+					return 0;
+				}
+			});
+		
+			setDogs([...dogsNeverWalked, ...dogsOrderedByDateDesc]);
 		}
 	}, [isLoading, error, data, isFetching]);
 
@@ -70,17 +116,19 @@ function WalkingDog({ filter, setFilter }) {
 	};
 
 	// on change la couleur du texte de la dernière sortie du chien en fonction de la priorité
-	const emergencyWalking = (date) => {
-		const result = timeUtil.convertDateInDaysUntilToday(date);
-		switch (result) {
-			case 1:
-				return "green";
-			case 2:
-				return "orange";
-			default:
-				return "red";
-		}
-	};
+	// const emergencyWalking = (date) => {
+	// 	const result = timeUtil.convertDateInDaysUntilToday(date);
+	// 	switch (result) {
+	// 		case 0:
+	// 			return "green";
+	// 		case 1:
+	// 			return "green";
+	// 		case 2:
+	// 			return "orange";
+	// 		default:
+	// 			return "red";
+	// 	}
+	// };
 
 	// on affiche chaque carte du chien de la liste récupérée
 	const renderDog = (dog) => {
@@ -110,21 +158,19 @@ function WalkingDog({ filter, setFilter }) {
 									<BiFemaleSign className='gender' size={35} />
 								)}
 							</span>
-						</Card.Text>
-						{dog.walks && dog.walks.length > 0 && (
+						</Card.Text>		
 							<Card.Text
 								className={classnames(
-									"last-walking",
-									emergencyWalking(dog.walks[0].date)
+									"last-walking"
 								)}
 							>
-								Dernière sortie : il y a{" "}
+								{/* {Dernière sortie : il y a{" "}
 								{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date)} jour
 								{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date) > 1
 									? "s"
-									: ""}
-							</Card.Text>
-						)}
+									: ""}} */}
+								{renderLastWalk(dog.walks[dog.walks?.length-1]?.date)}
+							</Card.Text>				
 					</Card.Body>
 				</Link>
 			</Card>

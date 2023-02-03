@@ -1,20 +1,31 @@
-import timeUtil from "./time.utils";
-
+// import timeUtil from "./time.utils";
+import {DateTime} from 'luxon';
 const sortUtils = {
 
     sortDogsByLastWalk: (dogs) => {
         return dogs.sort(function(a, b) {
-            if(a.walks[0] === undefined && b.walks[0] === undefined) { 
-                return 0;
-            } else if(a.walks[0] === undefined) {
-                    return -1;
-            } else if(b.walks[0] === undefined) {
-                return 1;
-            }
-            const lastWalkA = timeUtil.convertDateInDaysUntilToday(a.walks[0].date);
-            const lastWalkB = timeUtil.convertDateInDaysUntilToday(b.walks[0].date);
+            const aDate = DateTime.fromISO(a.walks[0].date);
+				const bDate = DateTime.fromISO(b.walks[0].date);
+
+				if (aDate > bDate) {
+					return 1;
+				} else if (aDate < bDate) {
+					return -1;
+				} else {
+					return 0;
+				}
+
+            // if(a.walks[0] === undefined && b.walks[0] === undefined) { 
+            //     return 0;
+            // } else if(a.walks[0] === undefined) {
+            //         return -1;
+            // } else if(b.walks[0] === undefined) {
+            //     return 1;
+            // }
+            // const lastWalkA = timeUtil.convertDateInDaysUntilToday(a.walks[0].date);
+            // const lastWalkB = timeUtil.convertDateInDaysUntilToday(b.walks[0].date);
    
-            return lastWalkB - lastWalkA;
+            // return lastWalkB - lastWalkA;
         });	
     },
 
