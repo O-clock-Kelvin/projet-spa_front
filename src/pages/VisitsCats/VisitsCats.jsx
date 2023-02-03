@@ -5,6 +5,10 @@ import boxesRequest from "../../requests/boxes.request";
 import timeUtil from "../../utils/time.utils";
 import { Link } from "react-router-dom";
 
+import Card from 'react-bootstrap/Card';
+
+import './VisitsCats.scss';
+
 const renderAnimalsCount = (count, boxSize) => {
 	if (count && boxSize) {
 		if (count > boxSize) {
@@ -99,14 +103,9 @@ const VisitsCats = () => {
 			if (boxes && boxes.length > 0) {
 				return (
 					<>
-						<h3>Liste des boxs a visiter</h3>
-						<div
-							style={{
-								display: "grid",
-								gridTemplateColumns: "repeat(4,1fr)",
-								gridGap: "0.625rem",
-							}}
-						>
+					
+						<h3 className='title-page'>Liste des boxs a visiter</h3>
+						<div className='visits main-container d-flex flex-wrap justify-content-center'>
 							{boxes.map((box) => {
 								return (
 									<Link
@@ -114,35 +113,16 @@ const VisitsCats = () => {
 										key={box.id}
 										className='link-no-decoration'
 									>
-										<div
-											style={{
-												backgroundColor: "lightgray",
-												padding: "0.313rem",
-												justifyContent: "center",
-												alignItems: "center",
-												borderRadius: "0.25rem",
-												minHeight: "100%",
-											}}
-										>
-											<div
-												style={{
-													display: "flex",
-													backgroundColor: "white",
-													borderRadius: "0.25rem",
-													minHeight: "5rem",
-													justifyContent: "center",
-													alignItems: "center",
-													fontWeight: "bold",
-												}}
-											>
-												{box.number}
+										<Card className='align-items-center justify-content-between m-3 p-3' style={{width:'18rem', minHeight:'200px'}}>
+											<div className='d-flex align-items-center justify-content-center' style={{width:100, height:'100px'}}>
+												<p>{box.number}</p>
 											</div>
 											{renderLastVisit(box.visits[box.visits.length - 1]?.date)}
 											{renderAnimalsCount(
 												box.animals?.length,
 												box.nbr_of_places
 											)}
-										</div>
+										</Card>
 									</Link>
 								);
 							})}
