@@ -7,18 +7,35 @@ const animalsRequest = {
 		return api.get(`/animals`);
 	},
 
-
 	getDogsByExperience: async (experience) => {
-		return api.get(
-			`/animals?species=dog&volunteer_experience=${experience}&include=walks&include=tags`
-		);
+		console.log(experience);
+		switch (experience) {
+			case 'BEGINNER':
+				console.log(experience);
+				return api.get(`/animals?species=dog&volunteer_experience=beginner&include=walks&include=tags`);
+			case 'MEDIUM':
+				console.log(experience);
+				return api.get(`/animals?species=dog&volunteer_experience=beginner&volunteer_experience=medium&include=walks&include=tags`);
+			case 'EXPERT':
+				console.log(experience);
+				return api.get(`/animals?species=dog&include=walks&include=tags`);
+			default:
+				return api.get(`/animals?species=dog&volunteer_experience=beginner&include=walks&include=tags`);
+		}	
 	},
 
-
 	getDogsByFilter: async ({experience, gabaritValue, sexValue, startYearBirthday, endYearBirthday, tags}) => {
+	//! FILTER EN FONCTION DE L'EXPERIENCE
+		if (experience === "EXPERT") {
+			experience = undefined; 
+		}
+		// //  else if ( experience === "MEDIUM") {
+		// // 	experience = ['medium, beginner'];
+		// // }
+		console.log('getDogsByFilter', experience);
 		let queryBuilder = {
 			species: 'DOG',
-			volunter_experience: experience,
+			volunteer_experience: experience,
 			size: gabaritValue,
 			gender: sexValue,
 			age: {
@@ -28,57 +45,45 @@ const animalsRequest = {
 			tagsList: tags.length > 0 ? tags : undefined,
 			include: ['tags', 'walks'],
 		};
-
 		// Conversion de l'objet de query en string a passer dans la requête	
 		const query = qs.stringify(queryBuilder, {
 			skipNulls: true,
 		});
-
 		return api.get(`/animals?${query}`);
 	},
-
 
 	getAnimalsBySpecies: (species) => {
 		return api.get(`/animals?species=${species}`);
 	},
 	
-	
-	// recupère un animal selon l'id
+	// recupère un animal selon son id
 	get: (id, options) => {
-
 		// Création de la liste des includes
 		let includes = [];
 		options?.includeTags && includes.push('tags');
 		options?.includeWalks && includes.push('walks');
-
 		// Création des objets à inclure dans la query
 		let queryBuilder = {
 			include: includes,
 		};
-
 		// Conversion de l'objet de query en string a passer dans la requête
 		const query = qs.stringify(queryBuilder, {
 			skipNulls: true,
 			arrayFormat: 'comma',
 		});
-
 		return api.get(`/animals/${id}?${query}`);
 	},
 
-
-	// récupère les balades d'un chien selon l'id
+	// récupère les balades d'un chien selon son id
 	getWalks: (animal_id, cursor) => {
-
 		// Création des objets à inclure dans la query
 		let queryBuilder = {
 			cursor: cursor !== undefined ? cursor : undefined,
 		};
-
 		// Conversion de l'objet de query en string a passer dans la requête
 		const query = qs.stringify(queryBuilder, {
 			skipNulls: true,
 		});
-
 		return api.get(`/animals/${animal_id}/walks?${query}`);
 	},
 };

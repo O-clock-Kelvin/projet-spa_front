@@ -1,9 +1,11 @@
 /** @format */
 
 import React, { useState, useEffect } from "react";
+// import { useSelector } from "react-redux";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import { useQuery } from "react-query";
+import {DateTime} from 'luxon';
 
 // composants
 import Card from "react-bootstrap/Card";
@@ -25,54 +27,33 @@ import dogProfil from "../../assets/images/dogProfil.png";
 // fonctions
 import animalsRequest from "../../requests/animals.request";
 import timeUtil from "../../utils/time.utils";
-import sortUtils from "../../utils/sort.utils";
-import {DateTime} from 'luxon';
-
-const renderLastWalk = (date) => {
-	console.log('DATE', date);
-	if(date){
-		const startofDay = DateTime.fromISO(date).startOf("day").toISO();
-		const difference = timeUtil.convertDateInDaysUntilToday(startofDay);
-		switch (difference) {
-			case 0:
-				return (<span className="green">Dernière sortie : aujourd'hui</span>);
-			case 1:
-				return (<span className="green">Dernière sortie : hier</span>);
-			case 2:
-				return (<span className="orange">Dernière sortie : il y a 2 jours</span>);
-			default:
-				return (<span className="red">Dernière sortie : il y a {difference} jours</span>);		
-		}
-	} 
-	else{
-		return (<span className="red">Jamais sorti</span>);
-	}
-};
+// import sortUtils from "../../utils/sort.utils";
 
 function WalkingDog({ filter, setFilter }) {
+
 	// récupération de l'experience du bénévole pour récupérer les bons chiens
+	// const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
+	const experience = 'MEDIUM';
+	
+	// tous les chiens correspondant à l'expérience du bénévole
+	const [allDogs, setAllDogs] = useState([]);
+
+	// chiens à afficher
 	const [dogs, setDogs] = useState([]);
+
+	// le bouton revoir la liste
 	const [reloadButton, setReloadButton] = useState(false);
 
-	// const experience = useSelector(
-	// 	(fullstate) => fullstate.loginSettings.experience
-	// );
-	const experience = "beginner";
-
 	// on fait la requête qui récupère tous les chiens correspondant à l'experience du bénévole. React-query permet de voir comment comment se passe la requête
-	const { isLoading, error, data, isFetching } = useQuery("repoData", () =>
-		animalsRequest.getDogsByExperience(experience)
-	);
+	const { isLoading, error, data, isFetching } = useQuery("repoData", () => animalsRequest.getDogsByExperience(experience));
 
 	// si la requête se passe bien et qu'on nous retourne data, on trie la liste par ordre de priorité (le tableau se trouve dans data.data)
 	useEffect(() => {
 		if (data) {
-		
+			console.log(data.data);
+			// on trie les chiens par ordre de priorité suivant les dernières dates de sortie
 			// const sortedDogs = sortUtils.sortDogsByLastWalk(filteredDogs);
-			// // puis on met à jour les chiens à afficher
-			const dogsNeverWalked = data.data.filter(
-				(dog) => dog.walks?.length === 0
-			);
+			const dogsNeverWalked = data.data.filter((dog) => dog.walks?.length === 0);
 
 			const dogsNotWalkedToday = data.data.filter(
 				(dog) =>
@@ -92,7 +73,10 @@ function WalkingDog({ filter, setFilter }) {
 					return 0;
 				}
 			});
-		
+			
+			// puis on met à jour les chiens à afficher
+			console.log(dogsOrderedByDateDesc.length);
+			setAllDogs([...dogsNeverWalked, ...dogsOrderedByDateDesc]);
 			setDogs([...dogsNeverWalked, ...dogsOrderedByDateDesc]);
 		}
 	}, [isLoading, error, data, isFetching]);
@@ -106,9 +90,9 @@ function WalkingDog({ filter, setFilter }) {
 	// pour revoir la liste de tous les chiens on refait la requête
 	const reloadDogs = async () => {
 		try {
-			const dogsReloaded = await animalsRequest.getDogsByExperience(experience);
-			const sortedDogs = sortUtils.sortDogsByLastWalk(dogsReloaded.data);
-			setDogs(sortedDogs);
+			// const dogsReloaded = await animalsRequest.getDogsByExperience(experience);
+			// const sortedDogs = sortUtils.sortDogsByLastWalk(dogsReloaded.data);
+			setDogs(allDogs);
 			setReloadButton(false);
 		} catch (error) {
 			console.log(error);
@@ -129,6 +113,26 @@ function WalkingDog({ filter, setFilter }) {
 	// 			return "red";
 	// 	}
 	// };
+
+	const renderLastWalk = (date) => {
+		if(date){
+			const startofDay = DateTime.fromISO(date).startOf("day").toISO();
+			const difference = timeUtil.convertDateInDaysUntilToday(startofDay);
+			switch (difference) {
+				case 0:
+					return (<span className="green">Dernière sortie : aujourd'hui</span>);
+				case 1:
+					return (<span className="green">Dernière sortie : hier</span>);
+				case 2:
+					return (<span className="orange">Dernière sortie : il y a 2 jours</span>);
+				default:
+					return (<span className="red">Dernière sortie : il y a {difference} jours</span>);		
+			}
+		} 
+		else{
+			return (<span className="red">Jamais sorti</span>);
+		}
+	};
 
 	// on affiche chaque carte du chien de la liste récupérée
 	const renderDog = (dog) => {
@@ -195,10 +199,10 @@ function WalkingDog({ filter, setFilter }) {
 					<div>
 						<FilterDog
 							show={filter}
-							getDogsByFilter={animalsRequest.getDogsByFilter}
-							setFilteredDogs={setDogs}
+							setDogs={setDogs}
 							setFilter={setFilter}
 							setReloadButton={setReloadButton}
+							experience={experience}
 						/>
 					</div>
 					<div className='filter-container'>

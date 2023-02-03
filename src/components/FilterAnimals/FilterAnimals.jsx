@@ -20,7 +20,7 @@ import sortUtils from '../../utils/sort.utils';
 import './FilterAnimals.scss';
 
 function FilterDog({
-	setFilteredAnimals,
+	setAnimals,
 	setFilter,
 	setReloadButton,
 	show
@@ -36,7 +36,7 @@ function FilterDog({
 			// requête pour récupérer les animaux de la bonne espèce et envoie des résultats à ListAnimals pour affichage
 			const data = await animalsRequest.getAnimalsBySpecies(species);
 			const sortedAnimals = sortUtils.sortAnimalsByName(data.data);
-			setFilteredAnimals(sortedAnimals);
+			setAnimals(sortedAnimals);
 		} catch (error) {
 			console.log(error);
 		}
@@ -112,11 +112,10 @@ function FilterDog({
 }
 
 FilterDog.propTypes = {
-	setSpecies: PropTypes.func.isRequired,
 	setFilter: PropTypes.func.isRequired,
 	setReloadButton: PropTypes.func.isRequired,
-	setFilteredAnimals: PropTypes.func.isRequired,
-	show: PropTypes.bool.isRequeried
+	setAnimals: PropTypes.func.isRequired,
+	show: PropTypes.bool
 };
 
 export default React.memo(FilterDog);
