@@ -21,7 +21,7 @@ const TagsList = ({ tags }) => {
 		return (
 			<ul className='d-flex flex-row justify-content-center'>
 				{tags.map((tag) => (
-					<li className='tag' key={tag.tag_id}>{tag.tag.name}</li>
+					<li className='tag me-1' key={tag.tag_id}>{tag.tag.name}</li>
 				))}
 			</ul>
 		);
@@ -97,10 +97,10 @@ const AnimalPage = () => {
 				<>	
 					<h1 className ='title-page'>Fiche de {animal.name}</h1>
 
-					<div className='d-flex flex-row justify-content-center mt-5 mb-5 flex-wrap'>
-						<div className='d-flex flex-row p-3 animal-information me-5'>
-							<div className='d-flex flex-column'>
-								<div className='d-flex flex-row mb-2 ' >
+					<div className='d-flex flex-row justify-content-center m-5 flex-wrap'>
+						<div className='d-flex flex-row p-4 animal-information me-5' style={{minHeight:'400px', maxHeight:'27rem'}}>
+							<div className='d-flex flex-column justify-content-between'>
+								<div className='d-flex flex-row align-items-start ' >
 									<Image className='rounded'
 										width={200}
 										src={
@@ -108,7 +108,7 @@ const AnimalPage = () => {
 										}
 										alt={animal.name}
 									/>									
-									<div className='d-flex flex-column mb-3'>
+									<div className='d-flex flex-column'>
 										<div className="p-2 tag-info" >
 											<p>{timeUtil.convertBirthdayInAge(animal.age)}<br/>An{timeUtil.convertBirthdayInAge(animal.age)> 1 ? 's' : ''} </p>
 										</div>
@@ -119,15 +119,16 @@ const AnimalPage = () => {
 											<p>{animal.gender}</p>
 										</div>									
 									</div>								
-								</div>								
-								<TagsList tags={animal.tags} />
-								<span className='tag-info'> {animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id} </span>
-								<br />
-								{animal.species === 'DOG' && <StartWalkButton animal={animal} />}
-								{animal.walks[0]?<p className='mt-3'>Dernière sortie : {renderElapsedTimeSinceLastWalk(animal.walks[animal.walks.length-1].date)}</p>:<p className='mt-3'>Jamais sorti</p>}
+								</div>
+								<div className='d-flex flex-column justify-content-between align-items-center' style={{height:180}}>							
+									<TagsList tags={animal.tags} />
+									<span className='tag-info' style={{padding:'0.4rem'}}> {animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id} </span>
+									{animal.species === 'DOG' && <StartWalkButton animal={animal} />}
+									{animal.walks[0]?<p>Dernière sortie : {renderElapsedTimeSinceLastWalk(animal.walks[animal.walks.length-1].date)}</p>:<p className='mt-3'>Jamais sorti</p>}
+								</div>
 							</div>
 						</div>
-						<div className='d-flex flex-column'>
+						<div className='d-flex flex-column' style={{minWidth:'300px', maxWidth:'500px'}}>
 							<div>
 								<h4 className="subtitle-page">Biographie</h4>
 								<div className='animal-bio'>{animal.bio ?? "Cet animal n'a pas de bio"}</div>
