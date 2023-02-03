@@ -15,15 +15,15 @@ const animalsRequest = {
 	},
 
 
-	getDogsByFilter: async (experience, gabaritValue, sexValue, startYearBirthday, endYearBirthday, tags) => {
+	getDogsByFilter: async ({experience, gabaritValue, sexValue, startYearBirthday, endYearBirthday, tags}) => {
 		let queryBuilder = {
 			species: 'DOG',
 			volunter_experience: experience,
 			size: gabaritValue,
 			gender: sexValue,
 			age: {
-				gte: startYearBirthday,
-				lte: endYearBirthday,
+				lte: startYearBirthday,
+				gte: endYearBirthday,
 			},
 			tagsList: tags.length > 0 ? tags : undefined,
 			include: ['tags', 'walks'],
