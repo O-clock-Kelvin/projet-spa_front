@@ -78,6 +78,14 @@ a {
     color: vars.$icons-secondary-color;
 }
 
+.bg-secondary {
+	background-color: vars.$primary-color !important;
+}
+
+.bg-dark {
+	background-color: vars.$icons-secondary-color !important;
+}
+
 // end overrides bootstrap
 
 .title-page {

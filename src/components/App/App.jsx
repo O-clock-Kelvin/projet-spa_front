@@ -29,6 +29,8 @@ import './styles.scss';
 import { useDispatch } from 'react-redux';
 import ProfilePage from '../../pages/Profile/Profile';
 import ListAnimals from '../../pages/ListAnimals/ListAnimals';
+import UsersList from '../../pages/UsersList/UsersList';
+
 
 function App() {
   const { isConnected, admin, token, authLoaded } = useSelector(
@@ -95,7 +97,14 @@ function App() {
                 path='/admin/create/card'
                 element={<DashboardAnimalCreation />}
               />
+              <Route
+                path='/admin/users'
+                element={<UsersList/>}
+              />
+
             </Route>
+            
+            
 
             <Route
               path='/profile'
