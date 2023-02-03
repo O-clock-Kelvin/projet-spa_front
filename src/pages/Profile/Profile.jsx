@@ -215,8 +215,8 @@ const ProfilePage = () => {
 									<Card.Img
 										variant='top'
 										src={
-											user.profile_picture
-												? user.profile_picture
+											user.url_image
+												? user.url_image
 												: "https://thispersondoesnotexist.com/image"
 										}
 										alt={` ${user.firstname} ${user.name}`}
