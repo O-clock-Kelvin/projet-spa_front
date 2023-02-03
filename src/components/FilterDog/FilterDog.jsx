@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-
+import {DateTime} from 'luxon';
 // composants
 import {
 	ToggleButtonGroup,
@@ -14,6 +14,7 @@ import {
 	Button,
 	Badge,
 } from "react-bootstrap";
+import DoubleThumbsRange from "../DoubleThumbsRange/DoubleThumbsRange";
 
 // fonctions
 import timeUtil from "../../utils/time.utils";
@@ -40,7 +41,9 @@ function FilterDog({
 	// déclaration des variables du state
 	const [gabaritValue, setGabaritValue] = useState();
 	const [sexValue, setSexValue] = useState();
-	const [valueAge, setvalueAge] = useState(undefined);
+	// const [valueAge, setvalueAge] = useState(undefined);
+	const [lowerAge, setLowerAge] = useState(0);
+	const [upperAge, setUpperAge] = useState(15);
 
 	const [firstSubmit, setFirstSubmit] = useState(false);
 
@@ -69,17 +72,20 @@ function FilterDog({
 		e.preventDefault();
 
 		// conversion de l'age en un intervalle de dates (3ans => né entre le 01/01/2020 et le 31/12/2020)
-		let { startYearBirthday, endYearBirthday } =
-			timeUtil.convertAgeInIntervalDate(valueAge);
+		let { startYearBirthday:lowerYearStart } =
+			timeUtil.convertAgeInIntervalDate(lowerAge);
+
+		let {endYearBirthday: upperYearStart} = timeUtil.convertAgeInIntervalDate(upperAge+1);
 
 		// requête pour récupérer la nouvelle liste des chiens avec les filtres
-		const data = await getDogsByFilter(
+		const data = await getDogsByFilter({
 			experience,
 			gabaritValue,
 			sexValue,
-			startYearBirthday,
-			endYearBirthday,
+			startYearBirthday: lowerAge!=0 ? lowerYearStart: DateTime.now().toISO(),
+			endYearBirthday: upperYearStart,
 			tags
+		}
 		);
 
 		// on trie les chiens récupérés de la requête par ordre de priorité, et on les renvoie au composant WalkingDog pour affichage
@@ -132,7 +138,7 @@ function FilterDog({
 				<Modal.Title>Filtres</Modal.Title>
 			</Modal.Header>
 
-			<Form onSubmit={handleOnSubmit} id='filter-form'>
+ {/* <Form onSubmit={handleOnSubmit} id='filter-form'>  */}
 				<Modal.Body>
 					<div className='container-filter'>
 						<div className='filter-part'>
@@ -200,7 +206,7 @@ function FilterDog({
 							</ToggleButtonGroup>
 						</div>
 
-						<div className='filter-part'>
+						{/* <div className='filter-part'>
 							<h3 className='category'>Age</h3>
 							<Form.Range
 								min='0'
@@ -210,7 +216,21 @@ function FilterDog({
 								onChange={(e) => setvalueAge(e.target.value)}
 							/>
 							<p>{valueAge} ans</p>
-						</div>
+						</div> */}
+
+						{/* //========================= */}
+
+
+						<DoubleThumbsRange onUpdate={(values) =>{
+							console.log('AGE INTERVAL', values);
+							setLowerAge(values[0]);
+							setUpperAge(values[1]);
+						}}/>
+
+
+
+
+
 
 						<div className='filter-part'>
 							<h3 className='category'>Tempéramment</h3>
@@ -237,11 +257,11 @@ function FilterDog({
 					<Button variant='secondary' onClick={cancelFilter}>
 						Annuler
 					</Button>
-					<Button variant='primary' type='submit'>
+					<Button variant='primary' type='submit' onClick={handleOnSubmit}>
 						Valider
 					</Button>
 				</Modal.Footer>
-			</Form>
+			{/* </Form> */}
 		</Modal>
 	);
 }
