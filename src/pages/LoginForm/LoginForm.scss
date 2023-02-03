@@ -31,6 +31,10 @@
 	}
 }
 
+.validation-button {
+	background-color: vars.$primary-color !important;
+}
+
 @media (max-width: 599px) {
 	.login-title {
 		display: none;

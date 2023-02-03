@@ -1,0 +1,49 @@
+@use '../../styles/vars';
+
+.main-container {
+    margin: 50px 80px 0 80px;
+
+    .search-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .search-bar {
+            width: 400px;
+        }
+
+        .search-button {
+            width: vars.$gutter *10 !important;
+        }
+    }
+
+    .cards-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 0;
+        margin-top: vars.$gutter * 3;
+    }
+
+    // .default-picture {
+    //     opacity: 0.2;
+    // }
+
+    .card-title {
+        color: vars.$font-color;
+    }
+
+    .card {
+        margin: 20px 0 20px 0;
+    }
+}
+
+.filter {
+    margin: 0;
+    padding: 0;
+}
+
+.reload-button {
+    width: vars.$gutter * 40 !important;
+    margin: 20px 0 0 0 ;
+}

@@ -23,7 +23,7 @@ function Error404() {
           />
           <div className='error-text' >
             <h3 className='error-text-subtitle'>Oops !!! Page Introuvable!</h3>
-            <p className='error-text-description'>Avec un peut de chance vous venez de chercher un animal qui a trouvé un nouveau foyer</p>
+            <p className='error-text-description'>Avec un peu de chance l'animal que vous cherchez a trouvé un nouveau foyer</p>
           </div>
         </Col>
       </Row>
