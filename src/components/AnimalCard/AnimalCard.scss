@@ -1,0 +1,9 @@
+@use '../../styles/vars';
+
+.animal-card{
+    box-shadow: vars.$shadow !important; 
+    transition: transform .2s; 
+    &:hover { 
+        transform: scale(1.1); 
+    } 
+}

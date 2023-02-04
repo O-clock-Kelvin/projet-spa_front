@@ -26,6 +26,7 @@ a {
 	text-transform: uppercase;
 	&:hover {
 		background-color: vars.$primary-color-hoover;
+		color:white;
 	}
 }
 
@@ -76,9 +77,9 @@ a {
 	color: vars.$icons-secondary-color;
 }
 
-.bg-secondary {
-	background-color: vars.$primary-color !important;
-}
+// .bg-secondary {
+// 	background-color: vars.$primary-color !important;
+// }
 
 .bg-dark {
 	background-color: vars.$icons-secondary-color !important;
