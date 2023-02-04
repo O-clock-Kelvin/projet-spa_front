@@ -25,14 +25,12 @@ const animalsRequest = {
 	},
 
 	getDogsByFilter: async ({experience, gabaritValue, sexValue, startYearBirthday, endYearBirthday, tags}) => {
-	//! FILTER EN FONCTION DE L'EXPERIENCE
 		if (experience === "EXPERT") {
 			experience = undefined; 
 		}
-		// //  else if ( experience === "MEDIUM") {
-		// // 	experience = ['medium, beginner'];
-		// // }
-		console.log('getDogsByFilter', experience);
+		if ( experience === "MEDIUM") {
+			experience = ['medium', 'beginner'];
+		}
 		let queryBuilder = {
 			species: 'DOG',
 			volunteer_experience: experience,

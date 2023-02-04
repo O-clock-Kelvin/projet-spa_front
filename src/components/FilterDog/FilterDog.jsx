@@ -127,6 +127,7 @@ function FilterDog({
 		if (firstSubmit) {
 			setReloadButton(true);
 		}
+		//! to do reset values
 	};
 
 	const renderTag = (tag) => {
@@ -229,11 +230,12 @@ function FilterDog({
 							</ToggleButtonGroup>
 						</div>
 
-						<div>
-							<DoubleThumbsRange onUpdate={(values) =>{
-								setLowerAge(values[0]);
-								setUpperAge(values[1]);
-							}}/>
+						<div className='filter-part'>
+							<h3 className='category'>Age</h3>
+								<DoubleThumbsRange onUpdate={(values) =>{
+									setLowerAge(values[0]);
+									setUpperAge(values[1]);
+								}}/>
 						</div>
 						
 						<div className='filter-part'>

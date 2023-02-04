@@ -59,6 +59,7 @@ const AnimalPage = () => {
 			}),
 
 		onSuccess: (data) => {
+			console.log('ANIMAL PAGE', data.data);
 			setAnimal(data.data);
 		},
 	});

@@ -25,7 +25,7 @@ a {
 	border: none;
 	text-transform: uppercase;
 	&:hover {
-		background-color: vars.$primary-color-hoover;
+		background-color: vars.$primary-color-hoover !important;
 	}
 }
 

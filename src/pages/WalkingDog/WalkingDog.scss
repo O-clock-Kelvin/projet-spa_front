@@ -19,6 +19,9 @@
     justify-content: space-between;
     margin: 0;
     margin-top: vars.$gutter * 3;
+    gap: 20px;
+    row-gap: 20px;
+    column-gap: 20px;
 
     .card {
         margin-top: vars.$gutter * 3;
@@ -36,6 +39,8 @@
             margin: 0;
             width: 300px !important;
             box-shadow: vars.$shadow;
+            height: 300px;
+            object-fit: cover;
         }
 
         &-title {
@@ -48,9 +53,9 @@
         }
     }
 
-    // .default-picture {
-    //     opacity: 0.2;
-    // }
+    .default-picture {
+        opacity: 0.3;
+    }
 
 }
 

@@ -50,7 +50,7 @@ function WalkingDog({ filter, setFilter }) {
 	// si la requête se passe bien et qu'on nous retourne data, on trie la liste par ordre de priorité (le tableau se trouve dans data.data)
 	useEffect(() => {
 		if (data) {
-			console.log(data.data);
+			console.log("WALKING DOG", data.data);
 			// on trie les chiens par ordre de priorité suivant les dernières dates de sortie
 			// const sortedDogs = sortUtils.sortDogsByLastWalk(filteredDogs);
 			const dogsNeverWalked = data.data.filter((dog) => dog.walks?.length === 0);
