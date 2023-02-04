@@ -113,7 +113,7 @@ const VisitsCats = () => {
 										key={box.id}
 										className='link-no-decoration'
 									>
-										<Card className='align-items-center justify-content-between m-3 p-3' style={{width:'18rem', minHeight:'200px'}}>
+										<Card className='align-items-center justify-content-between m-3 p-3' style={{width:'18rem', minHeight:'14.5rem'}}>
 											<div className='d-flex align-items-center justify-content-center' style={{width:100, height:'100px'}}>
 												<p>{box.number}</p>
 											</div>
