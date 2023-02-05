@@ -71,7 +71,7 @@ const AnimalPage = () => {
 				case 'BAD_INPUT':
 					return 'Erreur de requête. Merci de retenter plus tard';
 				default:
-					return 'Erreur du srveur, merci de retenter plus tard';
+					return 'Erreur du serveur, merci de retenter plus tard';
 			}
 		} else {
 			return 'Erreur du serveur, merci de retenter plus tard';

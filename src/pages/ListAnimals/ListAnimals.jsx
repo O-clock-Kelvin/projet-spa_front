@@ -29,11 +29,16 @@ function ListAnimals({
 	filter,
 	setFilter
 }) {
-
+	// tous les animaux récupérés par la requête
 	const [allAnimals, setAllAnimals] = useState([]);
+
+	// les animaux à afficher (filtrés)
 	const [animals, setAnimals] = useState([]);
+
+	// le bouton revoir la liste
 	const [reloadButton, setReloadButton] = useState(false);
-	// const [filter, setFilter] = useState(false);
+
+	// la recherche par nom
 	const [searchName, setSearchName] = useState('');
 
 	// requête pour récupérer tous les animaux à l'affichage de la page
@@ -129,15 +134,13 @@ function ListAnimals({
 						)}
 					</div>
 
-					<div>
-							
-							<FilterAnimals
+					<div>						
+						<FilterAnimals
 							show={filter}
-								setFilter={setFilter}
-								setFilteredAnimals={setAnimals}
-								setReloadButton={setReloadButton}
-							/>
-				
+							setFilter={setFilter}
+							setAnimals={setAnimals}
+							setReloadButton={setReloadButton}
+						/>
 					</div>
 
 				</div>

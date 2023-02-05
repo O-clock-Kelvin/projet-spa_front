@@ -25,9 +25,9 @@
         margin-top: vars.$gutter * 3;
     }
 
-    // .default-picture {
-    //     opacity: 0.2;
-    // }
+    .default-picture {
+        opacity: 0.3;
+    }
 
     .card-title {
         color: vars.$font-color;
@@ -35,6 +35,14 @@
 
     .card {
         margin: 20px 0 20px 0;
+
+        &-dog {
+            margin: 0;
+            width: 300px !important;
+            box-shadow: vars.$shadow;
+            height: 300px;
+            object-fit: cover;
+        }
     }
 }
 
