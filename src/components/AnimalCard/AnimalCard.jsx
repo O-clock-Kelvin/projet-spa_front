@@ -11,10 +11,14 @@ import './AnimalCard.scss';
 const AnimalCard = ({ animal, showSpecie }) => {
 	const age = timeUtil.convertBirthdayInAge(animal.age);
 	return (
-		<Card className='animal-card' key={animal.id} style={{minWidth:'10px', maxWidth:'17rem'}}>
-			<Link to={`/animals/${animal.id}`} className='text-dark'>
-				<div className='p-3' style={{width:'100%'}}>
-					<Card.Img						
+		<Card
+			className='animal-card'
+			key={animal.id}
+			style={{ minWidth: '10px', maxWidth: '17rem' }}
+		>
+			<Link to={`/animal/${animal.id}`} className='text-dark'>
+				<div className='p-3' style={{ width: '100%' }}>
+					<Card.Img
 						src={
 							animal.url_image ||
 							animalUtil.renderDefaultAnimalPicture(animal.species)
