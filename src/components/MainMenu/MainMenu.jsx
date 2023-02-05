@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
