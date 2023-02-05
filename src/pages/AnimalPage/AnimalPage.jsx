@@ -142,7 +142,7 @@ const AnimalPage = () => {
 								)}
 								{animal.species === 'CAT' && (
 									<>
-										<h4>Dernières visites du box</h4>
+										<h4 className='subtitle-page'>Dernières visites du box</h4>
 										<BoxVisitsList boxId={animal.box_id} />
 									</>
 								)}

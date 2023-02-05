@@ -10,6 +10,7 @@ import WalkEditor from '../WalkEditor/WalkEditor';
 import walksRequest from '../../requests/walks.request';
 import experienceUtil from '../../utils/experience.utils';
 
+
 import './WalkStartButton.scss';
 /**
  * design de test, a supprimer
@@ -76,26 +77,27 @@ const StartWalkButton = ({ animal }) => {
 								Etes vous sur de vouloir sortir cet animal ?
 							</Modal.Body>
 							<Modal.Footer>
-								<div className="d-flex">								
-								{isLoading ? (
-									'Loading...'
-								) : (
-									<Button className='me-2'
-										variant='primary'
-										onClick={() => {
-											startWalk({ animal_id: animal.id });
-										}}
-									>
-										Oui
-									</Button>
-									
-								)}
-								{error && (
-									<div style={buttonStyle}>
-										Une erreur est survenue, merci de retenter plus tard
-									</div>
-								)}
-								<Button variant='secondary' onClick={() => setShowModal(false)}>Annuler	</Button>
+								<div className='d-flex'>								
+									{isLoading ? (
+										'Loading...'
+									) : (
+										<Button
+											className='me-2'
+											variant='primary'
+											onClick={() => {
+												startWalk({ animal_id: animal.id });
+											}}
+										>
+											Oui
+										</Button>
+										
+									)}
+									{error && (
+										<div style={buttonStyle}>
+											Une erreur est survenue, merci de retenter plus tard
+										</div>
+									)}
+									<Button variant='secondary' onClick={() => setShowModal(false)}>Annuler	</Button>
 								</div>
 							</Modal.Footer>
 						</Modal>
@@ -145,11 +147,11 @@ const StartWalkButton = ({ animal }) => {
 					lastWalk.end_date == undefined
 				) {
 					return (
-						<div className='bg-secondary p-2 text-light'>Cet animal est en cours de sortie</div>
+						<p className='bg-secondary p-2 text-light'>Cet animal est en cours de sortie</p>
 					);
 				} else {
 					return (
-						<div className='bg-secondary p-2 text-light'>Cet animal est déjà sorti aujourd'hui</div>
+						<p className='bg-secondary p-2 text-light'>Cet animal est déjà sorti aujourd'hui</p>
 					);
 				}
 			}

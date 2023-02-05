@@ -58,7 +58,8 @@ const VisitEditor = ({ visit, show, endingVisit, onClose, onUpdate }) => {
 
 			<Modal.Body>
 				<Form onSubmit={handleSubmit((data) => submitUpdate(data))}>
-					<input type={'text'} {...register('comment')} />
+					
+					<textarea style={{width:'100%'}} className='mb-3' {...register('comment')} placeholder='Noter ici un résumé de votre visite' />
 
 					{endingVisit ? (
 						<Button

@@ -26,7 +26,7 @@ return (
           </div>
         </Col>
         <Col sm={12} md={3} lg={4} className="align-self-center">
-        <p>Copyrigth - 2023</p>
+        <p>Copyright - 2023</p>
         </Col>
       </Row>
     

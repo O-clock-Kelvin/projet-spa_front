@@ -6,19 +6,25 @@ import { Link } from 'react-router-dom';
 import animalUtil from '../../utils/animal.utils';
 import timeUtil from '../../utils/time.utils';
 
+import './AnimalCard.scss';
+
 const AnimalCard = ({ animal, showSpecie }) => {
 	const age = timeUtil.convertBirthdayInAge(animal.age);
 	return (
-		<Card key={animal.id}>
-			<Link to={`/animals/${animal.id}`}>
-				<Card.Img
-					variant='top'
-					className='card-dog'
-					src={
-						animal.url_image ||
-						animalUtil.renderDefaultAnimalPicture(animal.species)
-					}
-				/>
+		<Card
+			className='animal-card'
+			key={animal.id}
+			style={{ minWidth: '10px', maxWidth: '17rem' }}
+		>
+			<Link to={`/animal/${animal.id}`} className='text-dark'>
+				<div className='p-3' style={{ width: '100%' }}>
+					<Card.Img
+						src={
+							animal.url_image ||
+							animalUtil.renderDefaultAnimalPicture(animal.species)
+						}
+					/>
+				</div>
 				<Card.Body>
 					<Card.Title>{animal.name}</Card.Title>
 					<Card.Text>

@@ -61,7 +61,7 @@ const WalkEditor = ({ walk, show, endingWalk, onClose, onUpdate }) => {
 			<Modal.Body>
 				<Form onSubmit={handleSubmit((data) => submitUpdate(data))}>
 					<div className='m-5 d-flex flex-column' >
-						<textarea className='mb-3' type={'text'} {...register('comment')} />
+						<textarea className='mb-3' {...register('comment')} placeholder='Noter ici un résumé de votre balade' />
 						<select className='p-1'
 							{...register('feeling')}
 							defaultChecked={walk.feeling || 'GOOD'}
