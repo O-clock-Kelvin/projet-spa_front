@@ -51,7 +51,15 @@ const animalsRequest = {
 	},
 
 	getAnimalsBySpecies: (species) => {
-		return api.get(`/animals?species=${species}`);
+		console.log(species);
+		// return api.get(`/animals?species=${species}`);
+		let queryBuilder = {
+			species: species
+		};
+		const query = qs.stringify(queryBuilder, {
+			skipNulls: true,
+		});
+		return api.get(`/animals?${query}`);
 	},
 	
 	// recupère un animal selon son id

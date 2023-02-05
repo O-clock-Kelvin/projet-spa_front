@@ -135,18 +135,24 @@ function FilterDog({
 		const tagId = Number(tag);
 		const tagFound = dataTags.find((tag) => tag.id === tagId);
 		return (
-			<div className='container-badge'>
-				<Badge key={tagId}>{tagFound.name}</Badge>
+			<div 
+				className='container-badge'
+				key={tagId}
+			>
+				<Badge >{tagFound.name}</Badge>
 				<CloseButton onClick={() => cancelTag(tag)} />
 			</div>
 		);
 	};
 
 	const updateGabarit = (gabarit) => {
+		console.log('gabarit', gabarit);
 		if (gabaritValue != undefined) {
+			console.log('undefined');
 			setGabaritValue(undefined);
 		} else {
 			setGabaritValue(gabarit);
+			console.log(gabarit);
 		}
 	};
 
@@ -184,9 +190,7 @@ function FilterDog({
 								<ToggleButton
 									id='tbg-radio-2'
 									value='medium'
-									disabled={
-										gabaritValue != "medium" && gabaritValue != undefined
-									}
+									disabled={gabaritValue != "medium" && gabaritValue != undefined}
 									onChange={(e) => updateGabarit(e.target.value)}
 								>
 									MOYEN
@@ -194,9 +198,7 @@ function FilterDog({
 								<ToggleButton
 									id='tbg-radio-3'
 									value='small'
-									disabled={
-										gabaritValue != "small" && gabaritValue != undefined
-									}
+									disabled={gabaritValue != "small" && gabaritValue != undefined}
 									onChange={(e) => updateGabarit(e.target.value)}
 								>
 									PETIT

@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import {
 	ToggleButtonGroup,
 	ToggleButton,
-	Form,
 	Modal,
 	Button,
 } from 'react-bootstrap';
@@ -26,15 +25,17 @@ function FilterDog({
 	show
 }) {
 
-	const [species, setSpecies] = useState("DOG");
+	const [species, setSpecies] = useState();
 	const [firstSubmit, setFirstSubmit] = useState(false);
 
 	// à la soumission du formulaire on récupère toutes les données des states
 	const handleOnSubmit = async (e) => {
+		console.log('HANDLE', species);
 		e.preventDefault();
 		try {
 			// requête pour récupérer les animaux de la bonne espèce et envoie des résultats à ListAnimals pour affichage
 			const data = await animalsRequest.getAnimalsBySpecies(species);
+			console.log(data.data);
 			const sortedAnimals = sortUtils.sortAnimalsByName(data.data);
 			setAnimals(sortedAnimals);
 		} catch (error) {
@@ -53,6 +54,17 @@ function FilterDog({
 		}
 	};
 
+	const updateSpecies = (speciesValue) => {
+		console.log('UPDATE', speciesValue);
+		if (species != undefined) {
+			setSpecies(undefined);
+			console.log('undefined');
+		} else {
+			setSpecies(speciesValue);
+			console.log(speciesValue);
+		}
+	};
+
 	return (
 	
 			<Modal show={show}>
@@ -60,34 +72,40 @@ function FilterDog({
 					<Modal.Title>Filtre</Modal.Title>
 				</Modal.Header>
 
-				<Form onSubmit={handleOnSubmit} id='filter-form'>
+				{/* <Form onSubmit={handleOnSubmit} id='filter-form'> */}
 					<Modal.Body>
 						<div className='container-filter'>
 							<div className='filter-part'>
 								<h3 className='category'>Espèce</h3>
 								<ToggleButtonGroup
-									type='radio'
+									type='checkbox'
 									name='species'
 									defaultValue={species}
 								>
 									<ToggleButton
 										id='tbg-radio-1'
 										value='DOG'
-										onChange={(e) => setSpecies(e.target.value)}
+										type='checkbox'
+										disabled={species != "DOG" && species != undefined}
+										onChange={(e) => updateSpecies(e.target.value)}
 									>
 										CHIEN
 									</ToggleButton>
 									<ToggleButton
 										id='tbg-radio-2'
 										value='CAT'
-										onChange={(e) => setSpecies(e.target.value)}
+										type='checkbox'
+										disabled={species != "CAT" && species != undefined}
+										onChange={(e) => updateSpecies(e.target.value)}
 									>
 										CHAT
 									</ToggleButton>
 									<ToggleButton
 										id='tbg-radio-3'
 										value='OTHER'
-										onChange={(e) => setSpecies(e.target.value)}
+										type='checkbox'
+										disabled={species != "OTHER" && species != undefined}
+										onChange={(e) => updateSpecies(e.target.value)}
 									>
 										AUTRE
 									</ToggleButton>
@@ -101,11 +119,11 @@ function FilterDog({
 						<Button variant='secondary' onClick={cancelFilter}>
 							Annuler
 						</Button>
-						<Button variant='primary' type='submit'>
+						<Button variant='primary' type='submit' onClick={handleOnSubmit}>
 							Valider
 						</Button>
 					</Modal.Footer>
-				</Form>
+				
 			</Modal>
 		
 	);
