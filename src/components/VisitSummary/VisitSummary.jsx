@@ -29,7 +29,7 @@ const VisitSummary = (props) => {
 			<div className='animal-visits'>
 				<p>le{' '}{DateTime.fromISO(props.visit.date).toLocaleString(DateTime.DATE_SHORT)}{' '}</p>
 				<div className='d-flex flex-row mb-3'>
-					<p className='p-2'>{props.visit.comment}</p>
+					<p>{props.visit.comment}</p>
 					<div className='ms-auto p-2'>
 						<VisitFeeling feeling={props.visit.feeling} />
 					</div>
