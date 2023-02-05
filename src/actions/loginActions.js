@@ -12,7 +12,7 @@ export const LOGIN_REJECTED = 'users/fetchByEmail/rejected';
 export const actionLoginFetch = createAsyncThunk(
 	'users/fetchByEmail',
 	async ({ email, password }) => {
-		console.log(email, password);
+
 		const { data } = await api.post('/auth/login', {
 			email: email,
 			password: password,

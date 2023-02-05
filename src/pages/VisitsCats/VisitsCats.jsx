@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useQuery } from "react-query";
-import { DateTime } from "luxon";
-import boxesRequest from "../../requests/boxes.request";
-import timeUtil from "../../utils/time.utils";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
+import { DateTime } from 'luxon';
+import boxesRequest from '../../requests/boxes.request';
+import timeUtil from '../../utils/time.utils';
+import { Link } from 'react-router-dom';
 
 import Card from 'react-bootstrap/Card';
 
@@ -13,13 +13,13 @@ const renderAnimalsCount = (count, boxSize) => {
 	if (count && boxSize) {
 		if (count > boxSize) {
 			return (
-				<div style={{ color: "red" }}>
+				<div style={{ color: 'red' }}>
 					Animaux dans le box: {count}/{boxSize}
 				</div>
 			);
 		} else {
 			return (
-				<div style={{ color: "green" }}>
+				<div style={{ color: 'green' }}>
 					Animaux dans le box: {count}/{boxSize}
 				</div>
 			);
@@ -28,19 +28,18 @@ const renderAnimalsCount = (count, boxSize) => {
 };
 const renderLastVisit = (date) => {
 	if (date) {
-		const startofDay = DateTime.fromISO(date).startOf("day").toISO();
+		const startofDay = DateTime.fromISO(date).startOf('day').toISO();
 		const difference = timeUtil.convertDateInDaysUntilToday(startofDay);
-		console.log("DIFFERNEC", difference);
 		switch (difference) {
 			case 0:
 				return "Dernière visite: aujourd'hui";
 			case 1:
-				return "Dernière visite: hier";
+				return 'Dernière visite: hier';
 			default:
 				return `Dernière visite: il y a ${difference} jours`;
 		}
 	} else {
-		return "Jamais visité !";
+		return 'Jamais visité !';
 	}
 };
 const VisitsCats = () => {
@@ -56,7 +55,7 @@ const VisitsCats = () => {
 			/**
 			 * On récupère uniquement les box de type "CAT"
 			 */
-			const catBoxes = boxes.filter((box) => box.type === "CAT");
+			const catBoxes = boxes.filter((box) => box.type === 'CAT');
 
 			/**
 			 * On récupère les boxes jamais visitées
@@ -72,7 +71,7 @@ const VisitsCats = () => {
 				(box) =>
 					box.visits?.length > 0 &&
 					DateTime.fromISO(box.visits[box.visits.length - 1].date) <=
-						DateTime.now().startOf("day")
+						DateTime.now().startOf('day')
 			);
 
 			/**
@@ -103,7 +102,6 @@ const VisitsCats = () => {
 			if (boxes && boxes.length > 0) {
 				return (
 					<>
-					
 						<h3 className='title-page'>Liste des boxs a visiter</h3>
 						<div className='visits main-container d-flex flex-wrap justify-content-center'>
 							{boxes.map((box) => {
@@ -113,8 +111,14 @@ const VisitsCats = () => {
 										key={box.id}
 										className='link-no-decoration'
 									>
-										<Card className='align-items-center justify-content-between m-3 p-3' style={{width:'18rem', minHeight:'14.5rem'}}>
-											<div className='d-flex align-items-center justify-content-center' style={{width:100, height:'100px'}}>
+										<Card
+											className='align-items-center justify-content-between m-3 p-3'
+											style={{ width: '18rem', minHeight: '14.5rem' }}
+										>
+											<div
+												className='d-flex align-items-center justify-content-center'
+												style={{ width: 100, height: '100px' }}
+											>
 												<p>{box.number}</p>
 											</div>
 											{renderLastVisit(box.visits[box.visits.length - 1]?.date)}
@@ -137,11 +141,11 @@ const VisitsCats = () => {
 			}
 		} else {
 			//@todo better error handling
-			return "Une erreur est survenue, merci de retenter plus tard.";
+			return 'Une erreur est survenue, merci de retenter plus tard.';
 		}
 	} else {
 		// @todo better loading indicateor
-		return "Loading...";
+		return 'Loading...';
 	}
 };
 

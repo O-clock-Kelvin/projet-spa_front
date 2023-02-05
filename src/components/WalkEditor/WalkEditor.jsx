@@ -14,7 +14,6 @@ const schema = yup.object().shape({
 });
 
 const WalkEditor = ({ walk, show, endingWalk, onClose, onUpdate }) => {
-	console.log(walk);
 	const {
 		register,
 		handleSubmit,
@@ -60,9 +59,14 @@ const WalkEditor = ({ walk, show, endingWalk, onClose, onUpdate }) => {
 
 			<Modal.Body>
 				<Form onSubmit={handleSubmit((data) => submitUpdate(data))}>
-					<div className='m-5 d-flex flex-column' >
-						<textarea className='mb-3' {...register('comment')} placeholder='Noter ici un résumé de votre balade' />
-						<select className='p-1'
+					<div className='m-5 d-flex flex-column'>
+						<textarea
+							className='mb-3'
+							{...register('comment')}
+							placeholder='Noter ici un résumé de votre balade'
+						/>
+						<select
+							className='p-1'
 							{...register('feeling')}
 							defaultChecked={walk.feeling || 'GOOD'}
 							defaultValue={walk.feeling || 'GOOD'}

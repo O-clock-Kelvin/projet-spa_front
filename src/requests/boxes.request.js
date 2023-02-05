@@ -47,7 +47,6 @@ const boxesRequest = {
 	},
 
 	getAll: (options) => {
-		console.log('OPTIONS', options);
 		let includes = [];
 		options?.includeAnimals && includes.push('animals');
 		options?.includeVisits && includes.push('visits');

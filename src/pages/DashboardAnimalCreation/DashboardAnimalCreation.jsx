@@ -77,17 +77,16 @@ function DashboardAnimalCreation() {
 
 	const navigate = useNavigate();
 
-  /**
-   * VALIDATION DU FORMULAIRE
-   */
+	/**
+	 * VALIDATION DU FORMULAIRE
+	 */
 	const onSubmitHandler = (data) => {
-  
 		delete data.tags;
 
 		let body;
-    /**
-     * En cas d'upload'image
-     */
+		/**
+		 * En cas d'upload'image
+		 */
 		if (data.image && data.image.length > 0) {
 			body = new FormData();
 			body.append('image', data.image[0]);
@@ -100,7 +99,6 @@ function DashboardAnimalCreation() {
 				body.append(key, data[key]);
 			}
 			body.append('box_id', Number(selectedBox));
-			console.log(body);
 		} else {
 			delete data.image;
 			body = { ...data, tags: tags, box_id: Number(selectedBox) };
@@ -109,15 +107,16 @@ function DashboardAnimalCreation() {
 		api
 			.post('/animals', body)
 			.then(function (response) {
-				console.log(response.status);
 				if (response.status === 201) {
 					navigate('/admin');
 				} else {
 					// todo handle error
 				}
 			})
-			.catch(function (error) {
-				console.log(error);
+			.catch(function () {
+				/**
+				 * @todo error handling
+				 */
 			});
 	};
 
@@ -250,7 +249,6 @@ function DashboardAnimalCreation() {
 										<BoxSelector
 											specie={selectedSpecie}
 											onBoxSelect={(box) => {
-												console.log('SELECTED BOX', box);
 												setSelectedBox(box);
 											}}
 										/>

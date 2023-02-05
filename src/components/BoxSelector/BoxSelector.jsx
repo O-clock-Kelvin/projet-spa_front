@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import boxesRequest from '../../requests/boxes.request';
 import { Form } from 'react-bootstrap';
 const BoxSelector = ({ specie, onBoxSelect }) => {
-	console.log('BS SPECIE', specie);
+	
 	const [boxList, setBoxList] = useState([]);
 	const { loading } = useQuery(['loadBoxes', specie], {
 		queryFn: async () =>
