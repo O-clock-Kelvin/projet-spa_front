@@ -9,6 +9,8 @@ import Modal from 'react-bootstrap/Modal';
 import visitRequest from '../../requests/visits.request';
 import VisitEditor from '../VisitEditor/VisitEditor';
 
+import '../../styles/index.scss';
+
 /**
  * design de test, a supprimer
  */
@@ -50,14 +52,14 @@ const VisitStartButton = ({ box }) => {
 		) {
 			return (
 				<>
-					<div
+					<Button
 						onClick={() => setShowModal(true)}
 						role='button'
 						tabIndex='0'
-						style={buttonStyle}
+						className='w-25 p-1'						
 					>
-						Visiter cette box
-					</div>
+						Visiter ce box
+					</Button>
 
 					{/* Modale de confirmation de la balade */}
 					<Modal show={showModal} onHide={() => setShowModal(false)}>
@@ -68,26 +70,27 @@ const VisitStartButton = ({ box }) => {
 							Etes vous sur de vouloir visiter cette box ?
 						</Modal.Body>
 						<Modal.Footer>
-							<Button variant='secondary' onClick={() => setShowModal(false)}>
-								Annuler
-							</Button>
-							{isLoading ? (
-								'Loading...'
-							) : (
-								<Button
-									variant='primary'
-									onClick={() => {
-										startVisit({ box_id: box.id });
-									}}
-								>
-									Oui
-								</Button>
-							)}
-							{error && (
-								<div style={buttonStyle}>
-									Une erreur est survenue, merci de retenter plus tard
-								</div>
-							)}
+							<div className='d-flex'>
+								{isLoading ? (
+									'Loading...'
+								) : (
+									<Button
+										className='me-2'
+										variant='primary'
+										onClick={() => {
+											startVisit({ box_id: box.id });
+										}}
+									>
+										Oui
+									</Button>
+								)}
+								{error && (
+									<div style={buttonStyle}>
+										Une erreur est survenue, merci de retenter plus tard
+									</div>
+								)}
+								<Button variant='secondary' onClick={() => setShowModal(false)}>Annuler	</Button>
+							</div>
 						</Modal.Footer>
 					</Modal>
 				</>
@@ -111,13 +114,13 @@ const VisitStartButton = ({ box }) => {
 								setLastVisit(data);
 							}}
 						/>
-						<div
-							style={buttonStyle}
+						<div							
 							onClick={() => {
 								setShowEndEditor(true);
 							}}
 							role='button'
 							tabIndex='0'
+							className='btn-primary w-25 p-1'
 						>
 							Terminer la visite
 						</div>
@@ -130,11 +133,11 @@ const VisitStartButton = ({ box }) => {
 					lastVisit.end_date == undefined
 				) {
 					return (
-						<div style={buttonStyle}>Ce box est déjà en cours de visite</div>
+						<p className='bg-secondary p-2 text-light'>Ce box est déjà en cours de visite</p>
 					);
 				} else {
 					return (
-						<div style={buttonStyle}>Ce box a déjà été visité aujourd'hui</div>
+						<p className='bg-secondary p-2 text-light'>Ce box a déjà été visité aujourd'hui</p>
 					);
 				}
 			}
