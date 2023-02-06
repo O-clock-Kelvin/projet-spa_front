@@ -71,7 +71,7 @@ const StartWalkButton = ({ animal }) => {
 						
 						<Modal show={showModal} onHide={() => setShowModal(false)}>
 							<Modal.Header closeButton>
-								<Modal.Title>confirmation de balade</Modal.Title>
+								<Modal.Title>Confirmation de balade</Modal.Title>
 							</Modal.Header>
 							<Modal.Body>
 								Etes vous sur de vouloir sortir cet animal ?
@@ -136,6 +136,7 @@ const StartWalkButton = ({ animal }) => {
 							}}
 							role='button'
 							tabIndex='0'
+							className='is-walking'
 						>
 							Terminer la balade
 						</Button>

@@ -39,10 +39,9 @@ function FilterDog({
 	// déclaration des variables du state
 	const [gabaritValue, setGabaritValue] = useState();
 	const [sexValue, setSexValue] = useState();
-	const [lowerAge, setLowerAge] = useState(0);
-	const [upperAge, setUpperAge] = useState(20);
-
-	// const [firstSubmit, setFirstSubmit] = useState(false);
+	const [ages, setAges] = useState([
+        0, 20,
+    ]);
 
 	// tableau des tags envoyé pour la requête
 	const [tags, setTags] = useState([]);
@@ -68,8 +67,8 @@ function FilterDog({
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
 		// conversion de l'age en un intervalle de dates (3ans => né entre le 01/01/2020 et le 31/12/2020)
-		let { startYearBirthday: lowerYearStart } = timeUtil.convertAgeInIntervalDate(lowerAge);
-		let { endYearBirthday: upperYearStart } = timeUtil.convertAgeInIntervalDate(upperAge+1);
+		let { startYearBirthday: lowerYearStart } = timeUtil.convertAgeInIntervalDate(ages[0]);
+		let { endYearBirthday: upperYearStart } = timeUtil.convertAgeInIntervalDate(ages[1]+1);
 
 		// requête pour récupérer la nouvelle liste des chiens avec les filtres
 		try {
@@ -77,13 +76,14 @@ function FilterDog({
 				experience,
 				gabaritValue,
 				sexValue,
-				startYearBirthday: lowerAge!=0 ? lowerYearStart: DateTime.now().toISO(),
+				startYearBirthday: ages[0]!=0 ? lowerYearStart: DateTime.now().toISO(),
 				endYearBirthday: upperYearStart,
 				tags
 			});
 
 			// on trie les chiens récupérés de la requête par ordre de priorité, et on les renvoie au composant WalkingDog pour affichage
 			if (data) {
+				console.log(data.data);
 				const dogsNeverWalked = data.data.filter((dog) => dog.walks?.length === 0);
 	
 				const dogsNotWalkedToday = data.data.filter(
@@ -109,12 +109,6 @@ function FilterDog({
 				// on ferme la modale, on affiche le bouton revoir la liste, et on réinitialise tous les filtres
 				setFilter(false);
 				setReloadButton(true);
-				setGabaritValue();
-				setSexValue();
-				setLowerAge(0);
-				setUpperAge(20);
-				setTags([]);
-				setTagsList(dataTags);
 			}				
 		} catch (error) {
 			console.log(error);
@@ -123,24 +117,16 @@ function FilterDog({
 
 	// réinitialisation du filtre
 	const resetFilter = () => {
-		// if (firstSubmit) {
-		// 	setReloadButton(true);
-		// }
-		//! to do reset values
 		setGabaritValue();
 		setSexValue();
-		setLowerAge(0);
-		setUpperAge(20);
+		setAges([0, 20]);
 		setTags([]);
 		setTagsList(dataTags);
-		console.log(gabaritValue);
-		console.log(lowerAge);
-		console.log(upperAge);
 	};
 
 	const closeFilter = () => {
-		console.log('CLOSE BUTTON');
 		setFilter(false);
+		setReloadButton(true);
 	};
 
 	const renderTag = (tag) => {
@@ -252,10 +238,8 @@ function FilterDog({
 						<div className='filter-part'>
 							<h3 className='category'>Age</h3>
 								<DoubleThumbsRange 
-									onUpdate={(values) =>{
-										setLowerAge(values[0]);
-										setUpperAge(values[1]);
-									}}
+									values={ages}
+									setValues={setAges}
 								/>
 						</div>
 						

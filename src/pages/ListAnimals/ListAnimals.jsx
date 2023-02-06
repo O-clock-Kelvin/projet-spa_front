@@ -152,7 +152,7 @@ function ListAnimals({
 					)} */}
 					{isLoading ? <LoadingSpinner /> :
 						error ? (errorUtils.errorHandler(error)) :
-						animals.length === 0 ? (<p>Il n'y a pas d'animaux correspondant à votre recherche.</p>) :
+						animals.length === 0 ? (<p>Il n'y a pas d'animaux correspondants à votre recherche.</p>) :
 						(animals.map((animal) => renderAnimal(animal)))
 					}			
 				</div>
