@@ -6,9 +6,11 @@
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	width:100%;
+	width: 100%;
 	background-color: vars.$primary-color-hoover;
 	padding: vars.$gutter;
+	padding-left: 0;
+	padding-right: 0;
 	color: white;
 	margin-top: vars.$gutter * 8;
 
