@@ -5,8 +5,12 @@
 
 body {
 	font-family: vars.$text-font;
-	background-color: vars.$secondary-background-color;
 	color: vars.$font-color;
+	max-width:80rem;
+	margin:0 auto;
+}
+.app{
+	background-color: vars.$secondary-background-color;
 }
 
 // overrides bootstrap
