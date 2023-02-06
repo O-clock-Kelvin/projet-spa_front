@@ -26,16 +26,14 @@ function FilterDog({
 }) {
 
 	const [species, setSpecies] = useState();
-	const [firstSubmit, setFirstSubmit] = useState(false);
+	// const [firstSubmit, setFirstSubmit] = useState(false);
 
 	// à la soumission du formulaire on récupère toutes les données des states
 	const handleOnSubmit = async (e) => {
-		console.log('HANDLE', species);
 		e.preventDefault();
 		try {
 			// requête pour récupérer les animaux de la bonne espèce et envoie des résultats à ListAnimals pour affichage
 			const data = await animalsRequest.getAnimalsBySpecies(species);
-			console.log(data.data);
 			const sortedAnimals = sortUtils.sortAnimalsByName(data.data);
 			setAnimals(sortedAnimals);
 		} catch (error) {
@@ -43,36 +41,37 @@ function FilterDog({
 		}
 		setFilter(false);
 		setReloadButton(true);
-		setFirstSubmit(true);
+		// setFirstSubmit(true);
 	};
 
-	// si on fait Annuler dans le filtre, on ferme le composant FilterDog
-	const cancelFilter = () => {
+	// si on ferme le filtre
+	const closeFilter = () => {
 		setFilter(false);
-		if (firstSubmit) {
-			setReloadButton(true);
-		}
+	};
+
+	// réinitialisation du filtre
+	const resetFilter = () => {
+		setSpecies();
 	};
 
 	const updateSpecies = (speciesValue) => {
-		console.log('UPDATE', speciesValue);
 		if (species != undefined) {
 			setSpecies(undefined);
-			console.log('undefined');
 		} else {
 			setSpecies(speciesValue);
-			console.log(speciesValue);
 		}
 	};
 
 	return (
 	
 			<Modal show={show}>
-				<Modal.Header>
+				<Modal.Header 
+					closeButton
+					onClick={closeFilter}
+				>
 					<Modal.Title>Filtre</Modal.Title>
 				</Modal.Header>
 
-				{/* <Form onSubmit={handleOnSubmit} id='filter-form'> */}
 					<Modal.Body>
 						<div className='container-filter'>
 							<div className='filter-part'>
@@ -116,11 +115,15 @@ function FilterDog({
 					</Modal.Body>
 
 					<Modal.Footer>
-						<Button variant='secondary' onClick={cancelFilter}>
-							Annuler
+						<Button 
+							className="reset-button"
+							variant='secondary'
+							onClick={resetFilter}
+						>
+							Réinitialiser le filtre
 						</Button>
 						<Button variant='primary' type='submit' onClick={handleOnSubmit}>
-							Valider
+							Rechercher
 						</Button>
 					</Modal.Footer>
 				

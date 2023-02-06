@@ -24,8 +24,8 @@ label:hover {
     cursor:pointer;
 }
 
-.form-select:focus {
-    border-color: vars.$primary-color !important;
-    outline: 0;
-    box-shadow: 0 0 0 0.1rem vars.$primary-color !important;
+.tags-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
