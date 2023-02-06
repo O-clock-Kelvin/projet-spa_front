@@ -31,6 +31,7 @@ LoadNextButton.propTypes = {
 	isFetchingNextPage: PropTypes.bool,
 	fetchNextPage: PropTypes.func,
 };
+
 const AnimalWalksList = ({ animalId }) => {
 	const [walks, setWalks] = useState([]);
 
