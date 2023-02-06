@@ -11,13 +11,11 @@ const WalkFeeling = ({ feeling }) => {
 	switch (feeling) {
 		case 'BAD':
 			return (
-				<span className="tag-mood tag-mood--bad" >mauvaise</span>
+				<span className="tag-mood tag-mood--bad">mauvaise</span>
 			);
 		case 'MEDIUM':
 			return (
-				<span className="tag-mood tag-mood--medium">
-					moyenne
-				</span>
+				<span className="tag-mood tag-mood--medium">moyenne</span>
 			);
 		default:
 			return (

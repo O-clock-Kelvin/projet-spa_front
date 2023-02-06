@@ -1,11 +1,5 @@
 @use '../../styles/vars';
 
-.main-container {
-    margin: 50px 80px 0 80px;
-
-    
-}
-
 .head-container {
     display: flex;
     flex-direction: row;
@@ -19,6 +13,9 @@
     justify-content: space-between;
     margin: 0;
     margin-top: vars.$gutter * 3;
+    gap: 20px;
+    row-gap: 20px;
+    column-gap: 20px;
 
     .card {
         margin-top: vars.$gutter * 3;
@@ -36,6 +33,8 @@
             margin: 0;
             width: 300px !important;
             box-shadow: vars.$shadow;
+            height: 300px;
+            object-fit: cover;
         }
 
         &-title {
@@ -55,15 +54,15 @@
 }
 
 .red {
-    color: rgb(240, 11, 11);
+    color: #ff0000;
 }
 
 .orange {
-    color: orange;
+    color: #ff4500;
 }
 
 .green {
-    color: rgb(17, 170, 17);
+    color: #008000;
 }
 
 .gender {

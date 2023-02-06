@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -21,20 +21,20 @@ import Footer from '../Footer/Footer';
 import AnimalPage from '../../pages/AnimalPage/AnimalPage';
 import ProfilePage from '../../pages/Profile/Profile';
 import ListAnimals from '../../pages/ListAnimals/ListAnimals';
+import UsersList from '../../pages/UsersList/UsersList';
 import Box from '../../pages/Box/Box';
-
 
 // fonctions
 import { useSelector } from 'react-redux';
 import { actionSetToken, actionTokenChecked } from '../../actions/tokenAction';
 
 import './App.scss';
-
+import classNames from 'classnames';
 
 function App() {
 
+	const [filter, setFilter] = useState(false);
 	const { isConnected, admin, token, authLoaded } = useSelector((fullstate) => fullstate.loginSettings);
-
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -65,7 +65,7 @@ function App() {
 
   if (authLoaded) {
     return (
-      <div className='app'>
+      <div className={classNames('app',{'dark-background': filter})}>
         <div className='menu'>
           <div className='menu-desktop'>
             <Header />
@@ -79,9 +79,9 @@ function App() {
             {/* pages accessibles à l'utilisateur connecté */}
             <Route element={<PrivateRoutes />}>
               <Route path='/home' element={<Home />} />
-              <Route path='/walks' element={<WalkingDog />} />
+              <Route path='/walks' element={<WalkingDog filter={filter} setFilter={setFilter}/>} />
               <Route path='/visits' element={<VisitsCats />} />
-              <Route path='/animals' element={<ListAnimals />} />
+              <Route path='/animals' element={<ListAnimals filter={filter} setFilter={setFilter}/>} />
             </Route>
 
             {/* pages accessibles à l'admin connecté */}
@@ -95,7 +95,14 @@ function App() {
                 path='/admin/create/card'
                 element={<DashboardAnimalCreation />}
               />
+              <Route
+                path='/admin/users'
+                element={<UsersList/>}
+              />
+
             </Route>
+            
+            
 
             <Route
               path='/profile'
@@ -127,9 +134,7 @@ function App() {
                 )
               }
             />
-
-				
-          
+  
             <Route
               path='/login'
               element={isConnected ? <Navigate to='/' replace /> : <LoginForm />}

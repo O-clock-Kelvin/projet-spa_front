@@ -5,9 +5,8 @@ import animalsRequest from '../../requests/animals.request';
 import timeUtil from '../../utils/time.utils';
 import PropTypes from 'prop-types';
 
-
 import Image from 'react-bootstrap/Image';
-
+import animalUtil from '../../utils/animal.utils';
 
 import './AnimalPage.scss';
 
@@ -21,7 +20,9 @@ const TagsList = ({ tags }) => {
 		return (
 			<ul className='d-flex flex-row justify-content-center'>
 				{tags.map((tag) => (
-					<li className='tag' key={tag.tag_id}>{tag.tag.name}</li>
+					<li className='tag me-1' key={tag.tag_id}>
+						{tag.tag.name}
+					</li>
 				))}
 			</ul>
 		);
@@ -36,20 +37,9 @@ TagsList.propTypes = {
 	tags: PropTypes.array,
 };
 
-const renderDefaultAnimalPicture = (specie) => {
-	switch (specie) {
-		case 'CAT':
-			return 'https://api.kyivindependent.com/storage/2021/12/loveyoustepan.-instagram-1200x630.jpg';
-		case 'DOG':
-			return 'https://images.dog.ceo/breeds/appenzeller/n02107908_2809.jpg';
-		default:
-			return 'https://play-lh.googleusercontent.com/8QnH9AhsRfhPott7REiFUXXJLRIxi8KMAP0mFAZpYgd44OTOCtScwXeb5oPe1E4eP4oF';
-	}
-};
-
 const AnimalPage = () => {
 	let { animalId } = useParams();
-	const [animal, setAnimal] = useState();	
+	const [animal, setAnimal] = useState();
 	// use query
 	const { error, isLoading } = useQuery('getAnimal', {
 		queryFn: async () =>
@@ -71,7 +61,7 @@ const AnimalPage = () => {
 				case 'BAD_INPUT':
 					return 'Erreur de requête. Merci de retenter plus tard';
 				default:
-					return 'Erreur du srveur, merci de retenter plus tard';
+					return 'Erreur du serveur, merci de retenter plus tard';
 			}
 		} else {
 			return 'Erreur du serveur, merci de retenter plus tard';
@@ -85,71 +75,105 @@ const AnimalPage = () => {
 			case 0:
 				return "aujourd'hui";
 			case 1:
-				return "hier";
+				return 'hier';
 			default:
 				return `il y a ${duration} jours`;
 		}
-		};
-		
+	};
+
 	if (!isLoading) {
 		if (animal) {
 			return (
-				<>	
-					<h1 className ='title-page'>Fiche de {animal.name}</h1>
+				<>
+					<h1 className='title-page'>Fiche de {animal.name}</h1>
 
-					<div className='d-flex flex-row justify-content-center mt-5 mb-5 flex-wrap'>
-						<div className='d-flex flex-row p-3 animal-information me-5'>
-							<div className='d-flex flex-column'>
-								<div className='d-flex flex-row mb-2 ' >
-									<Image className='rounded'
+					<div className='d-flex flex-row justify-content-center m-5 flex-wrap'>
+						<div
+							className='d-flex flex-row p-4 animal-information me-5'
+							style={{ minHeight: '400px', maxHeight: '27rem' }}
+						>
+							<div className='d-flex flex-column justify-content-between'>
+								<div className='d-flex flex-row align-items-start '>
+									<Image
+										className='rounded'
 										width={200}
 										src={
-											animal.url_image || renderDefaultAnimalPicture(animal.species)
+											animal.url_image ||
+											animalUtil.renderDefaultAnimalPicture(animal.species)
 										}
 										alt={animal.name}
-									/>									
-									<div className='d-flex flex-column mb-3'>
-										<div className="p-2 tag-info" >
-											<p>{timeUtil.convertBirthdayInAge(animal.age)}<br/>An{timeUtil.convertBirthdayInAge(animal.age)> 1 ? 's' : ''} </p>
+									/>
+									<div className='d-flex flex-column'>
+										<div className='p-2 tag-info'>
+											<p>
+												{timeUtil.convertBirthdayInAge(animal.age)}
+												<br />
+												An
+												{timeUtil.convertBirthdayInAge(animal.age) > 1
+													? 's'
+													: ''}{' '}
+											</p>
 										</div>
 										<div className='p-2 tag-info'>
 											<p>{animal.size}</p>
 										</div>
 										<div className='p-2 tag-info'>
 											<p>{animal.gender}</p>
-										</div>									
-									</div>								
-								</div>								
-								<TagsList tags={animal.tags} />
-								<span className='tag-info'> {animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id} </span>
-								<br />
-								{animal.species === 'DOG' && <StartWalkButton animal={animal} />}
-								{animal.walks[0]?<p className='mt-3'>Dernière sortie : {renderElapsedTimeSinceLastWalk(animal.walks[animal.walks.length-1].date)}</p>:<p className='mt-3'>Jamais sorti</p>}
+										</div>
+									</div>
+								</div>
+								<div
+									className='d-flex flex-column justify-content-between align-items-center'
+									style={{ height: 180 }}
+								>
+									<TagsList tags={animal.tags} />
+									<span className='tag-info' style={{ padding: '0.4rem' }}>
+										{' '}
+										{animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id}{' '}
+									</span>
+									{animal.species === 'DOG' && (
+										<StartWalkButton animal={animal} />
+									)}
+									{animal.walks[0] ? (
+										<p>
+											Dernière sortie :{' '}
+											{renderElapsedTimeSinceLastWalk(
+												animal.walks[animal.walks.length - 1].date
+											)}
+										</p>
+									) : (
+										<p className='mt-3'>Jamais sorti</p>
+									)}
+								</div>
 							</div>
 						</div>
-						<div className='d-flex flex-column'>
+						<div
+							className='d-flex flex-column'
+							style={{ minWidth: '300px', maxWidth: '500px' }}
+						>
 							<div>
-								<h4 className="subtitle-page">Biographie</h4>
-								<div className='animal-bio'>{animal.bio ?? "Cet animal n'a pas de bio"}</div>
+								<h4 className='subtitle-page'>Biographie</h4>
+								<div className='animal-bio'>
+									{animal.bio ?? "Cet animal n'a pas de bio"}
+								</div>
 							</div>
 							<div>
 								{animal.species === 'DOG' && (
 									<>
-										<h4 className="subtitle-page">Dernières balades</h4>
+										<h4 className='subtitle-page'>Dernières balades</h4>
 										<AnimalWalksList animalId={animal.id} />
 									</>
 								)}
 								{animal.species === 'CAT' && (
 									<>
-										<h4>Dernières visites du box</h4>
+										<h4 className='subtitle-page'>Dernières visites du box</h4>
 										<BoxVisitsList boxId={animal.box_id} />
 									</>
 								)}
 							</div>
-									
 						</div>
-					</div>				
-			</>
+					</div>
+				</>
 			);
 		} else {
 			return (

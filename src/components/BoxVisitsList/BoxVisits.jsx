@@ -27,21 +27,19 @@ LoadNextButton.propTypes = {
 const BoxVisitsList = ({ boxId }) => {
 	const [visits, setVisits] = useState([]);
 
-	const infinite = useInfiniteQuery(
-		'boxVisitsList',
-		({ pageParam = 0 }) => boxesRequest.getVisits(boxId, pageParam),
-		{
-			getNextPageParam: (lastPage) => {
-				return lastPage.data?.nextCursor || null;
-			},
-			onSuccess: (data) => {
-				console.log('DATA', data.pages);
-				setVisits(data);
-			},
-		}
-	);
 	const { hasNextPage, isFetchingNextPage, fetchNextPage, isLoading, error } =
-		infinite;
+		useInfiniteQuery(
+			'boxVisitsList',
+			({ pageParam = 0 }) => boxesRequest.getVisits(boxId, pageParam),
+			{
+				getNextPageParam: (lastPage) => {
+					return lastPage.data?.nextCursor || null;
+				},
+				onSuccess: (data) => {
+					setVisits(data);
+				},
+			}
+		);
 
 	if (!isLoading) {
 		if (!error) {

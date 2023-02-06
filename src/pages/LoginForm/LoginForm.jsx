@@ -122,18 +122,19 @@ function LoginForm() {
 											/>
 										</div>
 									) : null}
-								</Form.Group>
-								{isLoading ? (
-									<LoadingSpinner />
-								) : (
-									<Button
-										variant='primary'
-										type='submit'
-										disabled={!captchaVerified}
-									>
-										Se Connecter
-									</Button>
-								)}
+									</Form.Group>
+									{isLoading ? (
+										<LoadingSpinner />
+										) : (
+										<Button
+											className='validation-button'
+											variant='primary'
+											type='submit'
+											disabled={!captchaVerified}
+										>
+											Se Connecter
+										</Button>
+									)}
 							</div>
 						</Form>
 						{noAutorisation && <WrongAuthentification />}

@@ -5,14 +5,6 @@ h3 {
     font-size: 1.3rem;
 }
 
-.btn-selectionned {
-    background-color: red;
-}
-
-.not-selectionned {
-    background-color: vars.$primary-color-hoover !important;
-}
-
 .filter-part {
     text-align: center;
     margin: vars.$gutter *2;
@@ -22,10 +14,19 @@ label {
     border:1px solid #ccc;
     padding:10px;
     margin:0 0 10px;
-    display:block; 
-   }
+    display:block;
+    background-color: vars.$primary-color !important;
+    opacity: 1;
+}
    
-   label:hover {
+label:hover {
     background:#eee;
     cursor:pointer;
-   }
+}
+
+.form-select:focus {
+    border-color: vars.$primary-color !important;
+    outline: 0;
+    box-shadow: 0 0 0 0.1rem vars.$primary-color !important;
+}
+

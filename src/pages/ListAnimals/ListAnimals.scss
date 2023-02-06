@@ -35,20 +35,20 @@
 
     .card {
         margin: 20px 0 20px 0;
+
+        &-dog {
+            margin: 0;
+            width: 300px !important;
+            box-shadow: vars.$shadow;
+            height: 300px;
+            object-fit: cover;
+        }
     }
 }
 
 .filter {
     margin: 0;
     padding: 0;
-}
-
-.dark-background {
-    opacity: 0.8;
-}
-
-.dark-card {
-    opacity: 1;
 }
 
 .reload-button {

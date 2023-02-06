@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import {
 	ToggleButtonGroup,
 	ToggleButton,
-	Form,
 	Modal,
 	Button,
 } from 'react-bootstrap';
@@ -20,74 +19,93 @@ import sortUtils from '../../utils/sort.utils';
 import './FilterAnimals.scss';
 
 function FilterDog({
-	setFilteredAnimals,
+	setAnimals,
 	setFilter,
 	setReloadButton,
+	show
 }) {
 
-	const [species, setSpecies] = useState("DOG");
-	// const [firstSubmit, setFirstSubmit] = useState(false);
+	const [species, setSpecies] = useState();
+	const [firstSubmit, setFirstSubmit] = useState(false);
 
 	// à la soumission du formulaire on récupère toutes les données des states
 	const handleOnSubmit = async (e) => {
+		console.log('HANDLE', species);
 		e.preventDefault();
 		try {
 			// requête pour récupérer les animaux de la bonne espèce et envoie des résultats à ListAnimals pour affichage
 			const data = await animalsRequest.getAnimalsBySpecies(species);
+			console.log(data.data);
 			const sortedAnimals = sortUtils.sortAnimalsByName(data.data);
-			setFilteredAnimals(sortedAnimals);
+			setAnimals(sortedAnimals);
 		} catch (error) {
 			console.log(error);
 		}
 		setFilter(false);
 		setReloadButton(true);
-		// setFirstSubmit(true);
-		// console.log(firstSubmit);
+		setFirstSubmit(true);
 	};
 
 	// si on fait Annuler dans le filtre, on ferme le composant FilterDog
 	const cancelFilter = () => {
 		setFilter(false);
-		// if (firstSubmit) {
+		if (firstSubmit) {
 			setReloadButton(true);
-		// }
+		}
+	};
+
+	const updateSpecies = (speciesValue) => {
+		console.log('UPDATE', speciesValue);
+		if (species != undefined) {
+			setSpecies(undefined);
+			console.log('undefined');
+		} else {
+			setSpecies(speciesValue);
+			console.log(speciesValue);
+		}
 	};
 
 	return (
-		<div className='modal show' style={{ display: 'block', position: 'fixed' }}>
-			<Modal.Dialog>
+	
+			<Modal show={show}>
 				<Modal.Header>
 					<Modal.Title>Filtre</Modal.Title>
 				</Modal.Header>
 
-				<Form onSubmit={handleOnSubmit} id='filter-form'>
+				{/* <Form onSubmit={handleOnSubmit} id='filter-form'> */}
 					<Modal.Body>
 						<div className='container-filter'>
 							<div className='filter-part'>
 								<h3 className='category'>Espèce</h3>
 								<ToggleButtonGroup
-									type='radio'
+									type='checkbox'
 									name='species'
 									defaultValue={species}
 								>
 									<ToggleButton
 										id='tbg-radio-1'
 										value='DOG'
-										onChange={(e) => setSpecies(e.target.value)}
+										type='checkbox'
+										disabled={species != "DOG" && species != undefined}
+										onChange={(e) => updateSpecies(e.target.value)}
 									>
 										CHIEN
 									</ToggleButton>
 									<ToggleButton
 										id='tbg-radio-2'
 										value='CAT'
-										onChange={(e) => setSpecies(e.target.value)}
+										type='checkbox'
+										disabled={species != "CAT" && species != undefined}
+										onChange={(e) => updateSpecies(e.target.value)}
 									>
 										CHAT
 									</ToggleButton>
 									<ToggleButton
 										id='tbg-radio-3'
 										value='OTHER'
-										onChange={(e) => setSpecies(e.target.value)}
+										type='checkbox'
+										disabled={species != "OTHER" && species != undefined}
+										onChange={(e) => updateSpecies(e.target.value)}
 									>
 										AUTRE
 									</ToggleButton>
@@ -101,21 +119,21 @@ function FilterDog({
 						<Button variant='secondary' onClick={cancelFilter}>
 							Annuler
 						</Button>
-						<Button variant='primary' type='submit'>
+						<Button variant='primary' type='submit' onClick={handleOnSubmit}>
 							Valider
 						</Button>
 					</Modal.Footer>
-				</Form>
-			</Modal.Dialog>
-		</div>
+				
+			</Modal>
+		
 	);
 }
 
 FilterDog.propTypes = {
-	setSpecies: PropTypes.func.isRequired,
 	setFilter: PropTypes.func.isRequired,
 	setReloadButton: PropTypes.func.isRequired,
-	setFilteredAnimals: PropTypes.func.isRequired,
+	setAnimals: PropTypes.func.isRequired,
+	show: PropTypes.bool
 };
 
 export default React.memo(FilterDog);

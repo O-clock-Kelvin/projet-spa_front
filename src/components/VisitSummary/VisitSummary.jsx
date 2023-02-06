@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
 
+import './VisitSummary.scss';
+
 const VisitFeeling = ({ feeling }) => {
 	switch (feeling) {
 		case 'BAD':
 			return (
-				<span style={{ borderColor: 'red', borderWidth: '1px' }}>mauvaise</span>
+				<span className="tag-mood tag-mood--bad">mauvaise</span>
 			);
 		case 'MEDIUM':
 			return (
-				<span style={{ borderColor: 'orange', borderWidth: '1px' }}>
-					moyenne
-				</span>
+				<span className="tag-mood tag-mood--medium">moyenne</span>
 			);
 		default:
 			return (
-				<span style={{ borderColor: 'green', borderWidth: '1px' }}>bonne</span>
+				<span className="tag-mood tag-mood--good">bonne</span>
 			);
 	}
 };
@@ -26,17 +26,14 @@ VisitFeeling.propTypes = {
 const VisitSummary = (props) => {
 	if (props.visit) {
 		return (
-			<div
-				style={{
-					backgroundColor: 'lightgray',
-					marginTop: '5px',
-					marginBottom: '5px',
-					width: '25vw',
-				}}
-			>
-				le{' '}
-				{DateTime.fromISO(props.visit.date).toLocaleString(DateTime.DATE_SHORT)}{' '}
-				- {props.visit.comment} - <VisitFeeling feeling={props.visit.feeling} />
+			<div className='animal-visits'>
+				<p>le{' '}{DateTime.fromISO(props.visit.date).toLocaleString(DateTime.DATE_SHORT)}{' '}</p>
+				<div className='d-flex flex-row mb-3'>
+					<p>{props.visit.comment}</p>
+					<div className='ms-auto p-2'>
+						<VisitFeeling feeling={props.visit.feeling} />
+					</div>
+				</div>
 			</div>
 		);
 	} else {

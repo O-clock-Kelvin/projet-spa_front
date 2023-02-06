@@ -1,5 +1,10 @@
 import api from '../api';
 const usersRequest = {
+
+	getAllUsers: () => {
+		return api.get('/users');
+	},
+	
 	getProfile: (id) => {
 		return api.get(`/users/${id}`);
 	},
