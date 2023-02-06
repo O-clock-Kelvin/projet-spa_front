@@ -1,14 +1,22 @@
 @use '../../styles/vars';
 
-.user{
-	&-profile{
+.user {
+	&-profile {
+		min-height: 80% !important;
+		background-color: red;
 		text-align: center;
+		align-items: center;
 		&-img {
 			height: 200px;
 			object-fit: cover;
 		}
+		&-has-picture {
+			border-radius: 100%;
+			padding: vars.$gutter * 1;
+			width: 200px;
+		}
 		&-name {
-			color:vars.$font-color;
+			color: vars.$font-color;
 			text-transform: uppercase;
 			font-size: 1rem !important;
 		}
@@ -17,4 +25,3 @@
 		}
 	}
 }
-
