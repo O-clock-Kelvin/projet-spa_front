@@ -3,21 +3,25 @@ import { useInfiniteQuery } from 'react-query';
 import PropTypes from 'prop-types';
 import animalsRequest from '../../requests/animals.request';
 import WalkSummary from '../WalkSummary/WalkSummary';
+import { Button } from 'react-bootstrap';
 
 import './AnimalWalksList.scss';
 
 const LoadNextButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {
 	if (isFetchingNextPage) {
-		return 'Fetching next page...';
+		return (
+			<Button role='button' size='sm' disabled>
+				Chargement...
+			</Button>
+		);
 	} else {
 		if (hasNextPage) {
 			return (
-				<div onClick={() => fetchNextPage()} role='button' tabIndex={0}>
-					Load more
-				</div>
+				<Button onClick={() => fetchNextPage()} role='button' size='sm'>
+					En voir plus
+				</Button>
 			);
-		}
-		else{
+		} else {
 			return null;
 		}
 	}
@@ -27,6 +31,7 @@ LoadNextButton.propTypes = {
 	isFetchingNextPage: PropTypes.bool,
 	fetchNextPage: PropTypes.func,
 };
+
 const AnimalWalksList = ({ animalId }) => {
 	const [walks, setWalks] = useState([]);
 
@@ -43,11 +48,9 @@ const AnimalWalksList = ({ animalId }) => {
 		}
 	);
 
-
 	const { hasNextPage, isFetchingNextPage, fetchNextPage, isLoading, error } =
 		infinite;
 
-	
 	if (!isLoading) {
 		if (!error) {
 			if (walks.pages && walks.pages[0].data.walks?.length > 0) {

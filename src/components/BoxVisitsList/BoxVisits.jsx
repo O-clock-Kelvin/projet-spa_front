@@ -5,15 +5,20 @@ import PropTypes from 'prop-types';
 import VisitSummary from '../VisitSummary/VisitSummary';
 import boxesRequest from '../../requests/boxes.request';
 
+import { Button } from 'react-bootstrap';
 const LoadNextButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {
 	if (isFetchingNextPage) {
-		return 'Fetching next page...';
+		return (
+			<Button role='button' size='sm' disabled>
+				Chargement
+			</Button>
+		);
 	} else {
 		if (hasNextPage) {
 			return (
-				<div onClick={() => fetchNextPage()} role='button' tabIndex={0}>
-					Load more
-				</div>
+				<Button onClick={() => fetchNextPage()} role='button' size='sm'>
+					En voir plus
+				</Button>
 			);
 		}
 	}

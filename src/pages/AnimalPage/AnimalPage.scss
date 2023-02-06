@@ -1,48 +1,49 @@
 @use '../../styles/vars';
 
-
 .animal-information {
-    box-shadow: vars.$shadow;
-    border-radius: 10px;
-    padding: vars.$gutter * 2;
-    text-align: center;
-    background-color: white;
-    & img {
-        margin-bottom: vars.$gutter * 2;
-    }
-    & .tag-info {       
-        border: 1px solid vars.$primary-color;
-        border-radius: 10px;
-        color: vars.$primary-color;
-        font-weight: bold;
-        margin: 0 0 5px 10px;
-        & p{
-            margin-bottom:0;
-        }
-    }        
-    & .tag{
-        background-color : vars.$primary-color;
-        padding: 3px 10px;
-        border-radius: 10px;
-        color: white;
-    }
-    & ul{
-        margin-bottom: 0 !important;
-    }
-   
+	box-shadow: vars.$shadow;
+	border-radius: 10px;
+	padding: vars.$gutter * 2;
+	text-align: center;
+	background-color: white;
+
+	& img {
+		height: 300px;
+		width: 300px;
+		margin-right: vars.$gutter * 2;
+		object-fit: cover;
+	}
+
+	& .tag-info {
+		border: 1px solid vars.$primary-color;
+		border-radius: 10px;
+		color: vars.$primary-color;
+		font-weight: bold;
+		margin: 0 0 5px 10px;
+		& p {
+			margin-bottom: 0;
+		}
+	}
+	& .tag {
+		background-color: vars.$primary-color;
+		padding: 3px 10px;
+		border-radius: 10px;
+		color: white;
+	}
+	& ul {
+		margin-bottom: 0 !important;
+	}
 }
 .animal-bio {
-    box-shadow: vars.$shadow;
-    border-radius: 10px;
-    padding: vars.$gutter;
-    text-align: justify;
-    background-color: white ;
+	box-shadow: vars.$shadow;
+	border-radius: 10px;
+	padding: vars.$gutter;
+	text-align: justify;
+	background-color: white;
 }
 
 @media screen and (max-width: 500px) {
 	.animal-information.me-5 {
-       
-            margin-right: 0 !important;
-    }
+		margin-right: 0 !important;
+	}
 }
-		

@@ -11,11 +11,13 @@ function DoubleThumbsRange({ onUpdate }) {
         0, 20,
     ]);
 
+    console.log("VALUES DOUBLETHUMBS",values);
+
     const rangerInstance = useRanger({
         getRangerElement: () => rangerRef.current,
         values,
         min: 0,
-        max: 15,
+        max: 20,
         stepSize: 1,
         onChange: (instance) => {
             setValues(instance.sortedValues),
@@ -31,7 +33,7 @@ function DoubleThumbsRange({ onUpdate }) {
                     position: 'relative',
                     userSelect: 'none',
                     height: '8px',
-                    background: '#eb651c',
+                    background: '#dee2e6',
                     borderRadius: '5px',
                 }}
             >
@@ -67,8 +69,8 @@ function DoubleThumbsRange({ onUpdate }) {
                                     height: '16px',
                                     outline: 'none',
                                     borderRadius: '100%',
-                                    background: '#35450a',
-                                    border: 'solid 1px #35450a',
+                                    background:'#eb651c',
+                                    border: 'solid 1px #eb651c',
                                 }}
                             />
                         ),
