@@ -23,11 +23,15 @@ WalkFeeling.propTypes = {
 };
 
 const WalkSummary = (props) => {
+	const inProgress =
+		DateTime.fromISO(props.walk.date).plus({ hour: 1 }) >= DateTime.now() &&
+		!props.walk.end_date;
 	const { admin } = useSelector((state) => state.loginSettings);
 	const [showWalkEditor, setShowWalkEditor] = useState(false);
+
 	if (props.walk) {
 		return (
-			<div className='animal-walks'>
+			<div className={`animal-walks ${inProgress && 'walk-in-progress'}`}>
 				<p>
 					le{' '}
 					{DateTime.fromISO(props.walk.date).toLocaleString(
@@ -52,12 +56,23 @@ const WalkSummary = (props) => {
 						</>
 					)}
 				</p>
-				<div className='d-flex flex-row mb-3'>
-					<p className='p-2'> {props.walk.comment} </p>
-					<div className='ms-auto p-2'>
-						<WalkFeeling feeling={props.walk.feeling} />
+				{DateTime.fromISO(props.walk.date).plus({ hour: 1 }) >=
+					DateTime.now() && !props.walk.end_date ? (
+					<div className='d-flex flex-row  '>
+						<div className='ms-auto '>
+							<span className='tag-mood tag-mood--inprogress'>
+								Balade en cours
+							</span>
+						</div>
 					</div>
-				</div>
+				) : (
+					<div className='d-flex flex-row '>
+						<p className='p-1'> {props.walk.comment} </p>
+						<div className='ms-auto p-1'>
+							<WalkFeeling feeling={props.walk.feeling} />
+						</div>
+					</div>
+				)}
 			</div>
 		);
 	} else {
@@ -72,6 +87,7 @@ WalkSummary.propTypes = {
 		date: PropTypes.string.isRequired,
 		comment: PropTypes.string,
 		feeling: PropTypes.string.isRequired,
+		end_date: PropTypes.string,
 	}),
 };
 export default WalkSummary;

@@ -96,13 +96,13 @@ const AnimalPage = () => {
 								<div className='d-flex flex-row align-items-start '>
 									<Image
 										className='rounded'
-										width={200}
 										src={
 											animal.url_image ||
 											animalUtil.renderDefaultAnimalPicture(animal.species)
 										}
 										alt={animal.name}
 									/>
+
 									<div className='d-flex flex-column'>
 										<div className='p-2 tag-info'>
 											<p>
@@ -154,7 +154,7 @@ const AnimalPage = () => {
 							<div>
 								<h4 className='subtitle-page'>Biographie</h4>
 								<div className='animal-bio'>
-									{animal.bio ?? "Cet animal n'a pas de bio"}
+									{animal.bio ? animal.bio : "Cet animal n'a pas de bio."}
 								</div>
 							</div>
 							<div>
