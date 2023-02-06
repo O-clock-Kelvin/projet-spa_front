@@ -117,11 +117,17 @@ a {
 		color: vars.$font-color;
 	}
 }
-
-// .dark-background {
-// 	background-color: rgba(0, 0, 0, 0.9);
-// }
  
+// photos par défaut
 .default-picture {
 	opacity: 0.3;
+}
+
+// boutons en visite et en ballade
+.is-walking, .is-visiting {
+	background-color: #ff0000 !important;;
+}
+
+.color-primary {
+	background-color: vars.$primary-color !important;
 }
