@@ -10,7 +10,7 @@ import './AnimalWalksList.scss';
 const LoadNextButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {
 	if (isFetchingNextPage) {
 		return (
-			<Button onClick={() => fetchNextPage()} role='button' size='sm' disabled>
+			<Button role='button' size='sm' disabled>
 				Chargement...
 			</Button>
 		);
