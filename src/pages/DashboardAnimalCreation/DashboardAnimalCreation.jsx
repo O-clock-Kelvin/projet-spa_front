@@ -22,7 +22,7 @@ const schema = yup.object().shape({
 	// url_image: yup.string().required('Veuillez renseigner une image de profil'),
 	bio: yup.string(),
 	gender: yup.string().required('Veuillez renseigner son sexe'),
-	size: yup.string().required('Veuillez choisir une taille'),
+	size: yup.string().required('Veuillez choisir un gabarit'),
 	volunteer_experience: yup.string().required(),
 	// box_id: yup.number().required('Veuillez renseigner le numéro de la cage'),
 	age: yup.date().required('Veuillez renseigner la data de naissance.'),
@@ -206,7 +206,7 @@ function DashboardAnimalCreation() {
 
 								<Col xs={6}>
 									<Form.Group className='mb-3'>
-										<Form.Label>Taille</Form.Label>
+										<Form.Label>Gabarit</Form.Label>
 										<Form.Select
 											aria-label=''
 											name='size'
@@ -215,7 +215,7 @@ function DashboardAnimalCreation() {
 											<option>Sélectionner</option>
 											<option value='SMALL'>Petit</option>
 											<option value='MEDIUM'>Moyen</option>
-											<option value='BIG'>Grand</option>
+											<option value='BIG'>Gros</option>
 										</Form.Select>
 									</Form.Group>
 								</Col>
