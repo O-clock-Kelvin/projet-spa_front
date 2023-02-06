@@ -9,7 +9,6 @@ const timeUtil = {
 		const birthday = now.minus({ years: valueAge });
 		const startYearBirthday = birthday.startOf('year').toISODate();
 		const endYearBirthday = birthday.endOf('year').toISODate();
-		console.log(startYearBirthday, endYearBirthday);
 		return { startYearBirthday, endYearBirthday };
 	},
 

@@ -13,7 +13,6 @@ const api = axios.create({
 // Middleware axios qui permet de conserver le token lors de chaque requête au back
 api.interceptors.request.use((config) => {
 	config.headers['Authorization'] = `Bearer ${getToken()}`;
-	console.log('CONFIG', config);
 	return config;
 });
 
