@@ -45,10 +45,7 @@ function WalkingDog({ filter, setFilter }) {
 	// le bouton revoir la liste
 	const [reloadButton, setReloadButton] = useState(false);
 
-	// on fait la requête qui récupère tous les chiens correspondant à l'experience du bénévole. React-query permet de voir comment comment se passe la requête
-	// const { isLoading, error, data, isFetching } = useQuery("repoData", () => animalsRequest.getDogsByExperience(experience));
-
-
+	// on fait la requête qui récupère tous les chiens correspondant à l'experience du bénévole avec React Query
 	const { error, isLoading } = useQuery('repoData', {
 		queryFn: async () =>
 			animalsRequest.getDogsByExperience(experience, {
@@ -90,7 +87,7 @@ function WalkingDog({ filter, setFilter }) {
 		setReloadButton(false);
 	};
 
-	// pour revoir la liste de tous les chiens on refait la requête
+	// pour re-afficher tous les chiens on récupère la liste des chiens stockée dans le state
 	const reloadDogs = async () => {
 		setDogs(allDogs);
 		setReloadButton(false);	
@@ -188,13 +185,9 @@ function WalkingDog({ filter, setFilter }) {
 				</div>
 
 				<div className='cards-container'>
-					{/* {error && errorUtils.errorHandler(error)}
-					{!isLoading && dogs? 
-						(dogs.map((dog) => renderDog(dog))) : (
-						<LoadingSpinner />
-					)} */}
 					{isLoading ? <LoadingSpinner /> :
 						error ? (errorUtils.errorHandler(error)) :
+						dogs.length === 0 ? (<p>Il n'y a pas de chien correspondant à votre recherche.</p>) :
 						(dogs.map((dog) => renderDog(dog)))
 					}
 				</div>

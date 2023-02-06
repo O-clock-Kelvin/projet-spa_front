@@ -11,6 +11,8 @@ function DoubleThumbsRange({ onUpdate }) {
         0, 20,
     ]);
 
+    console.log("VALUES DOUBLETHUMBS",values);
+
     const rangerInstance = useRanger({
         getRangerElement: () => rangerRef.current,
         values,

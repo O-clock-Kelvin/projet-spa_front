@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -16,6 +16,7 @@ import FilterAnimals from '../../components/FilterAnimals/FilterAnimals';
 
 // fonctions
 import animalsRequest from '../../requests/animals.request';
+import errorUtils from '../../utils/error.utils';
 
 // images
 import catProfil from '../../assets/images/chat-patte.png';
@@ -42,15 +43,19 @@ function ListAnimals({
 	const [searchName, setSearchName] = useState('');
 
 	// requête pour récupérer tous les animaux à l'affichage de la page
-	const { isLoading, error, data, isFetching } = useQuery('repoData', () => animalsRequest.getAllAnimals());
+	const { error, isLoading } = useQuery('repoData', {
+		queryFn: async () =>
+			animalsRequest.getAllAnimals({
+				includeTags: true,
+				includeWalks: true,
+			}),
 
-	useEffect(() => {
-		if (data) {
+		onSuccess: (data) => {
 			const sortedAnimals = sortUtils.sortAnimalsByName(data.data);
 			setAllAnimals(sortedAnimals);
 			setAnimals(sortedAnimals);
-		}
-	}, [isLoading, error, data, isFetching]);
+		},
+	});
 
 	// au click sur le filtre on affiche le composant
 	const openFilter = () => {
@@ -59,15 +64,9 @@ function ListAnimals({
 	};
 
 	// pour revoir la liste de tous les animaux on refait la requête
-	const reloadAnimals = async () => {
-		try {
-			// const data = await animalsRequest.getAllAnimals();
-			// const sortedAnimals = sortUtils.sortAnimalsByName(data.data);
-			setAnimals(allAnimals);
-			setReloadButton(false);
-		} catch (error) {
-			console.log(error);
-		}
+	const reloadAnimals = () => {
+		setAnimals(allAnimals);
+		setReloadButton(false);
 	};
 
 	//
@@ -146,11 +145,16 @@ function ListAnimals({
 				</div>
 			
 				<div className='cards-container'>
-					{!isLoading && animals ? (
+					{/* {!isLoading && animals ? (
 						animals.map((animal) => renderAnimal(animal))
 					) : (
 						<LoadingSpinner />
-					)}
+					)} */}
+					{isLoading ? <LoadingSpinner /> :
+						error ? (errorUtils.errorHandler(error)) :
+						animals.length === 0 ? (<p>Il n'y a pas d'animaux correspondant à votre recherche.</p>) :
+						(animals.map((animal) => renderAnimal(animal)))
+					}			
 				</div>
 
 			</div>
