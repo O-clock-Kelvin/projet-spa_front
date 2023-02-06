@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import animalsRequest from '../../requests/animals.request';
+import errorUtils from '../../utils/error.utils';
 import timeUtil from '../../utils/time.utils';
 import PropTypes from 'prop-types';
 
@@ -63,20 +64,20 @@ const AnimalPage = () => {
 		},
 	});
 
-	const errorHandler = (error) => {
-		if (error && error.response?.data?.message) {
-			switch (error.response.data.message) {
-				case 'NOT_FOUND':
-					return "Cet animal n'existe pas";
-				case 'BAD_INPUT':
-					return 'Erreur de requête. Merci de retenter plus tard';
-				default:
-					return 'Erreur du serveur, merci de retenter plus tard';
-			}
-		} else {
-			return 'Erreur du serveur, merci de retenter plus tard';
-		}
-	};
+	// const errorHandler = (error) => {
+	// 	if (error && error.response?.data?.message) {
+	// 		switch (error.response.data.message) {
+	// 			case 'NOT_FOUND':
+	// 				return "Cet animal n'existe pas";
+	// 			case 'BAD_INPUT':
+	// 				return 'Erreur de requête. Merci de retenter plus tard';
+	// 			default:
+	// 				return 'Erreur du serveur, merci de retenter plus tard';
+	// 		}
+	// 	} else {
+	// 		return 'Erreur du serveur, merci de retenter plus tard';
+	// 	}
+	// };
 
 	const renderElapsedTimeSinceLastWalk = (date) => {
 		const startOfDay = DateTime.fromISO(date).startOf('day').toISO();
@@ -156,7 +157,7 @@ const AnimalPage = () => {
 			return (
 				<div>
 					<p>Erreur lors du chargement de la page de l'animal... </p>
-					{errorHandler(error)}
+					{errorUtils.errorHandler(error)}
 				</div>
 			);
 		}

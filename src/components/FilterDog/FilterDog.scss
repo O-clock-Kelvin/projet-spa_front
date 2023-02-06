@@ -24,9 +24,18 @@ label:hover {
     cursor:pointer;
 }
 
-.form-select:focus {
-    border-color: vars.$primary-color !important;
-    outline: 0;
-    box-shadow: 0 0 0 0.1rem vars.$primary-color !important;
+.container-badge {
+    margin: 8px;
 }
 
+.close-tag {
+    position: absolute;
+    border: 2px solid #222 !important;
+    border-radius: 25px !important;
+    width: 7px !important;
+    height: 7px !important;
+    margin: -8px 0 0 0px !important;
+}
+.reset-button:hover {
+    background-color: vars.$primary-color-hoover !important;
+}

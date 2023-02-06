@@ -129,7 +129,7 @@ function ListAnimals({
 					<div>
 						{reloadButton && (
 							<Button className='reload-button' type='button' onClick={reloadAnimals}>
-								Revoir la liste de tous les animaux
+								Revoir la liste des animaux
 							</Button>
 						)}
 					</div>

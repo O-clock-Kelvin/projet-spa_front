@@ -58,10 +58,8 @@ function FilterDog({
 		console.log('UPDATE', speciesValue);
 		if (species != undefined) {
 			setSpecies(undefined);
-			console.log('undefined');
 		} else {
 			setSpecies(speciesValue);
-			console.log(speciesValue);
 		}
 	};
 
