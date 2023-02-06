@@ -154,7 +154,7 @@ const AnimalPage = () => {
 							<div>
 								<h4 className='subtitle-page'>Biographie</h4>
 								<div className='animal-bio'>
-									{animal.bio ?? "Cet animal n'a pas de bio"}
+									{animal.bio ? animal.bio : "Cet animal n'a pas de bio."}
 								</div>
 							</div>
 							<div>
