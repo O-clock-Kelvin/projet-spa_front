@@ -58,9 +58,14 @@ function Header() {
 						</Navbar.Collapse>
 						<Navbar.Collapse className='justify-content-end'>
 							<Navbar.Text>
-								<a href='/login' onClick={handleOnClick}>
+								<span
+									onClick={handleOnClick}
+									role='button'
+									tabIndex={0}
+									className='disconnect-button'
+								>
 									Déconnexion
-								</a>
+								</span>
 							</Navbar.Text>
 							<Link to='/profile' className='icon-user '>
 								<ImUser />
