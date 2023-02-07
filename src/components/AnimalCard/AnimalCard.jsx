@@ -14,19 +14,21 @@ const AnimalCard = ({ animal, showSpecie }) => {
 		<Card
 			className='animal-card'
 			key={animal.id}
-			style={{ minWidth: '10px', maxWidth: '17rem' }}
+			// style={{ minWidth: '10px', maxWidth: '17rem' }}
 		>
 			<Link to={`/animal/${animal.id}`} className='text-dark'>
-				<div className='p-3' style={{ width: '100%' }}>
+				<div className='cat-container'>					
 					<Card.Img
+					variant='top'
+					className='card-cat default-picture'
 						src={
 							animal.url_image ||
 							animalUtil.renderDefaultAnimalPicture(animal.species)
 						}
 					/>
-				</div>
+				
 				<Card.Body>
-					<Card.Title>{animal.name}</Card.Title>
+					<Card.Title>{animal.name.toUpperCase()}</Card.Title>
 					<Card.Text>
 						{showSpecie && animalUtil.renderSpecie(animal.species)}
 					</Card.Text>
@@ -43,6 +45,7 @@ const AnimalCard = ({ animal, showSpecie }) => {
 						</span>
 					</Card.Text>
 				</Card.Body>
+				</div>
 			</Link>
 		</Card>
 	);

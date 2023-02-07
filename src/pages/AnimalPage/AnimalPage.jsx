@@ -94,7 +94,7 @@ const AnimalPage = () => {
 							style={{ minHeight: '400px', maxHeight: '27rem' }}
 						>
 							<div className='d-flex flex-column justify-content-between'>
-								<div className='d-flex flex-row align-items-start '>
+								<div className='d-flex flex-row align-items-start justify-content-between' style={{maxWidth:'17.5rem'}}>
 									<Image
 										className='rounded'
 										src={
