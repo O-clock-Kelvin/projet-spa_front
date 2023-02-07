@@ -23,6 +23,7 @@ import ProfilePage from '../../pages/Profile/Profile';
 import ListAnimals from '../../pages/ListAnimals/ListAnimals';
 import UsersList from '../../pages/UsersList/UsersList';
 import Box from '../../pages/Box/Box';
+import MentionsPage from '../../pages/MentionsPage/MentionsPage';
 
 // fonctions
 import { useSelector } from 'react-redux';
@@ -79,6 +80,7 @@ function App() {
             {/* pages accessibles à l'utilisateur connecté */}
             <Route element={<PrivateRoutes />}>
               <Route path='/home' element={<Home />} />
+              <Route path='/mentionsPage' element={<MentionsPage />} />
               <Route path='/walks' element={<WalkingDog filter={filter} setFilter={setFilter}/>} />
               <Route path='/visits' element={<VisitsCats />} />
               <Route path='/animals' element={<ListAnimals filter={filter} setFilter={setFilter}/>} />
@@ -87,6 +89,7 @@ function App() {
             {/* pages accessibles à l'admin connecté */}
             <Route element={<PrivateRoutesAdmin />}>
               <Route path='/admin' element={<Dashboard />} />
+              <Route path='/mentionsPage' element={<MentionsPage />} />
               <Route
                 path='/admin/create/user'
                 element={<DashboardVolunteerCreation />}
