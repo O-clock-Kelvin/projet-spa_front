@@ -19,7 +19,7 @@ import { DateTime } from 'luxon';
 const TagsList = ({ tags }) => {
 	if (tags) {
 		return (
-			<ul className='d-flex flex-row justify-content-center'>
+			<ul className='tags-animal-page d-flex flex-row justify-content-center'>
 				{tags.map((tag) => (
 					<li className='tag me-1' key={tag.tag_id}>
 						{tag.tag.name}
@@ -115,7 +115,7 @@ const AnimalPage = () => {
 									</div>
 								</div>
 								<div
-									className='d-flex flex-column justify-content-between align-items-center'
+									className=' d-flex flex-column justify-content-between align-items-center'
 									style={{ height: 180 }}
 								>
 									<TagsList tags={animal.tags} />

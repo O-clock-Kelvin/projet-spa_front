@@ -8,9 +8,11 @@
 	background-color: white;
 
 	& img {
-		height: auto;
-		width: 50%;
-		margin-right: vars.$gutter * 2;
+		margin: 0;
+    width: 200px !important;
+    box-shadow: 1px 1px 36px rgb(0 0 0 / 9%);
+    height: 193px;
+    object-fit: cover;
 	}
 
 	& .tag-info {
@@ -29,9 +31,6 @@
 		border-radius: 10px;
 		color: white;
 	}
-	& ul {
-		margin-bottom: 0 !important;
-	}
 }
 .animal-bio {
 	box-shadow: vars.$shadow;
@@ -45,4 +44,9 @@
 	.animal-information.me-5 {
 		margin-right: 0 !important;
 	}
+}
+
+
+.tags-animal-page {
+	margin: 1rem 0;
 }

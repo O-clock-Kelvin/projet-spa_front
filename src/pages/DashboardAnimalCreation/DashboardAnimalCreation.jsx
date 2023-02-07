@@ -142,7 +142,7 @@ function DashboardAnimalCreation() {
 					<Row>
 						<Col md={6} xs={12}>
 							<Form.Group className='mb-3'>
-								<Form.Label>Espèce</Form.Label>
+							<Form.Label className="creation-form-label">Espèce</Form.Label>
 								<Form.Select
 									aria-label=''
 									name='species'
@@ -158,7 +158,7 @@ function DashboardAnimalCreation() {
 							</Form.Group>
 
 							<Form.Group className='mb-3'>
-								<Form.Label>Nom</Form.Label>
+							<Form.Label className="creation-form-label">Nom</Form.Label>
 								<Form.Control
 									type='text'
 									{...register('name')}
@@ -168,7 +168,7 @@ function DashboardAnimalCreation() {
 							</Form.Group>
 
 							<Form.Group className='mb-3'>
-								<Form.Label>Tempéramment</Form.Label>
+							<Form.Label className="creation-form-label">Tempéramment</Form.Label>
 								<Form.Select
 									aria-label='Default select example'
 									{...register('tags')}
@@ -189,7 +189,7 @@ function DashboardAnimalCreation() {
 							<Row>
 								<Col md={6} xs={12}>
 									<Form.Group className='mb-3'>
-										<Form.Label>Âge</Form.Label>
+									<Form.Label className="creation-form-label">Âge</Form.Label>
 										<Form.Control
 											type='date'
 											{...register('age')}
@@ -206,7 +206,7 @@ function DashboardAnimalCreation() {
 
 								<Col xs={6}>
 									<Form.Group className='mb-3'>
-										<Form.Label>Gabarit</Form.Label>
+									<Form.Label className="creation-form-label">Gabarit</Form.Label>
 										<Form.Select
 											aria-label=''
 											name='size'
@@ -224,7 +224,7 @@ function DashboardAnimalCreation() {
 							<Row>
 								<Col xs={6}>
 									<Form.Group className='mb-3'>
-										<Form.Label>Sexe</Form.Label>
+									<Form.Label className="creation-form-label">Sexe</Form.Label>
 										<Form.Select
 											aria-label=''
 											name='gender'
@@ -238,7 +238,7 @@ function DashboardAnimalCreation() {
 								</Col>
 								<Col xs={6}>
 									<Form.Group className='mb-3'>
-										<Form.Label> Cage</Form.Label>
+									<Form.Label className="creation-form-label">Cage</Form.Label>
 										{/* <Form.Control
 											type='number'
 											{...register('box_id')}
@@ -259,7 +259,7 @@ function DashboardAnimalCreation() {
 								</Col>
 
 								<Form.Group className='mb-3'>
-									<Form.Label>Niveau d'expérience du bénévole</Form.Label>
+								<Form.Label className="creation-form-label">Niveau d'expérience du bénévole</Form.Label>
 									<Form.Select
 										aria-label=''
 										name='level'
@@ -278,7 +278,7 @@ function DashboardAnimalCreation() {
 
 						<Col md={6} xs={12}>
 							<Form.Group className='mb-3'>
-								<Form.Label>Image profil</Form.Label>
+							<Form.Label className="creation-form-label">Image profil</Form.Label>
 								{/* <Form.Control
 									type='text'
 									{...register('url_image')}
@@ -293,7 +293,7 @@ function DashboardAnimalCreation() {
 							</Form.Group>
 
 							<Form.Group className='mb-3'>
-								<Form.Label>Biographie</Form.Label>
+							<Form.Label className="creation-form-label">Biographie</Form.Label>
 								<Form.Control
 									as='textarea'
 									rows={3}

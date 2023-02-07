@@ -117,7 +117,7 @@ function WalkingDog({ filter, setFilter }) {
 	const renderDog = (dog) => {
 		const age = timeUtil.convertBirthdayInAge(dog.age);
 		return (
-			<Card key={dog.id}>
+			<Card className='container-card-animal' key={dog.id}>
 				<Link to={`/animal/${dog.id}`}>
 					<div className='dog-container'>
 						<Card.Img

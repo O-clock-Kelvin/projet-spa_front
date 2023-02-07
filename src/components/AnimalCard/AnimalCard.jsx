@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import Card from 'react-bootstrap/Card';
 import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import animalUtil from '../../utils/animal.utils';
 import timeUtil from '../../utils/time.utils';
+import catProfil from '../../assets/images/chat-patte.png';
+import dogProfil from '../../assets/images/dogProfil.png';
 
 import './AnimalCard.scss';
 
@@ -18,14 +21,11 @@ const AnimalCard = ({ animal, showSpecie }) => {
 		>
 			<Link to={`/animal/${animal.id}`} className='text-dark'>
 				<div className='cat-container'>					
-					<Card.Img
-					variant='top'
-					className='card-cat default-picture'
-						src={
-							animal.url_image ||
-							animalUtil.renderDefaultAnimalPicture(animal.species)
-						}
-					/>
+				<Card.Img 
+						variant='top' 
+						className={classnames('card-dog', animal.url_image? '': 'default-picture')} 
+						src={animal.url_image ? animal.url_image : (animal.species === 'CAT') ? catProfil : dogProfil} />
+										
 				
 				<Card.Body>
 					<Card.Title>{animal.name.toUpperCase()}</Card.Title>

@@ -5,16 +5,23 @@
     margin: 0 auto ;
 }
 
-.card {
+.dashboard-card {
     margin: vars.$gutter * 3;
     border-radius: 10px !important;
     border:none !important;
     box-shadow: vars.$shadow;
     background: vars.$primary-background-color !important;
 
-    &-img-top {
-        padding: vars.$gutter * 5;
+    & img  {
+        padding: vars.$gutter * 3;
     }
 
+}
+    
+@media screen and (max-width: 480px){
+    .dashboard-card{
+        margin : 0 0 vars.$gutter * 2 0;
+    }
+    
 }
 

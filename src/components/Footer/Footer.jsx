@@ -10,7 +10,10 @@ import './Footer.scss';
 
 function Footer() {
 	return (
+		<>
+		{location.pathname != "/login" ? (
 		<Container className='footer' fluid>
+		
 			<div className='container'>
 				<Row className='footer-row'>
 					<Col sm={12} md={3} lg={2} className='align-self-center'>
@@ -29,7 +32,10 @@ function Footer() {
 					</Col>
 				</Row>
 			</div>
+			
 		</Container>
+		) : null}
+		</>
 	);
 }
 
