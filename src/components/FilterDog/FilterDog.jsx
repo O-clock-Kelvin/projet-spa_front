@@ -19,8 +19,6 @@ import {
 
 // fonctions
 import timeUtil from "../../utils/time.utils";
-
-// import sortUtils from "../../utils/sort.utils";
 import animalsRequest from "../../requests/animals.request";
 
 // data
@@ -42,13 +40,12 @@ function FilterDog({
 	const [ages, setAges] = useState([
         0, 20,
     ]);
-
 	// tableau des tags envoyé pour la requête
 	const [tags, setTags] = useState([]);
 	// liste des tags du select
 	const [tagsList, setTagsList] = useState(dataTags);
 
-	// on met à jour les tags en fonction de la sélection
+	// on enlève les tags de la liste déroulante en fonction de la sélection
 	const handleOnAddTag = (e) => {
 		setTagsList((oldState) =>
 			oldState.filter((tag) => tag.id !== Number(e.target.value))
@@ -66,6 +63,7 @@ function FilterDog({
 	// à la soumission du formulaire on récupère toutes les données des states
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
+
 		// conversion de l'age en un intervalle de dates (3ans => né entre le 01/01/2020 et le 31/12/2020)
 		let { startYearBirthday: lowerYearStart } = timeUtil.convertAgeInIntervalDate(ages[0]);
 		let { endYearBirthday: upperYearStart } = timeUtil.convertAgeInIntervalDate(ages[1]+1);
@@ -104,9 +102,9 @@ function FilterDog({
 					}
 				});
 				
-				// puis on met à jour les chiens à afficher
+				// on met à jour les chiens à afficher
 				setDogs([...dogsNeverWalked, ...dogsOrderedByDateDesc]);
-				// on ferme la modale, on affiche le bouton revoir la liste, et on réinitialise tous les filtres
+				// on ferme la modale, on affiche le bouton revoir la liste
 				setFilter(false);
 				setReloadButton(true);
 			}				
@@ -124,6 +122,7 @@ function FilterDog({
 		setTagsList(dataTags);
 	};
 
+	// fermeture du filtre
 	const closeFilter = () => {
 		setFilter(false);
 		setReloadButton(true);

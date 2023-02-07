@@ -101,10 +101,16 @@ const AnimalPage = () => {
 											</p>
 										</div>
 										<div className='p-2 tag-info'>
-											<p>{animal.size}</p>
+											<p>
+												{animal.size === 'big' ? 'GROS' : 
+												animal.size === 'medium' ? 'MOYEN' : 
+												'PETIT'}
+											</p>
 										</div>
 										<div className='p-2 tag-info'>
-											<p>{animal.gender}</p>
+											<p>
+												{animal.gender === 'male' ? 'MALE' : 'FEMELLE'}
+											</p>
 										</div>
 									</div>
 								</div>

@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState } from "react";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import { useQuery } from "react-query";
@@ -28,13 +28,11 @@ import dogProfil from "../../assets/images/dogProfil.png";
 import animalsRequest from "../../requests/animals.request";
 import timeUtil from "../../utils/time.utils";
 import errorUtils from "../../utils/error.utils";
-// import sortUtils from "../../utils/sort.utils";
 
 function WalkingDog({ filter, setFilter }) {
 
 	// récupération de l'experience du bénévole pour récupérer les bons chiens
-	// const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
-	const experience = 'MEDIUM';
+	const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
 	
 	// tous les chiens correspondant à l'expérience du bénévole
 	const [allDogs, setAllDogs] = useState([]);
@@ -54,6 +52,7 @@ function WalkingDog({ filter, setFilter }) {
 			}),
 
 		onSuccess: (data) => {
+			// on trie les chiens par odre de sortie
 			const dogsNeverWalked = data.data.filter((dog) => dog.walks?.length === 0);
 
 			const dogsNotWalkedToday = data.data.filter(
@@ -95,6 +94,7 @@ function WalkingDog({ filter, setFilter }) {
 
 	const renderLastWalk = (date) => {
 		if(date){
+			// on affiche les chiens par ordre de priorité
 			const startofDay = DateTime.fromISO(date).startOf("day").toISO();
 			const difference = timeUtil.convertDateInDaysUntilToday(startofDay);
 			switch (difference) {
@@ -148,11 +148,6 @@ function WalkingDog({ filter, setFilter }) {
 										"last-walking"
 									)}
 								>
-									{/* {Dernière sortie : il y a{" "}
-									{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date)} jour
-									{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date) > 1
-										? "s"
-										: ""}} */}
 									{renderLastWalk(dog.walks[dog.walks?.length-1]?.date)}
 								</Card.Text>				
 						</Card.Body>
