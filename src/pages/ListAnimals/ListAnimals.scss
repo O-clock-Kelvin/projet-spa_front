@@ -22,7 +22,8 @@
         flex-direction: row;
         justify-content: space-between;
         margin: 0;
-        margin-top: vars.$gutter * 3;
+        margin-top: vars.$gutter * 3; 
+
     }
 
     .default-picture {
@@ -34,7 +35,7 @@
     }
 
     .card {
-        margin: 20px 0 20px 0;
+        margin: 0px 0 20px 0;
 
         &-dog {
             margin: 0;
@@ -46,6 +47,14 @@
     }
 }
 
+.container-card-animal {
+    border-radius: 10px !important;
+    border: none !important;
+    box-shadow: 1px 1px 36px rgb(0 0 0 / 9%);
+    background: #fffaf7 !important;
+}
+
+
 .filter {
     margin: 0;
     padding: 0;
@@ -54,4 +63,29 @@
 .reload-button {
     width: vars.$gutter * 20 !important;
     margin: 20px 0 0 0 ;
+}
+
+@media screen and (max-width: 400px){
+    .animal-container{
+        .card-img-top{
+            &.card-dog{
+                width:4rem !important;
+                height:4rem !important;
+            }    
+        }
+        .card-title{
+            font-size:1.1rem;
+        }
+        .age{
+            font-size:1rem !important;
+        }
+        .last-walking{
+            font-size:0.7rem !important;
+        }
+    }
+    .gender {
+        width: 20px;
+        margin-left: vars.$gutter;
+    }
+  
 }
