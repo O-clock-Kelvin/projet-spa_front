@@ -145,11 +145,6 @@ function ListAnimals({
 				</div>
 			
 				<div className='cards-container'>
-					{/* {!isLoading && animals ? (
-						animals.map((animal) => renderAnimal(animal))
-					) : (
-						<LoadingSpinner />
-					)} */}
 					{isLoading ? <LoadingSpinner /> :
 						error ? (errorUtils.errorHandler(error)) :
 						animals.length === 0 ? (<p>Il n'y a pas d'animaux correspondants à votre recherche.</p>) :

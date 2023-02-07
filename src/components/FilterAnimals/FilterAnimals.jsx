@@ -125,8 +125,7 @@ function FilterDog({
 						</Button>
 					</Modal.Footer>
 				
-			</Modal>
-		
+			</Modal>	
 	);
 }
 
