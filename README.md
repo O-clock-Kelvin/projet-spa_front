@@ -1,3 +1,5 @@
+# Gestion des actions effectuées par les bénévoles au sein d'un refuge de protection animale
+
 ## SOMMAIRE
 
  1. [Description du projet 📖](#-description-du-projet)
@@ -9,7 +11,9 @@
  7. [Crédits 🙋](#crédits)
 
 
-## 📖 DESCRIPTION DU PROJET
+<details>
+  <summary><h1>📖 Tout'O'Poils - Informations générales</h1></summary>
+<h2>📖 DESCRIPTION DU PROJET</h2>
 
 Ce projet a été construit autour d'un seul objectif, celui d’œuvrer pour la cause animale et de permettre l'accès du numérique aux associations qui en sont dépourvues, faute de moyens. Nous savons que le rôle du bénévole est primordial à l'existence de l'association mais aussi pour le bien-être de l'animal.
 
@@ -26,7 +30,7 @@ En ce qui concerne l'administrateur, il pourra visualiser tous les animaux et to
 Enfin, il est possible à chacun de voir sa fiche « profile » avec toutes ses informations personnelles.
 
  
-## ⚙️ LES CHOIX TECHNIQUES
+  <h2>⚙️ LES CHOIX TECHNIQUES</h2>
 **Developer Experience & Gestionnaire de paquets:**
  - Yarn
  - ESLint
@@ -81,6 +85,10 @@ L'application sera en open source pour que, ceux qui le souhaitent, puissent app
 Elle a été conçue de manière à faciliter des ajouts ou des modifications complémentaires à son utilisation. Des nouvelles missions peuvent être rajouter, des fonctionnalités pourront être installées pour en faciliter son usage et le rendre plus facile à utiliser... Tellement de possibilités... La seule limite à notre application, sera votre implication à faire avancer la cause animale.
 
 Les associations peuvent aussi être pilote du projet en le mettant en application au sein de leur établissement. En le faisant évoluer, il pourrait s'adapter aux besoins spécifiques de chacun.
+
+</details>
+ 
+
 
 
 
