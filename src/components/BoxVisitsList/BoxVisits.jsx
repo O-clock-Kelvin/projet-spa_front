@@ -6,11 +6,13 @@ import VisitSummary from '../VisitSummary/VisitSummary';
 import boxesRequest from '../../requests/boxes.request';
 
 import { Button } from 'react-bootstrap';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+
 const LoadNextButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {
 	if (isFetchingNextPage) {
 		return (
 			<Button role='button' size='sm' disabled>
-				Chargement
+				Chargement...
 			</Button>
 		);
 	} else {
@@ -48,7 +50,7 @@ const BoxVisitsList = ({ boxId }) => {
 
 	if (!isLoading) {
 		if (!error) {
-			if (visits.pages && visits.pages?.length > 0) {
+			if (visits.pages && visits.pages[0].data.visits?.length > 0) {
 				return (
 					<>
 						{visits.pages.map((page) =>
@@ -64,13 +66,16 @@ const BoxVisitsList = ({ boxId }) => {
 					</>
 				);
 			} else {
-				return 'Aucune visite du boxe;';
+				return 'Aucune visite du boxe';
 			}
 		} else {
 			return 'Une erreur est survenue, veuillez retenter plus tard';
 		}
 	} else {
-		return 'Loading...';
+		/**
+		 * @todo better loading indicator
+		 */
+		return <LoadingSpinner className='color-primary' />;
 	}
 };
 BoxVisitsList.propTypes = {

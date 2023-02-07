@@ -6,7 +6,7 @@ import errorUtils from '../../utils/error.utils';
 import timeUtil from '../../utils/time.utils';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
+import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 
 import './AnimalPage.scss';
@@ -51,6 +51,7 @@ const AnimalPage = () => {
 			animalsRequest.get(animalId, {
 				includeTags: true,
 				includeWalks: true,
+				includeBox: true,
 			}),
 
 		onSuccess: (data) => {
@@ -127,10 +128,18 @@ const AnimalPage = () => {
 									style={{ height: 180 }}
 								>
 									<TagsList tags={animal.tags} />
-									<span className='tag-info' style={{ padding: '0.4rem' }}>
-										{' '}
-										{animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id}{' '}
-									</span>
+									{animal.species == 'DOG' ? (
+										<span className='tag-info' style={{ padding: '0.4rem' }}>
+											cage:{animal.box.number}
+										</span>
+									) : (
+										<Link to={`/box/${animal.box.id}`}>
+											<span className='tag-info' style={{ padding: '0.4rem' }}>
+												box: {animal.box.number}
+											</span>
+										</Link>
+									)}
+
 									{animal.species === 'DOG' && (
 										<StartWalkButton animal={animal} />
 									)}

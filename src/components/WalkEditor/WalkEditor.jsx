@@ -33,12 +33,12 @@ const WalkEditor = ({ walk, show, endingWalk, onClose, onUpdate }) => {
 	} = useMutation({
 		mutationFn: (data) => {
 			if (endingWalk) {
-				walksRequest.update(walk.id, {
+				return walksRequest.update(walk.id, {
 					...data,
 					end_date: DateTime.now().toISO(),
 				});
 			} else {
-				walksRequest.update(walk.id, data);
+				return walksRequest.update(walk.id, data);
 			}
 		},
 		onSuccess: (_, data) => {
