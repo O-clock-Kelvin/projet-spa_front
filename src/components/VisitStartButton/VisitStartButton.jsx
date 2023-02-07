@@ -56,7 +56,7 @@ const VisitStartButton = ({ box }) => {
 						onClick={() => setShowModal(true)}
 						role='button'
 						tabIndex='0'
-						className='w-25 p-1'						
+						className=' box-header-button'						
 					>
 						Visiter ce box
 					</Button>

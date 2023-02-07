@@ -8,6 +8,9 @@ import AnimalCard from "../../components/AnimalCard/AnimalCard";
 import VisitStartButton from "../../components/VisitStartButton/VisitStartButton";
 
 import '../../styles/_vars.scss';
+import { Container } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 /**
  * FONCTIONS
@@ -61,10 +64,17 @@ const Box = () => {
 		if (box) {
 			return (
 				<>
-					<h3 className='title-page'>Box N° : {''}{box.number}</h3>
+					<Container>
+					<Row>
+					<Col className="text-center">
+	<h3 className='title-page'>Box N° : {''}{box.number}</h3>
+					<VisitStartButton box={box} />
+					</Col>
+					</Row>
+					</Container>
 					<div className="main-container">
 					<div className="cards-container" >
-						<VisitStartButton box={box} />
+						
 
 							<RenderAnimalsList animals={box.animals} />
 </div>
