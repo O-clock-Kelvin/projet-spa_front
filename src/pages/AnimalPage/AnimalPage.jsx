@@ -15,6 +15,7 @@ import StartWalkButton from '../../components/WalkStartButton/WalkStartButton';
 import AnimalWalksList from '../../components/AnimalWalksList';
 import BoxVisitsList from '../../components/BoxVisitsList/BoxVisits';
 import { DateTime } from 'luxon';
+import animalUtil from '../../utils/animal.utils';
 
 import catProfil from '../../assets/images/chat-patte.png';
 import dogProfil from '../../assets/images/dogProfil.png';
@@ -82,13 +83,25 @@ const AnimalPage = () => {
 							style={{ minHeight: '400px', maxHeight: '27rem' }}
 						>
 							<div className='d-flex flex-column justify-content-between'>
-								<div className='d-flex flex-row align-items-start justify-content-between' style={{maxWidth:'17.5rem'}}>
+								<div
+									className='d-flex flex-row align-items-start justify-content-between'
+									style={{ maxWidth: '17.5rem' }}
+								>
 									<Image
-
-										className={classnames('card-dog','rounded', animal.url_image? '': 'default-picture')} 
-						src={animal.url_image ? animal.url_image : (animal.species === 'CAT') ? catProfil : dogProfil} alt={animal.name} />
-										
-
+										className={classnames(
+											'card-dog',
+											'rounded',
+											animal.url_image ? '' : 'default-picture'
+										)}
+										src={
+											animal.url_image
+												? animal.url_image
+												: animal.species === 'CAT'
+												? catProfil
+												: dogProfil
+										}
+										alt={animal.name}
+									/>
 
 									<div className='d-flex flex-column'>
 										<div className='p-2 tag-info'>
@@ -102,10 +115,10 @@ const AnimalPage = () => {
 											</p>
 										</div>
 										<div className='p-2 tag-info'>
-											<p>{animal.size}</p>
+											<p>{animalUtil.renderSize(animal.size)}</p>
 										</div>
 										<div className='p-2 tag-info'>
-											<p>{animal.gender}</p>
+											<p>{animal.gender === 'MALE' ? 'Mâle' : 'Femelle'}</p>
 										</div>
 									</div>
 								</div>

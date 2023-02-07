@@ -23,6 +23,17 @@ const animalUtil = {
 				return 'autre';
 		}
 	},
+
+	renderSize: (size) => {
+		switch (size) {
+			case 'SMALL':
+				return 'Petit';
+			case 'BIG':
+				return 'Gros';
+			default:
+				return 'Moyen';
+		}
+	},
 };
 
 export default animalUtil;
