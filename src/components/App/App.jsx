@@ -155,6 +155,8 @@ function App() {
 									isConnected ? <Navigate to='/' replace /> : <LoginForm />
 								}
 							/>
+
+							<Route path='/mentions-legales' element={<MentionsPage />} />
 							<Route path='*' element={<Error404 />} />
 						</Routes>
 					</div>

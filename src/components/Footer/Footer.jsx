@@ -7,7 +7,6 @@ import Icon from '../../assets/icon.svg';
 import { Link } from 'react-router-dom';
 
 import './Footer.scss';
-import { Link } from 'react-router-dom';
 
 function Footer() {
 	return (
@@ -15,7 +14,7 @@ function Footer() {
 			<div className='container'>
 				<Row className='footer-row'>
 					<Col sm={12} md={3} lg={2} className='align-self-center'>
-						<Link to=''>Mentions Légales</Link>
+						<Link to='/mentions-legales'>Mentions Légales</Link>
 					</Col>
 					<Col sm={12} md={3} lg={2} className='align-self-center'>
 						<Link to=''>Politique de confidentialité</Link>
@@ -32,7 +31,6 @@ function Footer() {
 			</div>
 		</Container>
 	);
-
 }
 
 export default React.memo(Footer);
