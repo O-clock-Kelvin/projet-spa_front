@@ -6,6 +6,7 @@
 		background-color: red;
 		text-align: center;
 		align-items: center;
+		margin-top: vars.$gutter * 2;
 		&-img {
 			height: 200px;
 			object-fit: cover;
