@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Icon from '../../assets/icon.svg';
+
 import { Link, useLocation } from 'react-router-dom';
 
 import './Footer.scss';
