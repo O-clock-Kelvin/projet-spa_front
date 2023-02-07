@@ -146,7 +146,7 @@ function ListAnimals({
 					
 
 
-					<Col xs={2}>	
+					<Col xs={2} className="filter-animals-list" >	
 					<ImEqualizer className='filter' size={30} onClick={openFilter} />					
 						<FilterAnimals
 							show={filter}

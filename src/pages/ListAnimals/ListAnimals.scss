@@ -65,6 +65,11 @@
     margin: 20px 0 0 0 ;
 }
 
+.filter-animals-list {
+    display: flex;
+    justify-content: flex-end;
+}
+
 @media screen and (max-width: 400px){
     .animal-container{
         .card-img-top{
