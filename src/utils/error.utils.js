@@ -1,5 +1,6 @@
 const errorUtils = {
 
+	// erreur à affciher dans le cas où on cherche un animal
     errorHandler: (error) => {
 		if (error && error.response?.data?.message) {
 			switch (error.response.data.message) {

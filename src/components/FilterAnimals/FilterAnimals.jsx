@@ -24,9 +24,7 @@ function FilterDog({
 	setReloadButton,
 	show
 }) {
-
 	const [species, setSpecies] = useState();
-	// const [firstSubmit, setFirstSubmit] = useState(false);
 
 	// à la soumission du formulaire on récupère toutes les données des states
 	const handleOnSubmit = async (e) => {
@@ -41,12 +39,12 @@ function FilterDog({
 		}
 		setFilter(false);
 		setReloadButton(true);
-		// setFirstSubmit(true);
 	};
 
 	// si on ferme le filtre
 	const closeFilter = () => {
 		setFilter(false);
+		setReloadButton(true);
 	};
 
 	// réinitialisation du filtre

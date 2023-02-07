@@ -23,6 +23,7 @@ import ProfilePage from '../../pages/Profile/Profile';
 import ListAnimals from '../../pages/ListAnimals/ListAnimals';
 import UsersList from '../../pages/UsersList/UsersList';
 import Box from '../../pages/Box/Box';
+import MentionsPage from '../../pages/MentionsPage/MentionsPage';
 
 // fonctions
 import { useSelector } from 'react-redux';

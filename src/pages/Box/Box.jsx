@@ -12,7 +12,7 @@ import '../../styles/_vars.scss';
 /**
  * FONCTIONS
  */
-const errorHandler = (error) => {
+const errorHandlerBox = (error) => {
 	if (error && error.response?.data?.message) {
 		switch (error.response.data.message) {
 			case "NOT_FOUND":
@@ -74,7 +74,7 @@ const Box = () => {
 			return (
 				<div>
 					<p>Erreur lors du chargement du box.... </p>
-					{errorHandler(error)}
+					{errorHandlerBox(error)}
 				</div>
 			);
 		}

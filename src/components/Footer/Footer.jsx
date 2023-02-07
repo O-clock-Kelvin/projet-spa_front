@@ -4,8 +4,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Icon from '../../assets/icon.svg';
+import { Link } from 'react-router-dom';
 
-//SCSS
 import './Footer.scss';
 import { Link } from 'react-router-dom';
 
@@ -32,6 +32,7 @@ function Footer() {
 			</div>
 		</Container>
 	);
+
 }
 
 export default React.memo(Footer);

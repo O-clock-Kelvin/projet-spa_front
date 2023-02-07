@@ -119,7 +119,8 @@ const VisitsCats = () => {
 												className='d-flex align-items-center justify-content-center'
 												style={{ width: 100, height: '50px' }}
 											>
-												<p>{box.number}</p>
+												
+												<p style={{textAlign:'center'}}>Box N° <br/>{box.number}</p>
 											</div>
 											<div className='information-holder'>
 												{renderLastVisit(

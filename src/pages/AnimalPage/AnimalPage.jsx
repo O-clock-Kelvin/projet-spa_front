@@ -54,21 +54,6 @@ const AnimalPage = () => {
 		},
 	});
 
-	// const errorHandler = (error) => {
-	// 	if (error && error.response?.data?.message) {
-	// 		switch (error.response.data.message) {
-	// 			case 'NOT_FOUND':
-	// 				return "Cet animal n'existe pas";
-	// 			case 'BAD_INPUT':
-	// 				return 'Erreur de requête. Merci de retenter plus tard';
-	// 			default:
-	// 				return 'Erreur du serveur, merci de retenter plus tard';
-	// 		}
-	// 	} else {
-	// 		return 'Erreur du serveur, merci de retenter plus tard';
-	// 	}
-	// };
-
 	const renderElapsedTimeSinceLastWalk = (date) => {
 		const startOfDay = DateTime.fromISO(date).startOf('day').toISO();
 		const duration = timeUtil.convertDateInDaysUntilToday(startOfDay);
@@ -94,7 +79,7 @@ const AnimalPage = () => {
 							style={{ minHeight: '400px', maxHeight: '27rem' }}
 						>
 							<div className='d-flex flex-column justify-content-between'>
-								<div className='d-flex flex-row align-items-start '>
+								<div className='d-flex flex-row align-items-start justify-content-between' style={{maxWidth:'17.5rem'}}>
 									<Image
 										className='rounded'
 										src={

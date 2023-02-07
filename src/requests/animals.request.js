@@ -51,8 +51,6 @@ const animalsRequest = {
 	},
 
 	getAnimalsBySpecies: (species) => {
-		console.log(species);
-		// return api.get(`/animals?species=${species}`);
 		let queryBuilder = {
 			species: species
 		};

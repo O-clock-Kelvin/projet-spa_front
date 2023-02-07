@@ -117,3 +117,19 @@ a {
 		color: vars.$font-color;
 	}
 }
+
+ 
+// photos par défaut
+.default-picture {
+	opacity: 0.3;
+}
+
+.is-walking, .is-visiting {
+	background-color: #ff0000 !important;;
+}
+
+.color-primary {
+	background-color: vars.$primary-color !important;
+}
+
+
