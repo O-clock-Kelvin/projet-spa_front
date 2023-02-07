@@ -24,9 +24,11 @@ function FilterDog({
 	setReloadButton,
 	show
 }) {
+
+	// données du state
 	const [species, setSpecies] = useState();
 
-	// à la soumission du formulaire on récupère toutes les données des states
+	// à la soumission du formulaire on récupère les animaux selon l'espèce choisie
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
 		try {
@@ -41,7 +43,7 @@ function FilterDog({
 		setReloadButton(true);
 	};
 
-	// si on ferme le filtre
+	// fermeture du filtre
 	const closeFilter = () => {
 		setFilter(false);
 		setReloadButton(true);
@@ -60,8 +62,7 @@ function FilterDog({
 		}
 	};
 
-	return (
-	
+	return (	
 			<Modal show={show}>
 				<Modal.Header 
 					closeButton

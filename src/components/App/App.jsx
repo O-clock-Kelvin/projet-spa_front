@@ -68,82 +68,79 @@ function App() {
     return (
       <div className={classNames('app',{'dark-background': filter})}>
         <div className='menu'>
-          <div className='menu-desktop'>
-            <Header />
-          </div>
-          <div className='menu-mobile'>
-            <MobileHeader />
-          </div>
+			<div className='menu-desktop'>
+				<Header />
+			</div>
+			<div className='menu-mobile'>
+				<MobileHeader />
+			</div>
         </div>
         <div className='main'>
-          <Routes>
-            {/* pages accessibles à l'utilisateur connecté */}
-            <Route element={<PrivateRoutes />}>
-              <Route path='/home' element={<Home />} />
-              <Route path='/mentionsPage' element={<MentionsPage />} />
-              <Route path='/walks' element={<WalkingDog filter={filter} setFilter={setFilter}/>} />
-              <Route path='/visits' element={<VisitsCats />} />
-              <Route path='/animals' element={<ListAnimals filter={filter} setFilter={setFilter}/>} />
-            </Route>
+			<Routes>
+				{/* pages accessibles à l'utilisateur connecté */}
+				<Route element={<PrivateRoutes />}>
+					<Route path='/home' element={<Home />} />
+					<Route path='/mentionsPage' element={<MentionsPage />} />
+					<Route path='/walks' element={<WalkingDog filter={filter} setFilter={setFilter}/>} />
+					<Route path='/visits' element={<VisitsCats />} />
+					<Route path='/animals' element={<ListAnimals filter={filter} setFilter={setFilter}/>} />
+				</Route>
 
-            {/* pages accessibles à l'admin connecté */}
-            <Route element={<PrivateRoutesAdmin />}>
-              <Route path='/admin' element={<Dashboard />} />
-              <Route path='/mentionsPage' element={<MentionsPage />} />
-              <Route
-                path='/admin/create/user'
-                element={<DashboardVolunteerCreation />}
-              />
-              <Route
-                path='/admin/create/card'
-                element={<DashboardAnimalCreation />}
-              />
-              <Route
-                path='/admin/users'
-                element={<UsersList/>}
-              />
+				{/* pages accessibles à l'admin connecté */}
+				<Route element={<PrivateRoutesAdmin />}>
+					<Route path='/admin' element={<Dashboard />} />
+					<Route path='/mentionsPage' element={<MentionsPage />} />
+					<Route
+						path='/admin/create/user'
+						element={<DashboardVolunteerCreation />}
+					/>
+					<Route
+						path='/admin/create/card'
+						element={<DashboardAnimalCreation />}
+					/>
+					<Route
+						path='/admin/users'
+						element={<UsersList />}
+					/>
+				</Route>
+				
+				<Route
+					path='/profile'
+					element={
+						isConnected ? <ProfilePage /> : <Navigate to='/login' replace />
+					}
+				/>
+				<Route
+					path='/animal/:animalId'
+					element={
+						isConnected ? <AnimalPage /> : <Navigate to='/login' replace />
+					}
+				/>
 
-            </Route>
-            
-            
-
-            <Route
-              path='/profile'
-              element={
-                isConnected ? <ProfilePage /> : <Navigate to='/login' replace />
-              }
-            />
-            <Route
-              path='/animal/:animalId'
-              element={
-                isConnected ? <AnimalPage /> : <Navigate to='/login' replace />
-              }
-            />
-
-            <Route
-              path='/box/:boxId'
-              element={isConnected ? <Box /> : <Navigate to='/login' replace />}
-            />
-          
-            <Route
-              path='/'
-              element={
-                isConnected && !admin ? (
-                  <Navigate to='/home' replace />
-                ) : isConnected && admin ? (
-                  <Navigate to='/admin' replace />
-                ) : (
-                  <Navigate to='/login' replace />
-                )
-              }
-            />
-  
-            <Route
-              path='/login'
-              element={isConnected ? <Navigate to='/' replace /> : <LoginForm />}
-            />
-            <Route path='*' element={<Error404 />} />
-          </Routes>
+				<Route
+					path='/box/:boxId'
+					element={isConnected ? <Box /> : <Navigate to='/login' replace />}
+				/>
+			
+				<Route
+					path='/'
+					element={
+						isConnected && !admin ? (
+						<Navigate to='/home' replace />
+						) : isConnected && admin ? (
+						<Navigate to='/admin' replace />
+						) : (
+						<Navigate to='/login' replace />
+						)
+					}
+				/>
+	
+				<Route
+					path='/login'
+					element={isConnected ? <Navigate to='/' replace /> : <LoginForm />}
+				/>
+				<Route path='*' element={<Error404 />} />
+			</Routes>
 
         </div>
 

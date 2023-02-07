@@ -52,6 +52,7 @@ function WalkingDog({ filter, setFilter }) {
 			}),
 
 		onSuccess: (data) => {
+			// on trie les chiens par odre de sortie
 			const dogsNeverWalked = data.data.filter((dog) => dog.walks?.length === 0);
 
 			const dogsNotWalkedToday = data.data.filter(
@@ -93,6 +94,7 @@ function WalkingDog({ filter, setFilter }) {
 
 	const renderLastWalk = (date) => {
 		if(date){
+			// on affiche les chiens par ordre de priorité
 			const startofDay = DateTime.fromISO(date).startOf("day").toISO();
 			const difference = timeUtil.convertDateInDaysUntilToday(startofDay);
 			switch (difference) {
