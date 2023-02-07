@@ -21,11 +21,13 @@ const AnimalCard = ({ animal, showSpecie }) => {
 					<Card.Img
 					variant='top'
 					className='card-cat default-picture'
-						src={
-							animal.url_image ||
-							animalUtil.renderDefaultAnimalPicture(animal.species)
-						}
+					src={
+											animal.url_image ||
+											animalUtil.renderDefaultAnimalPicture(animal.species)
+										}
+										alt={animal.name}
 					/>
+										
 				
 				<Card.Body>
 					<Card.Title>{animal.name.toUpperCase()}</Card.Title>
