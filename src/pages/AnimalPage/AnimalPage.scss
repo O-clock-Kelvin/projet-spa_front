@@ -8,10 +8,9 @@
 	background-color: white;
 
 	& img {
-		height: 300px;
-		width: 300px;
+		height: auto;
+		width: 50%;
 		margin-right: vars.$gutter * 2;
-		object-fit: cover;
 	}
 
 	& .tag-info {
