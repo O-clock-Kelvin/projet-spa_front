@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useDispatch } from "react-redux";
 
 // Images
 import logo from "../../assets/logo.svg";
@@ -16,10 +17,17 @@ import "./MobileHeader.scss";
 
 //Icons from IcoMoon
 import { ImUser, ImMenu } from "react-icons/im";
+import { MdLogout } from "react-icons/md";
 import { useLocation, Link } from "react-router-dom";
+import { actionLogOut } from "../../actions/loginActions";
 
 const Header = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const handleOnClick = () => {
+    dispatch(actionLogOut());
+    localStorage.removeItem("token");
+  };
   return (
     <Navbar
       collapseOnSelect
@@ -42,6 +50,19 @@ const Header = () => {
                   id='responsive-navbar-nav'
                 >
                   <MobileMainMenu />
+
+                  <Navbar.Collapse className='justify-content-end'>
+                    <Navbar.Text>
+                      <span
+                        onClick={handleOnClick}
+                        role='button'
+                        tabIndex={0}
+                        className='disconnect-button'
+                      >
+									<MdLogout className="mobile-header-logout" /> Déconnexion
+                      </span>
+                    </Navbar.Text>
+                  </Navbar.Collapse>
                 </Navbar.Collapse>
               </>
             ) : null}
@@ -57,11 +78,13 @@ const Header = () => {
             </Navbar.Brand>
           </Col>
           <Col className='icon-nav' xs={3}>
-            <Link to='/profile' >
+					{location.pathname != "/login" ? (
+            <Link to='/profile'>
               <button className=' navbar-toggler collapsed'>
                 <ImUser />
               </button>
             </Link>
+						) : null}
           </Col>
         </Row>
       </Container>

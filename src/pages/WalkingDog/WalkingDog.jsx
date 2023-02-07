@@ -1,7 +1,7 @@
 /** @format */
 
-import React, { useState, useEffect } from "react";
-// import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import { useQuery } from "react-query";
@@ -27,13 +27,12 @@ import dogProfil from "../../assets/images/dogProfil.png";
 // fonctions
 import animalsRequest from "../../requests/animals.request";
 import timeUtil from "../../utils/time.utils";
-// import sortUtils from "../../utils/sort.utils";
+import errorUtils from "../../utils/error.utils";
 
 function WalkingDog({ filter, setFilter }) {
 
 	// récupération de l'experience du bénévole pour récupérer les bons chiens
-	// const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
-	const experience = 'MEDIUM';
+	const experience = useSelector((fullstate) => fullstate.loginSettings.experience);
 	
 	// tous les chiens correspondant à l'expérience du bénévole
 	const [allDogs, setAllDogs] = useState([]);
@@ -44,13 +43,16 @@ function WalkingDog({ filter, setFilter }) {
 	// le bouton revoir la liste
 	const [reloadButton, setReloadButton] = useState(false);
 
-	// on fait la requête qui récupère tous les chiens correspondant à l'experience du bénévole. React-query permet de voir comment comment se passe la requête
-	const { isLoading, error, data, isFetching } = useQuery("repoData", () => animalsRequest.getDogsByExperience(experience));
+	// on fait la requête qui récupère tous les chiens correspondant à l'experience du bénévole avec React Query
+	const { error, isLoading } = useQuery('repoData', {
+		queryFn: async () =>
+			animalsRequest.getDogsByExperience(experience, {
+				includeTags: true,
+				includeWalks: true,
+			}),
 
-	// si la requête se passe bien et qu'on nous retourne data, on trie la liste par ordre de priorité (le tableau se trouve dans data.data)
-	useEffect(() => {
-		if (data) {
-			// on trie les chiens par ordre de priorité suivant les dernières dates de sortie
+		onSuccess: (data) => {
+			// on trie les chiens par odre de sortie
 			const dogsNeverWalked = data.data.filter((dog) => dog.walks?.length === 0);
 
 			const dogsNotWalkedToday = data.data.filter(
@@ -73,11 +75,10 @@ function WalkingDog({ filter, setFilter }) {
 			});
 			
 			// puis on met à jour les chiens à afficher
-			console.log(dogsOrderedByDateDesc.length);
 			setAllDogs([...dogsNeverWalked, ...dogsOrderedByDateDesc]);
 			setDogs([...dogsNeverWalked, ...dogsOrderedByDateDesc]);
-		}
-	}, [isLoading, error, data, isFetching]);
+		},
+	});
 
 	// au click sur le filtre on affiche le composant
 	const openFilter = () => {
@@ -85,35 +86,15 @@ function WalkingDog({ filter, setFilter }) {
 		setReloadButton(false);
 	};
 
-	// pour revoir la liste de tous les chiens on refait la requête
+	// pour re-afficher tous les chiens on récupère la liste des chiens stockée dans le state
 	const reloadDogs = async () => {
-		try {
-			// const dogsReloaded = await animalsRequest.getDogsByExperience(experience);
-			// const sortedDogs = sortUtils.sortDogsByLastWalk(dogsReloaded.data);
-			setDogs(allDogs);
-			setReloadButton(false);
-		} catch (error) {
-			console.log(error);
-		}
+		setDogs(allDogs);
+		setReloadButton(false);	
 	};
-
-	// on change la couleur du texte de la dernière sortie du chien en fonction de la priorité
-	// const emergencyWalking = (date) => {
-	// 	const result = timeUtil.convertDateInDaysUntilToday(date);
-	// 	switch (result) {
-	// 		case 0:
-	// 			return "green";
-	// 		case 1:
-	// 			return "green";
-	// 		case 2:
-	// 			return "orange";
-	// 		default:
-	// 			return "red";
-	// 	}
-	// };
 
 	const renderLastWalk = (date) => {
 		if(date){
+			// on affiche les chiens par ordre de priorité
 			const startofDay = DateTime.fromISO(date).startOf("day").toISO();
 			const difference = timeUtil.convertDateInDaysUntilToday(startofDay);
 			switch (difference) {
@@ -136,44 +117,41 @@ function WalkingDog({ filter, setFilter }) {
 	const renderDog = (dog) => {
 		const age = timeUtil.convertBirthdayInAge(dog.age);
 		return (
-			<Card key={dog.id}>
+			<Card className='container-card-animal' key={dog.id}>
 				<Link to={`/animal/${dog.id}`}>
-					<Card.Img
-						variant='top'
-						className={classnames(
-							"card-dog",
-							dog.url_image ? "" : "default-picture"
-						)}
-						src={dog.url_image ? dog.url_image : dogProfil}
-					/>
+					<div className='dog-container'>
+						<Card.Img
+							variant='top'
+							className={classnames(
+								"card-dog",
+								dog.url_image ? "" : "default-picture"
+							)}
+							src={dog.url_image ? dog.url_image : dogProfil}
+						/>
 
-					<Card.Body>
-						<Card.Title>{dog.name.toUpperCase()}</Card.Title>
-						<Card.Text>
-							<span className='age'>
-								{age} an{age > 1 ? "s" : ""}
-							</span>
-							<span>
-								{dog.gender === "MALE" ? (
-									<BiMaleSign className='gender' size={35} />
-								) : (
-									<BiFemaleSign className='gender' size={35} />
-								)}
-							</span>
-						</Card.Text>		
-							<Card.Text
-								className={classnames(
-									"last-walking"
-								)}
-							>
-								{/* {Dernière sortie : il y a{" "}
-								{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date)} jour
-								{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date) > 1
-									? "s"
-									: ""}} */}
-								{renderLastWalk(dog.walks[dog.walks?.length-1]?.date)}
-							</Card.Text>				
-					</Card.Body>
+						<Card.Body>
+							<Card.Title>{dog.name.toUpperCase()}</Card.Title>
+							<Card.Text>
+								<span className='age'>
+									{age} an{age > 1 ? "s" : ""}
+								</span>
+								<span>
+									{dog.gender === "MALE" ? (
+										<BiMaleSign className='gender' size={35} />
+									) : (
+										<BiFemaleSign className='gender' size={35} />
+									)}
+								</span>
+							</Card.Text>		
+								<Card.Text
+									className={classnames(
+										"last-walking"
+									)}
+								>
+									{renderLastWalk(dog.walks[dog.walks?.length-1]?.date)}
+								</Card.Text>				
+						</Card.Body>
+					</div>
 				</Link>
 			</Card>
 		);
@@ -209,11 +187,11 @@ function WalkingDog({ filter, setFilter }) {
 				</div>
 
 				<div className='cards-container'>
-					{!isLoading && dogs ? (
-						dogs.map((dog) => renderDog(dog))
-					) : (
-						<LoadingSpinner />
-					)}
+					{isLoading ? <LoadingSpinner /> :
+						error ? (errorUtils.errorHandler(error)) :
+						dogs.length === 0 ? (<p>Il n'y a pas de chien correspondant à votre recherche.</p>) :
+						(dogs.map((dog) => renderDog(dog)))
+					}
 				</div>
 			</div>
 		</>

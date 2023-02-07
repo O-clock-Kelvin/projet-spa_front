@@ -19,7 +19,8 @@
 	border: none !important;
 	box-shadow: vars.$shadow;
 	background: vars.$primary-background-color !important;
-	width: 50%;
+
+	margin-top: vars.$gutter * 4;
 
 	& .h5 {
 		margin: 0 !important;
@@ -58,4 +59,11 @@
 	& .edit-form {
 		width: 100%;
 	}
+}
+
+@media screen and (max-width: 400px){
+	.profile {
+		width: 85%;
+		margin-top: 2rem;}
+
 }

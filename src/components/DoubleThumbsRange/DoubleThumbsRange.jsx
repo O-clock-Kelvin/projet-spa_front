@@ -1,25 +1,23 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useRanger } from '@tanstack/react-ranger';
 
 import './DoubleThumbsRange';
 
-function DoubleThumbsRange({ onUpdate }) {
+function DoubleThumbsRange({ values, setValues }) {
 
     const rangerRef = useRef(null);
-    const [values, setValues] = useState([
-        0, 20,
-    ]);
-
+    
     const rangerInstance = useRanger({
         getRangerElement: () => rangerRef.current,
         values,
         min: 0,
-        max: 15,
+        max: 20,
         stepSize: 1,
         onChange: (instance) => {
-            setValues(instance.sortedValues),
-            onUpdate(instance.sortedValues);
+            console.log("instance");
+            console.log(instance);
+            setValues(instance.sortedValues);
         }
     });
 
@@ -86,7 +84,8 @@ function DoubleThumbsRange({ onUpdate }) {
 }
 
 DoubleThumbsRange.propTypes = {
-    onUpdate: PropTypes.func.isRequired
+    values: PropTypes.array,
+    setValues: PropTypes.func
 };
 
 export default React.memo(DoubleThumbsRange);

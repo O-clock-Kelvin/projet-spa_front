@@ -8,11 +8,14 @@ import AnimalCard from "../../components/AnimalCard/AnimalCard";
 import VisitStartButton from "../../components/VisitStartButton/VisitStartButton";
 
 import '../../styles/_vars.scss';
+import { Container } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 /**
  * FONCTIONS
  */
-const errorHandler = (error) => {
+const errorHandlerBox = (error) => {
 	if (error && error.response?.data?.message) {
 		switch (error.response.data.message) {
 			case "NOT_FOUND":
@@ -61,12 +64,20 @@ const Box = () => {
 		if (box) {
 			return (
 				<>
-					<h3 className='title-page'>Box N° : {''}{box.number}</h3>
-					<div className='box main-container d-flex flex-column justify-content-center align-items-center' style={{gap:'3.5rem'}} >
-						<VisitStartButton box={box} />
-						<div className='d-flex flex-wrap justify-content-center' style={{gap:'1rem'}}>
+					<Container>
+					<Row>
+					<Col className="text-center">
+	<h3 className='title-page'>Box N° : {''}{box.number}</h3>
+					<VisitStartButton box={box} />
+					</Col>
+					</Row>
+					</Container>
+					<div className="main-container">
+					<div className="cards-container" >
+						
+
 							<RenderAnimalsList animals={box.animals} />
-						</div>
+</div>
 					</div>
 				</>
 			);
@@ -74,7 +85,7 @@ const Box = () => {
 			return (
 				<div>
 					<p>Erreur lors du chargement du box.... </p>
-					{errorHandler(error)}
+					{errorHandlerBox(error)}
 				</div>
 			);
 		}

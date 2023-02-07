@@ -33,18 +33,12 @@ function LoginForm() {
 	// utilisation de la fonction dispatch de redux pour lancer une action
 	const dispatch = useDispatch();
 
-	const { isLoading, noAutorisation } = useSelector(
-		(fullstate) => fullstate.loginSettings
-	);
+	// récupération des données du state
+	const { isLoading, noAutorisation } = useSelector((fullstate) => fullstate.loginSettings);
 
-	// on modifie et enregistre la valeur de l'email dans le state
-	const handleOnChangeEmail = (event) => {
-		setEmail(event.target.value);
-	};
-
-	const handleOnChangePassword = (event) => {
-		setPassword(event.target.value);
-	};
+	// on modifie et enregistre les valeurs de l'email et du password dans le state
+	const handleOnChangeEmail = (event) => {setEmail(event.target.value);};
+	const handleOnChangePassword = (event) => {setPassword(event.target.value);};
 
 	// au submit on envoie l'email et le password à actionLoginFetch
 	const handleOnSubmit = (event) => {

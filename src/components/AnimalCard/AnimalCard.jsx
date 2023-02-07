@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import Card from 'react-bootstrap/Card';
 import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import animalUtil from '../../utils/animal.utils';
 import timeUtil from '../../utils/time.utils';
+import catProfil from '../../assets/images/chat-patte.png';
+import dogProfil from '../../assets/images/dogProfil.png';
 
 import './AnimalCard.scss';
 
@@ -12,22 +15,21 @@ const AnimalCard = ({ animal, showSpecie }) => {
 	const age = timeUtil.convertBirthdayInAge(animal.age);
 	return (
 		<Card
-			className='animal-card'
+			className='container-card-animal'
 			key={animal.id}
-			style={{ minWidth: '10px', maxWidth: '17rem' }}
+			// style={{ minWidth: '10px', maxWidth: '17rem' }}
 		>
 			<Link to={`/animal/${animal.id}`} className='text-dark'>
-				<div className='p-3' style={{ width: '100%' }}>
-					<Card.Img
-						src={
-							animal.url_image ||
-							animalUtil.renderDefaultAnimalPicture(animal.species)
-						}
-					/>
-				</div>
+				<div className='dog-container animal-container'>					
+				<Card.Img 
+						variant='top' 
+						className={classnames('card-dog', animal.url_image? '': 'default-picture')} 
+						src={animal.url_image ? animal.url_image : (animal.species === 'CAT') ? catProfil : dogProfil} />
+										
+				
 				<Card.Body>
-					<Card.Title>{animal.name}</Card.Title>
-					<Card.Text>
+					<Card.Title>{animal.name.toUpperCase()}</Card.Title>
+					<Card.Text >
 						{showSpecie && animalUtil.renderSpecie(animal.species)}
 					</Card.Text>
 					<Card.Text>
@@ -43,6 +45,7 @@ const AnimalCard = ({ animal, showSpecie }) => {
 						</span>
 					</Card.Text>
 				</Card.Body>
+				</div>
 			</Link>
 		</Card>
 	);

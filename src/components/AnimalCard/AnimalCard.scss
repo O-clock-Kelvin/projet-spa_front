@@ -1,9 +1,114 @@
 @use '../../styles/vars';
 
-.animal-card{
-    box-shadow: vars.$shadow !important; 
-    transition: transform .2s; 
-    &:hover { 
-        transform: scale(1.1); 
-    } 
+
+.cat-container{
+    .card {
+        margin-top: vars.$gutter * 3;
+        transition: all .2s ease-in-out;
+
+        &:hover { 
+            transform: scale(1.1); 
+        }
+
+        &-img-top {
+            padding: vars.$gutter * 2;
+        }
+
+        &-cat {
+            margin: 0;
+            width: 300px !important;
+            box-shadow: vars.$shadow;
+            height: 300px;
+            object-fit: contain;
+        }
+
+        &-title {
+            color: vars.$font-color;
+        }
+
+        .age {
+            color: vars.$font-color;
+            font-size: 1.2rem;
+        }
+    }
+
+    .default-picture {
+        opacity: 0.3;
+    }
+
+}
+
+@media screen and (max-width: 992px){
+  
+    .cat-container{
+    display: flex !important;  
+
+        .card-img-top{
+            &.card-cat{
+                width:11rem !important;
+                height:11rem !important;
+                margin: 1rem;
+                padding:0;
+                border-radius: 1rem;
+            }    
+        }
+        .card-body{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            .card-text{               
+                flex-grow:30;          
+            }           
+        }   
+        
+    }
+}
+@media screen and (max-width: 590px){
+    .cat-container{
+            .card-img-top{
+                &.card-cat{
+                    width:8rem !important;
+                    height:8rem !important;
+                }    
+            }
+        }
+        .main-container{
+            margin:50px 20px 10px 20px !important;
+        }
+        .cards-container{
+            row-gap:0 !important;
+            gap:0 !important;
+        }
+}
+@media screen and (max-width: 400px){
+    .cat-container{
+        .card-img-top{
+            &.card-cat{
+                width:6rem !important;
+                height:6rem !important;
+            }    
+        }
+        .card-title{
+            font-size:1.1rem;
+        }
+        .age{
+            font-size:1rem !important;
+        }
+        
+    }
+    .box{
+        button{
+            width:50% !important;
+        }
+    }
+  
+}
+
+.box-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &-button {
+        width: max-content !important;
+    }
 }

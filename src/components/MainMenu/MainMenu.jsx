@@ -20,7 +20,7 @@ function MainMenu() {
 						Accueil
 					</Nav.Link>
 					<Nav.Link className='hover-underline-animation' href='/animals'>
-						Voir tous les animaux
+						Liste Animaux
 					</Nav.Link>
 					<Nav.Link
 						className='hover-underline-animation'
@@ -33,6 +33,12 @@ function MainMenu() {
 						href='/admin/create/user'
 					>
 						Création Bénévole
+					</Nav.Link>
+					<Nav.Link
+						className='hover-underline-animation'
+						href='/admin/users'
+					>
+						Liste Utilisateurs
 					</Nav.Link>
 				</Nav>
 			);
@@ -50,7 +56,7 @@ function MainMenu() {
 						Visiter la chatterie
 					</Nav.Link>
 					<Nav.Link className='hover-underline-animation' href='/animals'>
-						Voir tous les animaux
+						Liste animaux
 					</Nav.Link>
 				</Nav>
 			);

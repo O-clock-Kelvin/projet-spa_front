@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -9,6 +9,7 @@ import { ImEqualizer } from 'react-icons/im';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
+import { BiFemaleSign, BiMaleSign } from "react-icons/bi";
 
 // composants
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
@@ -16,14 +17,21 @@ import FilterAnimals from '../../components/FilterAnimals/FilterAnimals';
 
 // fonctions
 import animalsRequest from '../../requests/animals.request';
+import errorUtils from '../../utils/error.utils';
+
+import timeUtil from "../../utils/time.utils";
+
+import sortUtils from '../../utils/sort.utils';
+
 
 // images
 import catProfil from '../../assets/images/chat-patte.png';
-import sortUtils from '../../utils/sort.utils';
 import dogProfil from '../../assets/images/dogProfil.png';
 
 // styles
 import "./ListAnimals.scss";
+import { Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 
 function ListAnimals({
 	filter,
@@ -42,15 +50,19 @@ function ListAnimals({
 	const [searchName, setSearchName] = useState('');
 
 	// requête pour récupérer tous les animaux à l'affichage de la page
-	const { isLoading, error, data, isFetching } = useQuery('repoData', () => animalsRequest.getAllAnimals());
+	const { error, isLoading } = useQuery('repoData', {
+		queryFn: async () =>
+			animalsRequest.getAllAnimals({
+				includeTags: true,
+				includeWalks: true,
+			}),
 
-	useEffect(() => {
-		if (data) {
+		onSuccess: (data) => {
 			const sortedAnimals = sortUtils.sortAnimalsByName(data.data);
 			setAllAnimals(sortedAnimals);
 			setAnimals(sortedAnimals);
-		}
-	}, [isLoading, error, data, isFetching]);
+		},
+	});
 
 	// au click sur le filtre on affiche le composant
 	const openFilter = () => {
@@ -59,18 +71,12 @@ function ListAnimals({
 	};
 
 	// pour revoir la liste de tous les animaux on refait la requête
-	const reloadAnimals = async () => {
-		try {
-			// const data = await animalsRequest.getAllAnimals();
-			// const sortedAnimals = sortUtils.sortAnimalsByName(data.data);
-			setAnimals(allAnimals);
-			setReloadButton(false);
-		} catch (error) {
-			console.log(error);
-		}
+	const reloadAnimals = () => {
+		setAnimals(allAnimals);
+		setReloadButton(false);
 	};
 
-	//
+	// à la soumission du formulaire on vérifie si la chaines de caractères entrée correspond à un nom d'animal
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
 		if (!searchName.trim()) return;
@@ -83,18 +89,33 @@ function ListAnimals({
 
 	// on affiche chaque carte du chien de la liste récupérée
 	const renderAnimal = (animal) => {
+		const age = timeUtil.convertBirthdayInAge(animal.age);
 		return (
-			<Card key={animal.id}  className={classnames('container-card-dog', {'dark-card': filter})}>
+			<Card key={animal.id}  className={classnames('container-card-animal', {'dark-card': filter})}>
 				<Link
 					to={`/animal/${animal.id}`}
 				>
+				<div className='dog-container animal-container'>
 					<Card.Img 
 						variant='top' 
 						className={classnames('card-dog', animal.url_image? '': 'default-picture')} 
 						src={animal.url_image ? animal.url_image : (animal.species === 'CAT') ? catProfil : dogProfil} />
 					<Card.Body>
 						<Card.Title className='card-title'>{animal.name.toUpperCase()}</Card.Title>
+						<Card.Text>
+								<span className='age'>
+									{age} an{age > 1 ? "s" : ""}
+								</span>
+								<span>
+									{animal.gender === "MALE" ? (
+										<BiMaleSign className='gender' size={35} />
+									) : (
+										<BiFemaleSign className='gender' size={35} />
+									)}
+								</span>
+							</Card.Text>	
 					</Card.Body>
+					</div>
 				</Link>
 			</Card>
 		);
@@ -106,9 +127,9 @@ function ListAnimals({
 
 			<div className='main-container'>
 
-				<div className="header-container">
+				<Row className="header-container">
 
-					<div className='search-container'>		
+					<Col xs={10}>		
 						
 							<Form className="d-flex search-form" onSubmit={handleOnSubmit}>
 								<Form.Control
@@ -121,36 +142,39 @@ function ListAnimals({
 								/>
 								<Button type="submit" className="search-button">Valider</Button>
 							</Form>		
-						
-							<ImEqualizer className='filter' size={30} onClick={openFilter} />
+							</Col>
+							
 									
-					</div>
 					
-					<div>
-						{reloadButton && (
-							<Button className='reload-button' type='button' onClick={reloadAnimals}>
-								Revoir la liste de tous les animaux
-							</Button>
-						)}
-					</div>
+					
 
-					<div>						
+
+					<Col xs={2} className="filter-animals-list" >	
+					<ImEqualizer className='filter' size={30} onClick={openFilter} />					
 						<FilterAnimals
 							show={filter}
 							setFilter={setFilter}
 							setAnimals={setAnimals}
 							setReloadButton={setReloadButton}
 						/>
+					</Col>
+
+					<div>
+						{reloadButton && (
+							<Button className='reload-button' type='button' onClick={reloadAnimals}>
+								Revoir la liste des animaux
+							</Button>
+						)}
 					</div>
 
-				</div>
+				</Row>
 			
 				<div className='cards-container'>
-					{!isLoading && animals ? (
-						animals.map((animal) => renderAnimal(animal))
-					) : (
-						<LoadingSpinner />
-					)}
+					{isLoading ? <LoadingSpinner /> :
+						error ? (errorUtils.errorHandler(error)) :
+						animals.length === 0 ? (<p>Il n'y a pas d'animaux correspondants à votre recherche.</p>) :
+						(animals.map((animal) => renderAnimal(animal)))
+					}			
 				</div>
 
 			</div>

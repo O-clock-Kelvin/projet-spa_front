@@ -56,7 +56,7 @@ const VisitStartButton = ({ box }) => {
 						onClick={() => setShowModal(true)}
 						role='button'
 						tabIndex='0'
-						className='w-25 p-1'						
+						className=' box-header-button'						
 					>
 						Visiter ce box
 					</Button>
@@ -64,7 +64,7 @@ const VisitStartButton = ({ box }) => {
 					{/* Modale de confirmation de la balade */}
 					<Modal show={showModal} onHide={() => setShowModal(false)}>
 						<Modal.Header closeButton>
-							<Modal.Title>confirmation de la visite</Modal.Title>
+							<Modal.Title>Confirmation de la visite</Modal.Title>
 						</Modal.Header>
 						<Modal.Body>
 							Etes vous sur de vouloir visiter cette box ?
@@ -114,16 +114,16 @@ const VisitStartButton = ({ box }) => {
 								setLastVisit(data);
 							}}
 						/>
-						<div							
+						<Button							
 							onClick={() => {
 								setShowEndEditor(true);
 							}}
 							role='button'
 							tabIndex='0'
-							className='btn-primary w-25 p-1'
+							className='btn-primary w-25 p-1 is-walking'
 						>
 							Terminer la visite
-						</div>
+						</Button>
 					</>
 				);
 			} else {

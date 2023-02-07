@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import animalsRequest from '../../requests/animals.request';
+import errorUtils from '../../utils/error.utils';
 import timeUtil from '../../utils/time.utils';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import Image from 'react-bootstrap/Image';
-import animalUtil from '../../utils/animal.utils';
 
 import './AnimalPage.scss';
 
@@ -15,10 +16,13 @@ import AnimalWalksList from '../../components/AnimalWalksList';
 import BoxVisitsList from '../../components/BoxVisitsList/BoxVisits';
 import { DateTime } from 'luxon';
 
+import catProfil from '../../assets/images/chat-patte.png';
+import dogProfil from '../../assets/images/dogProfil.png';
+
 const TagsList = ({ tags }) => {
 	if (tags) {
 		return (
-			<ul className='d-flex flex-row justify-content-center'>
+			<ul className='tags-animal-page d-flex flex-row justify-content-center'>
 				{tags.map((tag) => (
 					<li className='tag me-1' key={tag.tag_id}>
 						{tag.tag.name}
@@ -53,21 +57,6 @@ const AnimalPage = () => {
 		},
 	});
 
-	const errorHandler = (error) => {
-		if (error && error.response?.data?.message) {
-			switch (error.response.data.message) {
-				case 'NOT_FOUND':
-					return "Cet animal n'existe pas";
-				case 'BAD_INPUT':
-					return 'Erreur de requête. Merci de retenter plus tard';
-				default:
-					return 'Erreur du serveur, merci de retenter plus tard';
-			}
-		} else {
-			return 'Erreur du serveur, merci de retenter plus tard';
-		}
-	};
-
 	const renderElapsedTimeSinceLastWalk = (date) => {
 		const startOfDay = DateTime.fromISO(date).startOf('day').toISO();
 		const duration = timeUtil.convertDateInDaysUntilToday(startOfDay);
@@ -93,16 +82,14 @@ const AnimalPage = () => {
 							style={{ minHeight: '400px', maxHeight: '27rem' }}
 						>
 							<div className='d-flex flex-column justify-content-between'>
-								<div className='d-flex flex-row align-items-start '>
+								<div className='d-flex flex-row align-items-start justify-content-between' style={{maxWidth:'17.5rem'}}>
 									<Image
-										className='rounded'
-										width={200}
-										src={
-											animal.url_image ||
-											animalUtil.renderDefaultAnimalPicture(animal.species)
-										}
-										alt={animal.name}
-									/>
+
+										className={classnames('card-dog','rounded', animal.url_image? '': 'default-picture')} 
+						src={animal.url_image ? animal.url_image : (animal.species === 'CAT') ? catProfil : dogProfil} alt={animal.name} />
+										
+
+
 									<div className='d-flex flex-column'>
 										<div className='p-2 tag-info'>
 											<p>
@@ -123,7 +110,7 @@ const AnimalPage = () => {
 									</div>
 								</div>
 								<div
-									className='d-flex flex-column justify-content-between align-items-center'
+									className=' d-flex flex-column justify-content-between align-items-center'
 									style={{ height: 180 }}
 								>
 									<TagsList tags={animal.tags} />
@@ -154,7 +141,7 @@ const AnimalPage = () => {
 							<div>
 								<h4 className='subtitle-page'>Biographie</h4>
 								<div className='animal-bio'>
-									{animal.bio ?? "Cet animal n'a pas de bio"}
+									{animal.bio ? animal.bio : "Cet animal n'a pas de bio."}
 								</div>
 							</div>
 							<div>
@@ -179,7 +166,7 @@ const AnimalPage = () => {
 			return (
 				<div>
 					<p>Erreur lors du chargement de la page de l'animal... </p>
-					{errorHandler(error)}
+					{errorUtils.errorHandler(error)}
 				</div>
 			);
 		}
