@@ -5,9 +5,9 @@ import animalsRequest from '../../requests/animals.request';
 import errorUtils from '../../utils/error.utils';
 import timeUtil from '../../utils/time.utils';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import Image from 'react-bootstrap/Image';
-import animalUtil from '../../utils/animal.utils';
 
 import './AnimalPage.scss';
 
@@ -15,6 +15,9 @@ import StartWalkButton from '../../components/WalkStartButton/WalkStartButton';
 import AnimalWalksList from '../../components/AnimalWalksList';
 import BoxVisitsList from '../../components/BoxVisitsList/BoxVisits';
 import { DateTime } from 'luxon';
+
+import catProfil from '../../assets/images/chat-patte.png';
+import dogProfil from '../../assets/images/dogProfil.png';
 
 const TagsList = ({ tags }) => {
 	if (tags) {
@@ -81,13 +84,11 @@ const AnimalPage = () => {
 							<div className='d-flex flex-column justify-content-between'>
 								<div className='d-flex flex-row align-items-start justify-content-between' style={{maxWidth:'17.5rem'}}>
 									<Image
-										className='rounded'
-										src={
-											animal.url_image ||
-											animalUtil.renderDefaultAnimalPicture(animal.species)
-										}
-										alt={animal.name}
-									/>
+
+										className={classnames('card-dog','rounded', animal.url_image? '': 'default-picture')} 
+						src={animal.url_image ? animal.url_image : (animal.species === 'CAT') ? catProfil : dogProfil} alt={animal.name} />
+										
+
 
 									<div className='d-flex flex-column'>
 										<div className='p-2 tag-info'>
@@ -101,16 +102,10 @@ const AnimalPage = () => {
 											</p>
 										</div>
 										<div className='p-2 tag-info'>
-											<p>
-												{animal.size === 'big' ? 'GROS' : 
-												animal.size === 'medium' ? 'MOYEN' : 
-												'PETIT'}
-											</p>
+											<p>{animal.size}</p>
 										</div>
 										<div className='p-2 tag-info'>
-											<p>
-												{animal.gender === 'male' ? 'MALE' : 'FEMELLE'}
-											</p>
+											<p>{animal.gender}</p>
 										</div>
 									</div>
 								</div>

@@ -15,12 +15,12 @@ const AnimalCard = ({ animal, showSpecie }) => {
 	const age = timeUtil.convertBirthdayInAge(animal.age);
 	return (
 		<Card
-			className='animal-card'
+			className='container-card-animal'
 			key={animal.id}
 			// style={{ minWidth: '10px', maxWidth: '17rem' }}
 		>
 			<Link to={`/animal/${animal.id}`} className='text-dark'>
-				<div className='cat-container'>					
+				<div className='dog-container animal-container'>					
 				<Card.Img 
 						variant='top' 
 						className={classnames('card-dog', animal.url_image? '': 'default-picture')} 
@@ -29,7 +29,7 @@ const AnimalCard = ({ animal, showSpecie }) => {
 				
 				<Card.Body>
 					<Card.Title>{animal.name.toUpperCase()}</Card.Title>
-					<Card.Text>
+					<Card.Text >
 						{showSpecie && animalUtil.renderSpecie(animal.species)}
 					</Card.Text>
 					<Card.Text>

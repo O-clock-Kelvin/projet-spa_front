@@ -62,11 +62,12 @@ const Box = () => {
 			return (
 				<>
 					<h3 className='title-page'>Box N° : {''}{box.number}</h3>
-					<div className='box main-container d-flex flex-column justify-content-center align-items-center' style={{gap:'3.5rem'}} >
+					<div className="main-container">
+					<div className="cards-container" >
 						<VisitStartButton box={box} />
-						<div className='d-flex flex-wrap justify-content-center' style={{gap:'1rem'}}>
+
 							<RenderAnimalsList animals={box.animals} />
-						</div>
+</div>
 					</div>
 				</>
 			);
