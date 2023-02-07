@@ -16,8 +16,8 @@ function MentionsPage() {
         <li>
             <h2>Article 2 : Mentions légales</h2>
              <p>
-              L’édition du site «ToutOpoils» est assurée par l'équipe....
-             L’hébergeur du site est ….
+              L’édition du site «ToutOpoils» est assurée par l'équipe suivante : Angélique PINCHON, Bernard ARROUES, Luis GONÇALVES, Mathilde BORDEAU, Denise FONTANIER.
+             L’hébergeur du site est HEROKU. Les images sont hébergées sur Amazon S3, la base de données sur AWS RDS et front et back sur Render.
              </p>
         </li>
 
@@ -32,9 +32,6 @@ function MentionsPage() {
             <p>
             L’accès aux services du site peut à tout moment faire l’objet d’une interruption, d’une suspension, d’une modification sans préavis pour une maintenance ou pour tout autre cas. L’Utilisateur s’oblige à ne réclamer aucune indemnisation suite à l’interruption, à la suspension ou à la modification du présent contrat.
              </p>
-             <p>
-             L’Utilisateur a la possibilité de contacter le site par téléphone au ….
-            </p>
         </li>
 
         <li>
@@ -84,23 +81,16 @@ function MentionsPage() {
              </p>
         </li>
         
-        <li>
-            <h2>Article 8 : Cookies</h2>
-            <p>
-            L’Utilisateur est informé, que lors de ses visites sur le site, aucun cookie n'affecte son ordinateur. Le cookie est un fichier texte qui ne permet pas d’identifier l’Utilisateur mais sert à enregistrer des informations relatives à la navigation de celui-ci sur le site. L’utilisation de ces cookies a pour finalité de procéder à des analyses de fréquentation ou des mesures d’audience afin d’améliorer la qualité du site. L’Utilisateur peut refuser l’installation de ces cookies en modifiant les paramètres de son navigateur. En vue d’adapter le site aux demandes de ses visiteurs, nous mesurons le nombre de visites, le nombre de pages vues ainsi que de l’activité des visiteurs sur le site et leur fréquence de retour. 
-            Pour plus d’informations sur les cookies et la façon de les gérer, nous vous recommandons de consulter le site www.youronlinechoices.com, développé par l’organisme EDAA (European Interactive Digital Advertising Alliance).
-            </p>
-        </li>
 
         <li>
-          <h2>Article 9 : Droit applicable et juridiction compétente</h2>
+          <h2>Article 8 : Droit applicable et juridiction compétente</h2>
           <p>
           La législation française s’applique. En cas d’absence de résolution amiable d’un litige né entre les parties, seuls les tribunaux sont compétents.
           </p>
         </li>
 
         <li>
-         <h2>Article 10 : Les principales lois concernées</h2>
+         <h2>Article 9 : Les principales lois concernées</h2>
             <p>
              Le Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016 (Règlement Général sur la Protection des Données dit RGPD) relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données.
             </p>
