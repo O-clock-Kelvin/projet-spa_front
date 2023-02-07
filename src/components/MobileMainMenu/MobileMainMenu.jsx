@@ -21,7 +21,7 @@ function MobileMainMenu() {
 						Accueil
 					</Nav.Link>
 					<Nav.Link className='mobile-nav-link' href='/animals'>
-						Voir tous les animaux
+						Liste animaux
 					</Nav.Link>
 					<Nav.Link className='mobile-nav-link' href='/admin/create/card'>
 						Création Animal
@@ -45,7 +45,10 @@ function MobileMainMenu() {
 						Visiter la chatterie
 					</Nav.Link>
 					<Nav.Link className='mobile-nav-link' href='/animals'>
-						Voir tous les animaux
+						Liste animaux
+					</Nav.Link>
+					<Nav.Link className='mobile-nav-link' href='/animals'>
+						Liste utilisateurs
 					</Nav.Link>
 				</Nav>
 			);

@@ -22,6 +22,10 @@
 	padding: vars.$gutter * 2 vars.$gutter * 5 vars.$gutter 0;
 }
 
+.mobile-header-logout {
+	margin-left: vars.$gutter * 2;
+}
+
 @media (max-width: 599px) {
 	.navbar {
 		box-shadow: none;
