@@ -22,7 +22,7 @@ function Footer() {
 								<Link to='/mentions-legales'>Mentions Légales</Link>
 							</Col>
 							<Col sm={12} md={3} lg={2} className='align-self-center'>
-								<Link to=''>Politique de confidentialité</Link>
+								<a href='/rgpd.pdf'>Politique de confidentialité</a>
 							</Col>
 							<Col sm={12} md={2} lg={4} className='align-self-center'>
 								<div className='text-center'>
