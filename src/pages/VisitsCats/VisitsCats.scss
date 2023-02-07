@@ -1,12 +1,12 @@
 @use '../../styles/vars';
 
 .visits {
-    & .card div:first-child{
-        background-color: vars.$icons-background-color;
-    }
-    & p {
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 0 !important;
- }
+	.information-holder {
+		text-align: center;
+	}
+	& p {
+		font-weight: bold;
+		text-transform: uppercase;
+		margin-bottom: 0 !important;
+	}
 }

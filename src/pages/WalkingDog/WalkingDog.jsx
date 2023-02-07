@@ -119,37 +119,44 @@ function WalkingDog({ filter, setFilter }) {
 		return (
 			<Card key={dog.id}>
 				<Link to={`/animal/${dog.id}`}>
-					<Card.Img
-						variant='top'
-						className={classnames(
-							"card-dog",
-							dog.url_image ? "" : "default-picture"
-						)}
-						src={dog.url_image ? dog.url_image : dogProfil}
-					/>
+					<div className='dog-container'>
+						<Card.Img
+							variant='top'
+							className={classnames(
+								"card-dog",
+								dog.url_image ? "" : "default-picture"
+							)}
+							src={dog.url_image ? dog.url_image : dogProfil}
+						/>
 
-					<Card.Body>
-						<Card.Title>{dog.name.toUpperCase()}</Card.Title>
-						<Card.Text>
-							<span className='age'>
-								{age} an{age > 1 ? "s" : ""}
-							</span>
-							<span>
-								{dog.gender === "MALE" ? (
-									<BiMaleSign className='gender' size={35} />
-								) : (
-									<BiFemaleSign className='gender' size={35} />
-								)}
-							</span>
-						</Card.Text>		
-							<Card.Text
-								className={classnames(
-									"last-walking"
-								)}
-							>
-								{renderLastWalk(dog.walks[dog.walks?.length-1]?.date)}
-							</Card.Text>				
-					</Card.Body>
+						<Card.Body>
+							<Card.Title>{dog.name.toUpperCase()}</Card.Title>
+							<Card.Text>
+								<span className='age'>
+									{age} an{age > 1 ? "s" : ""}
+								</span>
+								<span>
+									{dog.gender === "MALE" ? (
+										<BiMaleSign className='gender' size={35} />
+									) : (
+										<BiFemaleSign className='gender' size={35} />
+									)}
+								</span>
+							</Card.Text>		
+								<Card.Text
+									className={classnames(
+										"last-walking"
+									)}
+								>
+									{/* {Dernière sortie : il y a{" "}
+									{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date)} jour
+									{timeUtil.convertDateInDaysUntilToday(dog.walks[0].date) > 1
+										? "s"
+										: ""}} */}
+									{renderLastWalk(dog.walks[dog.walks?.length-1]?.date)}
+								</Card.Text>				
+						</Card.Body>
+					</div>
 				</Link>
 			</Card>
 		);

@@ -112,20 +112,25 @@ const VisitsCats = () => {
 										className='link-no-decoration'
 									>
 										<Card
-											className='align-items-center justify-content-between m-3 p-3'
-											style={{ width: '18rem', minHeight: '14.5rem' }}
+											className='align-items-center justify-content-around m-3 p-3'
+											style={{ width: '18rem', minHeight: '10rem' }}
 										>
 											<div
 												className='d-flex align-items-center justify-content-center'
-												style={{ width: 100, height: '100px' }}
+												style={{ width: 100, height: '50px' }}
 											>
-												<p>{box.number}</p>
+												
+												<p style={{textAlign:'center'}}>Box N° <br/>{box.number}</p>
 											</div>
-											{renderLastVisit(box.visits[box.visits.length - 1]?.date)}
-											{renderAnimalsCount(
-												box.animals?.length,
-												box.nbr_of_places
-											)}
+											<div className='information-holder'>
+												{renderLastVisit(
+													box.visits[box.visits.length - 1]?.date
+												)}
+												{renderAnimalsCount(
+													box.animals?.length,
+													box.nbr_of_places
+												)}
+											</div>
 										</Card>
 									</Link>
 								);

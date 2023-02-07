@@ -81,3 +81,72 @@
     justify-content: flex-end;
 
 }
+
+@media screen and (max-width: 992px){
+    .cards-container{
+        .card{
+            width:100%;
+        }
+    }
+    .dog-container{
+    display: flex !important;  
+        .card-img-top{
+            &.card-dog{
+                width:11rem !important;
+                height:11rem !important;
+                margin: 1rem;
+                padding:0;
+                border-radius: 1rem;
+            }    
+        }
+        .card-body{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            .card-text{               
+                flex-grow:30;          
+            }
+            .last-walking{
+                flex-grow:1;
+            }
+        }   
+        
+    }
+}
+@media screen and (max-width: 590px){
+    .dog-container{
+            .card-img-top{
+                &.card-dog{
+                    width:8rem !important;
+                    height:8rem !important;
+                }    
+            }
+        }
+        .main-container{
+            margin:50px 20px 10px 20px !important;
+        }
+        .cards-container{
+            row-gap:0 !important;
+            gap:0 !important;
+        }
+}
+@media screen and (max-width: 400px){
+    .dog-container{
+        .card-img-top{
+            &.card-dog{
+                width:6rem !important;
+                height:6rem !important;
+            }    
+        }
+        .card-title{
+            font-size:1.1rem;
+        }
+        .age{
+            font-size:1rem !important;
+        }
+        .last-walking{
+            font-size:0.7rem !important;
+        }
+    }
+  
+}

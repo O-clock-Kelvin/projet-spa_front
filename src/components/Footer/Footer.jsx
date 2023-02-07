@@ -13,7 +13,7 @@ function Footer() {
 
 return (
     <Container className='footer' fluid>
-      <Row className='footer-row'>
+      <Row className='footer-row' style={{width:'90%', margin:'auto'}}>
         <Col sm={12} md={3} lg={2} className="align-self-center">
           <Link to="">Mentions Légales</Link>
         </Col>
