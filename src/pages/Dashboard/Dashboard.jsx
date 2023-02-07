@@ -32,8 +32,8 @@ function Dashboard() {
         <Row>
 			
           <CardGroup>
-            <Col>
-              <Card>
+            <Col xs={12} md={6} lg={3}>
+              <Card className="dashboard-card" >
                 <Card.Img variant='top' src={DogAndCat} />
                 <Card.Body>
                   <Button href='/animals' variant='primary' type='submit'>
@@ -42,8 +42,8 @@ function Dashboard() {
                 </Card.Body>
               </Card>
             </Col>
-            <Col>
-              <Card>
+            <Col xs={12} md={6} lg={3}>
+						<Card className="dashboard-card" >
                 <Card.Img variant='top' src={Volunteer} />
                 <Card.Body>
                   <Button href='admin/create/user' variant='primary' type='submit'>
@@ -52,8 +52,8 @@ function Dashboard() {
                 </Card.Body>
               </Card>
             </Col>
-            <Col>
-              <Card>
+            <Col xs={12} md={6} lg={3}>
+						<Card className="dashboard-card" >
                 <Card.Img variant='top' src={DogHugsCat} />
                 <Card.Body>
                   <Button href='admin/create/card' variant='primary' type='submit'>
@@ -62,8 +62,8 @@ function Dashboard() {
                 </Card.Body>
               </Card>
             </Col>
-            <Col>
-              <Card>
+            <Col xs={12} md={6} lg={3}>
+						<Card className="dashboard-card" >
                 <Card.Img variant='top' src={PersonAtDesk} />
                 <Card.Body>
                   <Button href='admin/users' variant='primary' type='submit'>
