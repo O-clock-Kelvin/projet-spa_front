@@ -17,10 +17,10 @@ import FilterAnimals from '../../components/FilterAnimals/FilterAnimals';
 // fonctions
 import animalsRequest from '../../requests/animals.request';
 import errorUtils from '../../utils/error.utils';
+import sortUtils from '../../utils/sort.utils';
 
 // images
 import catProfil from '../../assets/images/chat-patte.png';
-import sortUtils from '../../utils/sort.utils';
 import dogProfil from '../../assets/images/dogProfil.png';
 
 // styles
@@ -69,7 +69,7 @@ function ListAnimals({
 		setReloadButton(false);
 	};
 
-	//
+	// à la soumission du formulaire on vérifie si la chaines de caractères entrée correspond à un nom d'animal
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
 		if (!searchName.trim()) return;
@@ -145,11 +145,6 @@ function ListAnimals({
 				</div>
 			
 				<div className='cards-container'>
-					{/* {!isLoading && animals ? (
-						animals.map((animal) => renderAnimal(animal))
-					) : (
-						<LoadingSpinner />
-					)} */}
 					{isLoading ? <LoadingSpinner /> :
 						error ? (errorUtils.errorHandler(error)) :
 						animals.length === 0 ? (<p>Il n'y a pas d'animaux correspondants à votre recherche.</p>) :

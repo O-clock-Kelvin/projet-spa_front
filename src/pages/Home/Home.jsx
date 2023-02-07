@@ -15,7 +15,7 @@ import './Home.scss';
 
 
 function Home() {
-
+  
   const firstName = useSelector((fullstate) => fullstate.loginSettings.firstName);
 
   return (
