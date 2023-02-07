@@ -31,6 +31,7 @@ Enfin, il est possible à chacun de voir sa fiche « profile » avec toutes ses 
 
  
   <h2>⚙️ LES CHOIX TECHNIQUES</h2>
+  
 **Developer Experience & Gestionnaire de paquets:**
  - Yarn
  - ESLint
@@ -61,7 +62,7 @@ Enfin, il est possible à chacun de voir sa fiche « profile » avec toutes ses 
 
 
 ## 🎨 DESIGN
-Le design choisi est attrayant pas son côté coloré tablé sur celui de la maison mère en matière de la protection animale : la SPA. L'utilisation de **React Bootstrap** était donc une évidence car il était plus aisé d'utiliser des composants que l'on pouvait manipuler à volonté.
+Le design choisi est attrayant par son côté coloré tablé sur celui de la maison mère en matière de la protection animale : la SPA. L'utilisation de **React Bootstrap** était donc une évidence car il était plus aisé d'utiliser des composants que l'on pouvait manipuler à volonté.
 
   
 
