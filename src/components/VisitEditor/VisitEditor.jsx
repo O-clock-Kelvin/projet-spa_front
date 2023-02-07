@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { DateTime } from 'luxon';
 import visitsRequest from '../../requests/visits.request';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const schema = yup.object().shape({
 	comment: yup.string().nullable(),
@@ -67,7 +68,7 @@ const VisitEditor = ({ visit, show, endingVisit, onClose, onUpdate }) => {
 							type='submit'
 							disabled={isLoading ? true : false}
 						>
-							{isLoading ? 'Loading...' : 'Terminer la visite'}
+							{isLoading ? <LoadingSpinner className="color-primary"/> : 'Terminer la visite'}
 						</Button>
 					) : (
 						<Button
@@ -75,7 +76,7 @@ const VisitEditor = ({ visit, show, endingVisit, onClose, onUpdate }) => {
 							type='submit'
 							disabled={isLoading ? true : false}
 						>
-							{isLoading ? 'Loading...' : 'Sauvegarder'}
+							{isLoading ? <LoadingSpinner className="color-primary"/> : 'Sauvegarder'}
 						</Button>
 					)}
 				</Form>
