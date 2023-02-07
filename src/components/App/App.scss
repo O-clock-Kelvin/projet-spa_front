@@ -1,10 +1,16 @@
 .app {
 	position: relative;
 	min-height: 100vh;
-	margin: 0 auto;
+}
+
+.app-main-container {
+	display: flex;
+	justify-content: center;
 }
 .main {
 	padding-bottom: 5rem;
+	width: 100%;
+	max-width: 1200px;
 }
 @media (max-width: 599px) {
 	.menu-desktop {

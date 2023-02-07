@@ -30,8 +30,9 @@ function Home() {
               <div className='description'>
                 <Card.Title>Sortir un chien</Card.Title>
                 <Card.Text>
-                  Some quick example text to build on the card title and make up the
-                  bulk of the card's content.
+                <p>Accompagner les chiens en balade c’est contribuer à leur bien-être mais aussi à leur sociabilisation.
+                  Faites de l’éducation positive pendant les sorties, jouez avec eux et donnez leur plein d’amour.
+                </p>
                 </Card.Text>  
               </div>
               <div className='container-image'>
@@ -49,8 +50,9 @@ function Home() {
               <div className='description'>
                 <Card.Title>Visiter la chatterie</Card.Title>
                 <Card.Text>
-                  Some quick example text to build on the card title and make up the
-                  bulk of the card's content.
+                  <p>Rendre visite aux chats permettra aux plus craintifs de se sociabiliser et de trouver un nouveau foyer plus rapidement.
+                    N’hésitez pas à les caresser, les brosser et leur faire des gros calins.
+                  </p>
                 </Card.Text>
               </div>
               <div className='container-image'>
