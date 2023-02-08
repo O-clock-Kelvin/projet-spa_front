@@ -4,9 +4,9 @@ import { DateTime } from 'luxon';
 // import Stack from 'react-bootstrap/Stack';
 
 import './WalkSummary.scss';
-import WalkEditor from '../WalkEditor/WalkEditor';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
+// import WalkEditor from '../WalkEditor/WalkEditor';
+// import { useSelector } from 'react-redux';
+// import { useState } from 'react';
 
 const WalkFeeling = ({ feeling }) => {
 	switch (feeling) {
@@ -26,8 +26,8 @@ const WalkSummary = (props) => {
 	const inProgress =
 		DateTime.fromISO(props.walk.date).plus({ hour: 1 }) >= DateTime.now() &&
 		!props.walk.end_date;
-	const { admin } = useSelector((state) => state.loginSettings);
-	const [showWalkEditor, setShowWalkEditor] = useState(false);
+	// const { admin } = useSelector((state) => state.loginSettings);
+	// const [showWalkEditor, setShowWalkEditor] = useState(false);
 
 	if (props.walk) {
 		return (
@@ -37,7 +37,7 @@ const WalkSummary = (props) => {
 					{DateTime.fromISO(props.walk.date).toLocaleString(
 						DateTime.DATE_SHORT
 					)}{' '}
-					{admin && (
+					{/* {admin && (
 						<>
 							<WalkEditor
 								walk={props.walk}
@@ -54,7 +54,7 @@ const WalkSummary = (props) => {
 								éditer
 							</span>
 						</>
-					)}
+					)} */}
 				</p>
 				{DateTime.fromISO(props.walk.date).plus({ hour: 1 }) >=
 					DateTime.now() && !props.walk.end_date ? (
