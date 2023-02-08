@@ -150,7 +150,7 @@ const VisitsCats = () => {
 		}
 	} else {
 		// @todo better loading indicateor
-		return 'Loading...';
+		return 'Chargement...';
 	}
 };
 

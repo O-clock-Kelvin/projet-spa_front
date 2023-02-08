@@ -82,7 +82,7 @@ const WalkEditor = ({ walk, show, endingWalk, onClose, onUpdate }) => {
 							type='submit'
 							disabled={isLoading ? true : false}
 						>
-							{isLoading ? 'Loading...' : 'Terminer la balade'}
+							{isLoading ? 'Chargement...' : 'Terminer la balade'}
 						</Button>
 					) : (
 						<Button
@@ -90,7 +90,7 @@ const WalkEditor = ({ walk, show, endingWalk, onClose, onUpdate }) => {
 							type='submit'
 							disabled={isLoading ? true : false}
 						>
-							{isLoading ? 'Loading...' : 'Sauvegarder'}
+							{isLoading ? 'Chargement...' : 'Sauvegarder'}
 						</Button>
 					)}
 				</Form>

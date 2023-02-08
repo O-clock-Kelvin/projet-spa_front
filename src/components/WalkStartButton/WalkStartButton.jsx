@@ -57,18 +57,18 @@ const StartWalkButton = ({ animal }) => {
 			) {
 				return (
 					<>
-						<Button 
+						<Button
 							onClick={() => setShowModal(true)}
 							role='button'
 							tabIndex='0'
 							variant='primary'
-							lg={2}													
+							lg={2}
 						>
 							Partir en balade
 						</Button>
 
 						{/* Modale de confirmation de la balade */}
-						
+
 						<Modal show={showModal} onHide={() => setShowModal(false)}>
 							<Modal.Header closeButton>
 								<Modal.Title>Confirmation de balade</Modal.Title>
@@ -77,9 +77,11 @@ const StartWalkButton = ({ animal }) => {
 								Etes vous sur de vouloir sortir cet animal ?
 							</Modal.Body>
 							<Modal.Footer>
-								<div className='d-flex'>								
+								<div className='d-flex'>
 									{isLoading ? (
-										'Loading...'
+										<Button className='me-2' variant='primary' disabled>
+											Chargement...
+										</Button>
 									) : (
 										<Button
 											className='me-2'
@@ -90,14 +92,18 @@ const StartWalkButton = ({ animal }) => {
 										>
 											Oui
 										</Button>
-										
 									)}
 									{error && (
 										<div style={buttonStyle}>
 											Une erreur est survenue, merci de retenter plus tard
 										</div>
 									)}
-									<Button variant='secondary' onClick={() => setShowModal(false)}>Annuler	</Button>
+									<Button
+										variant='secondary'
+										onClick={() => setShowModal(false)}
+									>
+										Annuler{' '}
+									</Button>
 								</div>
 							</Modal.Footer>
 						</Modal>
