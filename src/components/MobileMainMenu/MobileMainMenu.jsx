@@ -29,6 +29,9 @@ function MobileMainMenu() {
 					<Nav.Link className='mobile-nav-link' href='/admin/create/user'>
 						Création Bénévole
 					</Nav.Link>
+					<Nav.Link className='mobile-nav-link' href='/admin/users'>
+						Liste utilisateurs
+					</Nav.Link>
 				</Nav>
 			);
 		} else {
@@ -47,9 +50,7 @@ function MobileMainMenu() {
 					<Nav.Link className='mobile-nav-link' href='/animals'>
 						Liste animaux
 					</Nav.Link>
-					<Nav.Link className='mobile-nav-link' href='/animals'>
-						Liste utilisateurs
-					</Nav.Link>
+
 				</Nav>
 			);
 		}

@@ -1,6 +1,10 @@
 @use '../../styles/vars';
 
-.mobile-nav-link{
-    background-color: vars.$secondary-background-color;
-    padding: vars.$gutter !important;
+// .mobile-nav-link{
+//     background-color: vars.$secondary-background-color;
+//     padding: vars.$gutter !important;
+// }
+
+.menu-mobile {
+    margin-bottom: vars.$gutter * 4.5
 }

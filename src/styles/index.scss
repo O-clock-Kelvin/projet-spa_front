@@ -34,6 +34,13 @@ a {
 	}
 }
 
+.card {background: #fffaf7 !important;
+border: none !important;
+border-radius: 10px !important;
+box-shadow: 1px 1px 36px rgba(0,0,0,.09);
+margin: 2.4rem;
+  margin-top: 2.4rem;
+}
 .form-control {
 	background: vars.$primary-background-color;
 	border: none;
