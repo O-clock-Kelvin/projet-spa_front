@@ -6,6 +6,7 @@ import WalkSummary from '../WalkSummary/WalkSummary';
 import { Button } from 'react-bootstrap';
 
 import './AnimalWalksList.scss';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const LoadNextButton = ({ hasNextPage, isFetchingNextPage, fetchNextPage }) => {
 	if (isFetchingNextPage) {
@@ -78,7 +79,7 @@ const AnimalWalksList = ({ animalId }) => {
 		/**
 		 * @todo better loading indicator
 		 */
-		return 'Loading...';
+		return <LoadingSpinner className='color-primary' />;
 	}
 };
 AnimalWalksList.propTypes = {

@@ -12,6 +12,7 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const schema = yup.object().shape({
 	comment: yup.string().nullable(),
+	feeling: yup.string().oneOf(['BAD', 'MEDIUM', 'GOOD']),
 });
 
 const VisitEditor = ({ visit, show, endingVisit, onClose, onUpdate }) => {
@@ -22,6 +23,7 @@ const VisitEditor = ({ visit, show, endingVisit, onClose, onUpdate }) => {
 	} = useForm({
 		defaultValues: {
 			comment: visit.comment || '',
+			feeling: visit.feeling || 'GOOD',
 		},
 		resolver: yupResolver(schema),
 	});
@@ -31,7 +33,7 @@ const VisitEditor = ({ visit, show, endingVisit, onClose, onUpdate }) => {
 		error,
 		mutate: editVisit,
 	} = useMutation({
-		mutationFn: (data) => {
+		mutationFn: async (data) => {
 			if (endingVisit) {
 				return visitsRequest.update(visit.id, {
 					...data,
@@ -59,16 +61,35 @@ const VisitEditor = ({ visit, show, endingVisit, onClose, onUpdate }) => {
 
 			<Modal.Body>
 				<Form onSubmit={handleSubmit((data) => submitUpdate(data))}>
-					
-					<textarea style={{width:'100%'}} className='mb-3' {...register('comment')} placeholder='Noter ici un résumé de votre visite' />
-
+					<div className='m-5 d-flex flex-column'>
+						<textarea
+							// style={{ width: '100%' }}
+							className='mb-3'
+							{...register('comment')}
+							placeholder='Noter ici un résumé de votre visite'
+						/>
+						<select
+							className='p-1'
+							{...register('feeling')}
+							defaultChecked={visit.feeling || 'GOOD'}
+							defaultValue={visit.feeling || 'GOOD'}
+						>
+							<option value='GOOD'>Bonne</option>
+							<option value='MEDIUM'>Moyenne</option>
+							<option value='BAD'>Mauvaise</option>
+						</select>
+					</div>
 					{endingVisit ? (
 						<Button
 							variant='primary'
 							type='submit'
 							disabled={isLoading ? true : false}
 						>
-							{isLoading ? <LoadingSpinner className="color-primary"/> : 'Terminer la visite'}
+							{isLoading ? (
+								<LoadingSpinner className='color-primary' />
+							) : (
+								'Terminer la visite'
+							)}
 						</Button>
 					) : (
 						<Button
@@ -76,7 +97,11 @@ const VisitEditor = ({ visit, show, endingVisit, onClose, onUpdate }) => {
 							type='submit'
 							disabled={isLoading ? true : false}
 						>
-							{isLoading ? <LoadingSpinner className="color-primary"/> : 'Sauvegarder'}
+							{isLoading ? (
+								<LoadingSpinner className='color-primary' />
+							) : (
+								'Sauvegarder'
+							)}
 						</Button>
 					)}
 				</Form>

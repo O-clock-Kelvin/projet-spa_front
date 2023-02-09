@@ -6,7 +6,7 @@ import errorUtils from '../../utils/error.utils';
 import timeUtil from '../../utils/time.utils';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
+import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 
 import './AnimalPage.scss';
@@ -15,6 +15,7 @@ import StartWalkButton from '../../components/WalkStartButton/WalkStartButton';
 import AnimalWalksList from '../../components/AnimalWalksList';
 import BoxVisitsList from '../../components/BoxVisitsList/BoxVisits';
 import { DateTime } from 'luxon';
+import animalUtil from '../../utils/animal.utils';
 
 import catProfil from '../../assets/images/chat-patte.png';
 import dogProfil from '../../assets/images/dogProfil.png';
@@ -50,6 +51,7 @@ const AnimalPage = () => {
 			animalsRequest.get(animalId, {
 				includeTags: true,
 				includeWalks: true,
+				includeBox: true,
 			}),
 
 		onSuccess: (data) => {
@@ -82,13 +84,25 @@ const AnimalPage = () => {
 							style={{ minHeight: '400px', maxHeight: '27rem' }}
 						>
 							<div className='d-flex flex-column justify-content-between'>
-								<div className='d-flex flex-row align-items-start justify-content-between' style={{maxWidth:'17.5rem'}}>
+								<div
+									className='d-flex flex-row align-items-start justify-content-between'
+									style={{ maxWidth: '17.5rem' }}
+								>
 									<Image
-
-										className={classnames('card-dog','rounded', animal.url_image? '': 'default-picture')} 
-						src={animal.url_image ? animal.url_image : (animal.species === 'CAT') ? catProfil : dogProfil} alt={animal.name} />
-										
-
+										className={classnames(
+											'card-dog',
+											'rounded',
+											animal.url_image ? '' : 'default-picture'
+										)}
+										src={
+											animal.url_image
+												? animal.url_image
+												: animal.species === 'CAT'
+												? catProfil
+												: dogProfil
+										}
+										alt={animal.name}
+									/>
 
 									<div className='d-flex flex-column'>
 										<div className='p-2 tag-info'>
@@ -102,10 +116,10 @@ const AnimalPage = () => {
 											</p>
 										</div>
 										<div className='p-2 tag-info'>
-											<p>{animal.size}</p>
+											<p>{animalUtil.renderSize(animal.size)}</p>
 										</div>
 										<div className='p-2 tag-info'>
-											<p>{animal.gender}</p>
+											<p>{animal.gender === 'MALE' ? 'Mâle' : 'Femelle'}</p>
 										</div>
 									</div>
 								</div>
@@ -114,10 +128,18 @@ const AnimalPage = () => {
 									style={{ height: 180 }}
 								>
 									<TagsList tags={animal.tags} />
-									<span className='tag-info' style={{ padding: '0.4rem' }}>
-										{' '}
-										{animal.species == 'DOG' ? 'cage' : 'box'}: {animal.box_id}{' '}
-									</span>
+									{animal.species == 'DOG' ? (
+										<span className='tag-info' style={{ padding: '0.4rem' }}>
+											cage:{animal.box.number}
+										</span>
+									) : (
+										<Link to={`/box/${animal.box.id}`}>
+											<span className='tag-info' style={{ padding: '0.4rem' }}>
+												box: {animal.box.number}
+											</span>
+										</Link>
+									)}
+
 									{animal.species === 'DOG' && (
 										<StartWalkButton animal={animal} />
 									)}

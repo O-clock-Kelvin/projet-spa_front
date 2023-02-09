@@ -56,7 +56,7 @@ const VisitStartButton = ({ box }) => {
 						onClick={() => setShowModal(true)}
 						role='button'
 						tabIndex='0'
-						className=' box-header-button'						
+						className=' box-header-button'
 					>
 						Visiter ce box
 					</Button>
@@ -72,7 +72,9 @@ const VisitStartButton = ({ box }) => {
 						<Modal.Footer>
 							<div className='d-flex'>
 								{isLoading ? (
-									'Loading...'
+									<Button className='me-2' variant='primary' disabled>
+										Chargement...
+									</Button>
 								) : (
 									<Button
 										className='me-2'
@@ -89,7 +91,9 @@ const VisitStartButton = ({ box }) => {
 										Une erreur est survenue, merci de retenter plus tard
 									</div>
 								)}
-								<Button variant='secondary' onClick={() => setShowModal(false)}>Annuler	</Button>
+								<Button variant='secondary' onClick={() => setShowModal(false)}>
+									Annuler{' '}
+								</Button>
 							</div>
 						</Modal.Footer>
 					</Modal>
@@ -114,7 +118,7 @@ const VisitStartButton = ({ box }) => {
 								setLastVisit(data);
 							}}
 						/>
-						<Button							
+						<Button
 							onClick={() => {
 								setShowEndEditor(true);
 							}}
@@ -133,11 +137,15 @@ const VisitStartButton = ({ box }) => {
 					lastVisit.end_date == undefined
 				) {
 					return (
-						<p className='bg-secondary p-2 text-light'>Ce box est déjà en cours de visite</p>
+						<p className='bg-secondary p-2 text-light'>
+							Ce box est déjà en cours de visite
+						</p>
 					);
 				} else {
 					return (
-						<p className='bg-secondary p-2 text-light'>Ce box a déjà été visité aujourd'hui</p>
+						<p className='bg-secondary p-2 text-light'>
+							Ce box a déjà été visité aujourd'hui
+						</p>
 					);
 				}
 			}
