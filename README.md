@@ -108,7 +108,6 @@ Ce projet a vu le jour grâce à l'équipe de 5 personnes qui la compose :
 -   Angélique PINCHON 
   [![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white) ](https://www.linkedin.com/in/angelique-pinchon-903641189/)
 
-
 -   Bernard ARROUES
 [![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) ](https://github.com/ElBernie)
 
@@ -116,7 +115,9 @@ Ce projet a vu le jour grâce à l'équipe de 5 personnes qui la compose :
 -   Luis GONÇALVES 
 [![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) ](https://github.com/tfptmaster)
 
+
 -   Mathilde BORDEAU
+[![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white) ](https://www.linkedin.com/in/mathilde-bordeau/)
 
 
 -   Denise FONTANIER [![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) ](https://github.com/Denden2022)
